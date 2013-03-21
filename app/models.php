@@ -625,7 +625,7 @@ class models extends PDO
         if(!empty($tabela))
         {
             $sql = "DELETE FROM ".$tabela. " WHERE ".$delimitador;
-           // echo  $sql;
+         //   echo  $sql;
         }
         return $sql;
     }

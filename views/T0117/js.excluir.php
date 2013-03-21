@@ -10,12 +10,12 @@
 //**************************************************************************
 
 $conn   =   "";
-$obj    =   new models_T0117();    
+$obj    =   new models_T0116();    
 
 
 
-$tabela = "T113_requisicao_mudanca";
-$delim = "T113_codigo = ".$_GET["codRM"];
+$tabela = "T114_areas_negocio";
+$delim = "T114_codigo = ".$_GET["codAN"];
 
 
 $deletarTab = $obj->excluir($tabela, $delim);

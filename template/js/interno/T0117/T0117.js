@@ -194,9 +194,42 @@ $(function(){
      });
      
      $(".rmCmp").mask("999.999");
+     
+     $("#hr_fim").change(function(){
+         
+         DAY = 1000 * 60 * 60 
+         
+         var dataIni    =   $("#dateCmp1").val()+" "+$("#hr_ini").val();
+         var dataFim    =   $("#dateCmp2").val()+" "+$("#hr_fim").val();
+         
+        var nova1 = dataIni.toString().split('/');
+        Nova1 = nova1[1]+"/"+nova1[0]+"/"+nova1[2];
 
-       
+        var nova2 = dataFim.toString().split('/');
+        Nova2 = nova2[1]+"/"+nova2[0]+"/"+nova2[2];
+        
+        d1 = new Date(Nova1)
+        d2 = new Date(Nova2)
+
+        days_passed = Math.round((d2.getTime() - d1.getTime()) / DAY)
+         
+       // var tempoTotal  =   ((horaFim[0]) - (horaIni[0]));       
+        
+       $("#tempoTotal").val(days_passed+" Horas"); 
+         
+     });
+     
 });
+
+
+
+    function excluirLinha(cod){
+        
+   $.get("?router=T0117/js.excluir", {codRM:cod},
+    function(){
+       $(".linha_"+cod).remove(); 
+    });
+}
 
 
     

@@ -74,7 +74,9 @@ class models_T0117 extends models
                             , T113.T113_status                              StatusRM
                             , T113.T113_tempo_previsto                      TempoPrevisto
                             , T113.T113_obs_contingencia                    ObsContingencia
-                            , T113.T004_responsavel                         Responsavel   
+                            , T113.T004_responsavel                         Responsavel
+                            ,T113.T113_tempo_total                          TempoTotal
+                            ,T113.T113_janela_disponivel                    JanelaDisp
                          FROM T113_requisicao_mudanca T113
                          JOIN T004_usuario T04 ON T04.T004_login = T113.T004_responsavel
                          JOIN T004_usuario T04B ON T04B.T004_login = T113.T004_solicitante
