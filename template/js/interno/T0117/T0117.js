@@ -224,7 +224,6 @@ $(function(){
 
 
     function excluirLinha(cod){
-        
    $.get("?router=T0117/js.excluir", {codRM:cod},
     function(){
        $(".linha_"+cod).remove(); 

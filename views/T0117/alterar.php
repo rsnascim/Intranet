@@ -161,7 +161,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM){
 
         <div style="position: absolute; top: 350px; left: 680px;">
             <label class="label">Qual o impacto para o negocio? *</label>
-            <textarea style="width: 500px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRM"];?></textarea>            
+            <textarea style="width: 490px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRM"];?></textarea>            
         </div>
 
         <br><br><br><br><br><br><br><br>
@@ -238,7 +238,8 @@ foreach ($retornaDados as $cpsRM => $vlrRM){
 
        
 
-        <div class="clear10"></div> 
+        <div class="clear10"></div>
+        
 
         <div class="grid_5">
             <label class="label">Executor da Requisição de Mudança (Interno)*</label>
@@ -255,22 +256,22 @@ foreach ($retornaDados as $cpsRM => $vlrRM){
         </div>       
         
     
-        <div class="push_2 grid_3">
+        <div class="push_1 grid_3">
             <label class="label">Nome</label>
             <input type="text" id="txtNomeExt"/>
         </div>
 
-        <div class="push_2 grid_2">
+        <div class="push_1 grid_2">
             <label class="label">E-mail</label>
             <input type="text" id="txtEmailExt"/>
         </div>
 
-        <div class="push_2 grid_2">
+        <div class="push_1 grid_2">
             <label class="label">Telefone</label>
             <input type="text" id="txtFoneExt" class="fone"/>
         </div>
 
-        <div class="push_2 grid_3">
+        <div class="push_1 grid_3">
             <label class="label">Notificado</label>
             <div id="radio">
                     <input type="radio" id="radio1" name="T113_resp_notificado" value="S"                    class="validate[required]" /><label for="radio1">Sim</label>
@@ -278,7 +279,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM){
             </div>            
         </div>                
 
-        <div class="push_1 grid_1">      
+        <div class="grid_1">      
             <label class="label">Adicionar</label>
             <input type="button" value="+" id="btnAddExeExt"/>
         </div>        
@@ -297,7 +298,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM){
         </div>
         
         <?php $retExecExternoRM =   $obj->retornaExecExternoRM($codRM);?>
-        <div class="push_2 grid_7">
+        <div class="push_1 grid_8">
             <label class="label">Executores Externos</label>
             <select name="ExeExt[]" multiple id="cmbExeExt" readonly>
             <?php foreach ($retExecExternoRM as $cpsExtRm => $vlrExtRM) {?>

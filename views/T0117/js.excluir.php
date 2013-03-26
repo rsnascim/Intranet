@@ -10,15 +10,20 @@
 //**************************************************************************
 
 $conn   =   "";
-$obj    =   new models_T0116();    
+$obj    =   new models_T0117();    
+
+$tabela1    =   "T004_T113 ";
+$delim1     =   "T113_codigo = ".$_GET["codRM"];
+
+$del1   =   $obj->excluir($tabela1, $delim1);
+
+if($del1){
+$tabela = "T113_requisicao_mudanca";
+$delim = "T113_codigo = ".$_GET["codRM"];
 
 
+$obj->excluir($tabela, $delim);
 
-$tabela = "T114_areas_negocio";
-$delim = "T114_codigo = ".$_GET["codAN"];
-
-
-$deletarTab = $obj->excluir($tabela, $delim);
-
+}
 
 ?>
