@@ -1395,7 +1395,22 @@ class models extends PDO
                                   , T57.T057_desc   descricaoExtensao
                                FROM T057_extensao   T57
                               WHERE T57.T057_nome = '$extensao'");
-    }       
+    }      
+    
+    //Formata data para as views com Hora [Ex.: 01/10/2011 00:00:00]
+    public function formataDataHoraView($data)
+    {
+        $arrData    = explode(" ",$data);
+        $hora       = $arrData[1];
+        if($this->validaData($arrData[0]))
+        {
+            $data = implode(!strstr($arrData[0], '/') ? "/" : "-", array_reverse(explode(!strstr($arrData[0], '/') ? "-" : "/", $arrData[0])));
+        }
+        
+        $strDataHora    =   $data." ".$hora;
+        
+        return $strDataHora;
+    }     
     
 }
 ?>

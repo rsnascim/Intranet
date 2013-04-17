@@ -161,7 +161,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
 
                 
                 <td width="10%"><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
-                <td ><?php echo $objEMP->formataDataView($valores['start_time']); ?></td>
+                <td ><?php echo $objEMP->formataDataHoraView($valores['start_time']); ?></td>
                 <td align="right"><?php  echo $valores['quantity_rows'];?></td>
                 <td align="right"><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>
                 <td ><?php echo $valores['status_consumo_id'].'-'.$valores['status_consumo_descricao']; ?></td>
