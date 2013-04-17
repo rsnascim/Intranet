@@ -151,7 +151,7 @@ class models_T0119 extends models
             $TipoPai=$valores['tipo_codigo_pai'] ;
             
             if ($TipoPai)
-              $String=$this->RetornaStringTipo($TipoPai).' -> '.$valores['descricao'];
+              $String=$this->RetornaStringTipo($TipoPai).' > '.$valores['descricao'];
             else
               $String=$valores['descricao'];
             
@@ -200,6 +200,72 @@ class models_T0119 extends models
                         ";
         
         return $this->query($sql);
+    }
+    
+    public function retornaTiposFilhos($Tipo)
+    {   
+        $sql =   "SELECT t.T117_codigo , t.T117_descricao , t.T117_codigo_pai
+                    FROM T117_ccu_tipo t
+                   WHERE t.T117_codigo_pai  = $Tipo
+                  ";        
+        
+        $Retorno=$this->query($sql)->fetchAll() ; 
+        
+        foreach($Retorno as $campos=>$valores)
+        {
+            $Grupos.=','.($valores['T117_codigo']).$this->retornaTiposFilhos($valores['T117_codigo']);
+        }
+        
+        return $Grupos;
+    }
+            
+    
+    public function retornaGruposAprovacaoUsuario($Usuario)
+    {
+        // retorna as lojas distintas que o usuario visualiza
+        $sql =   "SELECT DISTINCT 
+                         g.T006_codigo
+                    FROM T004_T059 u INNER JOIN T117_T059 g ON (g.T059_codigo = u.T059_codigo)
+                   WHERE u.T061_codigo = 5 
+                     AND u.T004_login = '$Usuario'
+                  ";
+        
+        $RetornoLojas=$this->query($sql) ; #->fetchAll(PDO::FETCH_COLUMN,2);
+        
+        $i=0;
+        foreach($RetornoLojas as $campos=>$valores)
+        {
+            $Loja=$valores['T006_codigo'] ;
+            
+            // retorna os grupos distintos que o usuario visualiza para a loja
+            $sql =   "SELECT DISTINCT 
+                             g.T006_codigo , g.T117_codigo
+                        FROM T004_T059 u INNER JOIN T117_T059 g ON (g.T059_codigo = u.T059_codigo)
+                       WHERE u.T061_codigo = 5 
+                         AND u.T004_login   = '$Usuario'
+                         AND g.T006_codigo  =  $Loja
+                      ";            
+            
+            $RetornoGrupos=$this->query($sql) ;
+            
+            
+            foreach($RetornoGrupos as $campos=>$valores)
+            {
+                
+                $valores['T117_codigo']."<BR>";
+                
+                $LojasGrupos['Loja'][$i]=$Loja;
+                $LojasGrupos['Tipo'][$i]=$valores['T117_codigo'].$this->retornaTiposFilhos($valores['T117_codigo']);
+                $i++;
+                // verificar os filhos
+                
+                
+            }
+            
+            
+        }    
+        print_r($LojasGrupos);
+        //return $this->query($sql);
     }
             
     
