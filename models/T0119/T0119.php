@@ -56,14 +56,16 @@ class models_T0119 extends models
     }  
     
     public function ConsultaLotesLoja($filtroLoja, $filtroDtInicio, $filtroDtFim, $filtroStatusConsumo, $filtroStatusIntegracao, $filtroStatusAprovacao, $filtroRegistros)
-    {
+    {   
+        
+        
+        
         $sql="  SELECT l.store_key , l.lote_numero , l.start_time 
                      , l.amount , l.quantity_rows 
                      , t.tipo_codigo 
                      , sc.status_consumo_id     , sc.status_consumo_descricao
                      , si.status_integracao_id  , si.status_integracao_descricao
                      , sa.status_aprovacao_id   , sa.status_aprovacao_descricao
-                      -- l.lote_numero , l.store_key , l.amount
                   FROM davo_ccu_lote l
                   INNER JOIN davo_ccu_tipo t                 ON (     t.tipo_codigo           = l.tipo_codigo          )
                   INNER JOIN davo_ccu_status_consumo    sc   ON (     sc.status_consumo_id    = l.consumo_status_id    )
@@ -74,11 +76,17 @@ class models_T0119 extends models
                  if(!empty($filtroLoja))
                     $sql   .=  " AND l.store_key                = $filtroLoja";
                  
-                 if(!empty($filtroDtInicio))
-                    $sql   .=  " AND l.l.start_time            >= $filtroDtInicio 00:00:00";
+                 if(!empty($filtroDtInicio)){
+                     $filtroDtInicio=$this->formataData($filtroDtInicio);
+                     $sql   .=  " AND l.start_time            >= '$filtroDtInicio 00:00:00'";
+                 }
+                    
                  
-                 if(!empty($filtroDtFim))
-                    $sql   .=  " AND l.l.start_time            <= $filtroDtFim 23:59:59";
+                 if(!empty($filtroDtFim)){
+                     $filtroDtFim=$this->formataData($filtroDtFim); 
+                     $sql   .=  " AND l.start_time            <= '$filtroDtFim 23:59:59'";
+                 }
+
                  
                  if(!empty($filtroStatusConsumo))
                     $sql   .=  " AND sc.status_consumo_id       = $filtroStatusConsumo";
@@ -93,8 +101,8 @@ class models_T0119 extends models
                   
                   if(!empty($filtroRegistros))
                     $sql  .=  " LIMIT $filtroRegistros";
-                
- 
+
+        
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
     

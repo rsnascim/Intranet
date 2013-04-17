@@ -102,6 +102,7 @@ $(function(){
         e.preventDefault(); // nao aparece a "#" da tela
         var $thisAprovar=$(this);
         var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
+        var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
         $("#dialog-aprovar").dialog
         ({
                 resizable: false,
@@ -114,7 +115,7 @@ $(function(){
                 {
                         Sim: function() 
                         {
-                            $.get("?router=T0119/js.Aprovar",{Lote:Lote},function(retorno){
+                            $.get("?router=T0119/js.Aprovar",{Lote:Lote,Loja:Loja},function(retorno){
                                 if(retorno==1){
                                     show_stack_bottomleft(false," ","Lote Aprovado com sucesso");
                                     //$($thisAprovar).remove();

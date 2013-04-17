@@ -63,6 +63,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
             <label class="label">Data Fim</label>
             <input type="text" name="FiltroDataFim"     class="data"    value="<?php echo $_REQUEST['FiltroDataFim'];?>"/>               
         </div>
+        <div class="clear"></div>
         
         <div class="grid_4">
         <label class="label">Status Consumo</label>
@@ -119,10 +120,15 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <thead>
             <tr>
                 <!--<th><input type="checkbox" value="1" class="chkSelecionaTodos" <?php echo $statusDespesa!=1?"disabled":""?>/></th>-->
-                <th>Lote</th>
                 <th>Loja</th>
+                <th>Lote</th>
                 <th>Tipo</th>
+                <th>Data/Hora</th>
+                <th>Volumes</th>
                 <th>Valor</th>
+                <th>Status Consumo</th>
+                <th>Status Aprovação</th>
+                <th>Status Integração</th>
                 <th>?:</th>
                 <th>Ações</th>
                 
@@ -144,9 +150,32 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
             <tr>
                 <!--<td><?php echo "DespesaCodigo:".$valores['DespesaCodigo'].";"."EtapaCodigo:".$valores['CodigoEtapa'];?>" class="chkItem" <?php echo $statusDespesa!=1?"disabled":""?></td>-->
                 <td class="txtLoja"><?php echo $valores['store_key'];   ?></td>
-                <td class="txtLote"><?php echo $valores['lote_numero']; ?></td>
-                <td ><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
-                <td><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>
+
+                <td class="txtLote"
+                    onmouseover ="show_tooltip_alert('','<?php echo "Mostrar Ticket, PDV, etc...";?>');tooltip.pnotify_display();" 
+                    onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
+                    onmouseout  ="tooltip.pnotify_remove();"
+                >
+                    <?php echo $valores['lote_numero']; ?>
+                </td>
+
+                
+                <td width="10%"><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
+                <td ><?php echo $objEMP->formataDataView($valores['start_time']); ?></td>
+                <td align="right"><?php  echo $valores['quantity_rows'];?></td>
+                <td align="right"><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>
+                <td ><?php echo $valores['status_consumo_id'].'-'.$valores['status_consumo_descricao']; ?></td>
+                
+                <td onmouseover ="show_tooltip_alert('','<?php echo "Mostrar data, usuario da aprovacao";?>');tooltip.pnotify_display();" 
+                    onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
+                    onmouseout  ="tooltip.pnotify_remove();"
+                ><?php echo $valores['status_aprovacao_id'].'-'.$valores['status_aprovacao_descricao']; ?> </td>
+                
+                <td onmouseover ="show_tooltip_alert('','<?php echo "Mostrar data da integracao";?>');tooltip.pnotify_display();" 
+                    onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
+                    onmouseout  ="tooltip.pnotify_remove();"
+                ><?php echo $valores['status_integracao_id'].'-'.$valores['status_integracao_descricao']; ?></td>
+                
                 <td><?php  echo $existeIntranet ?></td>
                 <td>                                    
                     <ul class="lista-de-acoes">                                        

@@ -46,13 +46,13 @@ function calculaDigitoMod11($NumDado, $NumDig, $LimMult)
 } 
 
 function retornaLotesDisponiveis(){
-    $sql = "   SELECT l.store_key , l.lote_numero , tipo_codigo
+    $sql = "   SELECT l.store_key , l.lote_numero , l.tipo_codigo , l.aprovacao_status_id
                  FROM davo_ccu_lote l
-                WHERE l.aprovacao_status_id = 0
+                WHERE l.aprovacao_status_id in ( 0 , 8 )
            ";
 
     $db =       conectaEmporium();
-
+    echo $sql ;
     return $db->query($sql);    
 }
 
@@ -60,7 +60,7 @@ function insereIntranet(){
   $dados =   retornaLotesDisponiveis();
   $db    =   conectaIntranet();
   $dbEMP =   conectaEmporium();
-  
+
   foreach($dados as $campos => $valores)
   {
       $DigLoja = calculaDigitoMod11($valores['store_key'],1,100);
@@ -68,17 +68,22 @@ function insereIntranet(){
       $Loja    = $valores['store_key'];
       $Lote    = $valores['lote_numero'];
       $Tipo    = $valores['tipo_codigo'];
+      $Status  = $valores['aprovacao_status_id'];
+      
+      // Verifica se é status = 0 e muda para 1
+      if($Status==0)
+        $Status=1;  
       
       $insere = $db->exec("INSERT INTO T116_ccu_lote (T006_codigo  , T116_lote  
                                                     , T116_status_aprovacao ,T117_codigo)
                                               VALUES ($LojaCD      , $Lote  
-                                                     , 1 , $Tipo ) ");
+                                                    , $Status , $Tipo ) ");
       
-      
+      echo $insere ; 
       if($insere)
       {
             $atualiza = $dbEMP->exec("UPDATE davo_ccu_lote l
-                                         SET l.aprovacao_status_id = 1
+                                         SET l.aprovacao_status_id = $Status
                                        WHERE l.store_key           = $Loja
                                          AND l.lote_numero         = $Lote
                                      ");        
@@ -95,7 +100,7 @@ function insereIntranet(){
 }
 
 insereIntranet();
-// echo "A";
+// 
 
 /*
  * To change this template, choose Tools | Templates

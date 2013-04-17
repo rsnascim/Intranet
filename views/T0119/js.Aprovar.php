@@ -5,10 +5,11 @@ $conn      =   "emporium";
 $objEMP    =   new models_T0119($conn);
 
 $Lote      = $_REQUEST['Lote'];
+$Loja      = $_REQUEST['Loja'];
 
-$arrStatus = array("aprovacao_status_id"=>1,"aprovacao_data"=>date("%d/%m/%Y"));
+$arrStatus = array("aprovacao_status_id"=>2);
 $Tabela    = "davo_ccu_lote";
-$Delim     = "lote_numero=$Lote AND store_key=2";
+$Delim     = "lote_numero=$Lote AND store_key=$Loja";
 
 echo $Retorno   = $objEMP->altera($Tabela, $arrStatus, $Delim) ;
 
