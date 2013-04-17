@@ -106,12 +106,13 @@ class models_T0119 extends models
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
     
-    public function ConsultaLoteIntranet($Loja,$Lote)
+    public function ConsultaLoteIntranet($Loja,$Lote,$CondSQL)
     {
         $sql=" SELECT 1
                  FROM T116_ccu_lote t
-                WHERE t.T006_codigo  =  $Loja".$this->calculaDigitoMod11($Loja,1,100)
+                WHERE t.T006_codigo   =  $Loja".$this->calculaDigitoMod11($Loja,1,100)
                 ." AND t.T116_lote    =  $Lote
+                   AND $CondSQL 
                LIMIT 1
              ";   
         
@@ -252,20 +253,17 @@ class models_T0119 extends models
             foreach($RetornoGrupos as $campos=>$valores)
             {
                 
-                $valores['T117_codigo']."<BR>";
-                
                 $LojasGrupos['Loja'][$i]=$Loja;
                 $LojasGrupos['Tipo'][$i]=$valores['T117_codigo'].$this->retornaTiposFilhos($valores['T117_codigo']);
                 $i++;
-                // verificar os filhos
+                
                 
                 
             }
             
             
         }    
-        print_r($LojasGrupos);
-        //return $this->query($sql);
+        return $LojasGrupos;
     }
             
     
