@@ -21,11 +21,45 @@ $(function(){
                                 , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                 , headers: {
                                                 100:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
-                                              , 3: {sorter:"brazilCurrency"} // moeda
+                                              , 2: {sorter:"text"} 
+                                              , 5: {sorter:"brazilCurrency"} // moeda
                                           }
                                 });
 
+   function aprovarLote(Lote,Loja,Obj){
+    $("#dialog-aprovar").dialog
+    ({
+            resizable: false,
+            height:200,
+            draggable: false,
+            width:200,
+            modal: true,
+            title:"Aprovar Lote "+Lote,
+            buttons:
+            {
+                    Sim: function() 
+                    {
+                        $.get("?router=T0119/js.Aprovar",{Lote:Lote,Loja:Loja},function(retorno){
+                            if(retorno==1){
+                                show_stack_bottomleft(false," ","Lote Aprovado com sucesso");
+                                //$($thisAprovar).remove();
+                                Obj.parents("tr").remove();
+                            }else{
+                              show_stack_bottomleft(true,"Erro","Lote Não Aprovado");
+                            }
 
+                        });
+
+                        $(this).dialog("close");
+                    }
+                    ,
+                    Não: function()
+                    {
+                        $(this).dialog("close");
+                    }
+            }
+    });
+   };
     // backup 16.04.2013 11:15
 //    $(".Detalhes").live("click",function(e){
 //        e.preventDefault(); // nao aparece a "#" da tela
@@ -94,6 +128,20 @@ $(function(){
                 width:800,
                 modal: true,
                 title:"Detalhes do Lote "+Lote,
+                buttons:
+                {
+                        Fechar: function()
+                        {
+                            $(this).dialog("close");
+                        },
+                        Aprovar: function() 
+                        {
+                            aprovarLote(Lote,Loja,$thisAprovar);
+                            $(this).dialog("close");
+                        }
+
+                }
+                
         })
 
     }) ;
@@ -103,38 +151,9 @@ $(function(){
         var $thisAprovar=$(this);
         var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
         var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
-        $("#dialog-aprovar").dialog
-        ({
-                resizable: false,
-                height:200,
-                draggable: false,
-                width:200,
-                modal: true,
-                title:"Aprovar Lote "+Lote,
-                buttons:
-                {
-                        Sim: function() 
-                        {
-                            $.get("?router=T0119/js.Aprovar",{Lote:Lote,Loja:Loja},function(retorno){
-                                if(retorno==1){
-                                    show_stack_bottomleft(false," ","Lote Aprovado com sucesso");
-                                    //$($thisAprovar).remove();
-                                    $($thisAprovar).parents("tr").remove();
-                                }else{
-                                  show_stack_bottomleft(true,"Erro","Lote Não Aprovado");
-                                }
-                                    
-                            });
-                            
-                            $(this).dialog("close");
-                        }
-                        ,
-                        Não: function()
-                        {
-                            $(this).dialog("close");
-                        }
-                }
-        })
+        
+        aprovarLote(Lote,Loja,$thisAprovar);
+        
     }) ;
 });
 /* ============== Função para Upload Fim  =================== */ 

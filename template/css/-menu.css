@@ -21,7 +21,8 @@
 
 /* menu::base */
 div#menu {
-    height:30px; /*41*/
+    margin-top: 10px;
+    height: 20px;
     /*background:url(-menu-imagens/main-bg.png) repeat-x;*/
 }
 

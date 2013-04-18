@@ -24,6 +24,33 @@ $SelectStatusIntegracao     =   $objEMP->retornaStatusIntegracao();
 $SelectStatusConsumo        =   $objEMP->retornaStatusConsumo();
 $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
 
+ // armazena grupos/lojas que o usuario possui acesso
+ $LojasGrupos=$obj->retornaGruposAprovacaoUsuario($user);
+ $l=count($LojasGrupos['Loja']);
+
+ $CondSQL=" ( ";
+ for($i=0;$i<$l;$i++){
+     
+     // verifica se nao é o primeiro registro
+     if($i)
+        // adiciona "OR" na condicao
+        $CondSQL.=" OR " ;
+     
+     
+     // monta condicao do SQL
+     $CondSQL.="( T006_codigo=".$LojasGrupos['Loja'][$i]." " ;
+     $CondSQL.=" AND ";
+     $CondSQL.=" T117_codigo in (".$LojasGrupos['Tipo'][$i]." ) ) " ;
+    
+    
+ }
+   // verifica se há algum grupo de aprovacao
+  if(!$i)      
+    $CondSQL.=" 1 > 1";
+  
+ $CondSQL.=" ) ";
+ 
+ 
 ?>
 <div id="dialog-aprovar" style="display:none;">
     
@@ -129,7 +156,6 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 <th>Status Consumo</th>
                 <th>Status Aprovação</th>
                 <th>Status Integração</th>
-                <th>?:</th>
                 <th>Ações</th>
                 
 <!--                <th>Data</th>
@@ -142,7 +168,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <tbody>
         <?php   foreach($RetornoLotes as $campos=>$valores)
                 {
-                   $existeIntranet = $obj->ConsultaLoteIntranet($valores['store_key'],$valores['lote_numero']);
+                   $existeIntranet = $obj->ConsultaLoteIntranet($valores['store_key'],$valores['lote_numero'],$CondSQL);
                    
                    if($existeIntranet)
                    {
@@ -161,7 +187,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
 
                 
                 <td width="10%"><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
-                <td ><?php echo $objEMP->formataDataView($valores['start_time']); ?></td>
+                <td ><?php echo $objEMP->formataDataHoraView($valores['start_time']); ?></td>
                 <td align="right"><?php  echo $valores['quantity_rows'];?></td>
                 <td align="right"><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>
                 <td ><?php echo $valores['status_consumo_id'].'-'.$valores['status_consumo_descricao']; ?></td>
@@ -176,11 +202,11 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                     onmouseout  ="tooltip.pnotify_remove();"
                 ><?php echo $valores['status_integracao_id'].'-'.$valores['status_integracao_descricao']; ?></td>
                 
-                <td><?php  echo $existeIntranet ?></td>
                 <td>                                    
                     <ul class="lista-de-acoes">                                        
-                        <li><a href="#" title="Detalhes" class="Detalhes">    <span class='ui-icon ui-icon-search'> </span></a></li>                                    
-                        <li><a href="#" title="Aprovar"  class="Aprovar" >    <span class='ui-icon ui-icon-check'>  </span></a></li>
+                        <li><a href="#" title="Detalhes"  class="Detalhes">     <span class='ui-icon ui-icon-search'>  </span></a></li>                                    
+                        <li><a href="#" title="Aprovar"   class="Aprovar" >     <span class='ui-icon ui-icon-check' >  </span></a></li>
+                        <li><a href="#" title="Reprovar"  class="Reprovar" >    <span class='ui-icon ui-icon-cancel'>  </span></a></li>
                     </ul>
                 </td>
             </tr>
