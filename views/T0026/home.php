@@ -74,6 +74,7 @@ switch ($statusDespesa) {
         break;
 }
 ?>
+
 <!-- Caixa Dialogo Excluir -->
 <div id='dialog-confirm' title='Mensagem!' style='display:none'>
     <p><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>Tem certeza que deseja excluir este item?</p>
@@ -87,17 +88,9 @@ switch ($statusDespesa) {
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja cancelar essa Despesa?</p>
 </div>
 <!-- Caixa de Upload-->
-<div id="dialog-upload" title="Upload" style="display:none">
-	<p    class="validateTips">Selecione um tipo e um arquivo para carregar no sistema!</p>
-        <span class="form-input">
-	<form action="?router=T0026/js.upload" method="post" id="form-upload"  enctype="multipart/form-data">
-            <fieldset>
-                    <label class="label">Escolha o Arquivo*</label>                
-                    <input type="file"      name="despesaArquivo"               id="arquivo"            />
-            </fieldset>
-	</form>
-        </span>
-</div>
+<!--<div id="dialog-upload" title="Upload" style="display:none">
+    <iframe src="?router=T0026/js.upload"></iframe>
+</div>-->
 <!-- FIM Caixa de Upload-->
 
 <!-- Divs com a barra de ferramentas -->
@@ -183,7 +176,7 @@ switch ($statusDespesa) {
                 <th>Data</th>
                 <th>Última Etapa</th>
                 <th>Valor</th>
-                <!--<th>Arquivos</th>-->
+                <th>Arquivos</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -206,18 +199,30 @@ switch ($statusDespesa) {
                     <?php }?>
                 </td>
                 <td><?php echo $obj->formataMoeda($valores['DespesaValor'])?></td>
-<!--                <td>                        <?php $ArquivosDespesa  =   $obj->retornaArquivos($valores['DespesaCodigo']);?>
+                <td width="10%"><table class='list-iten-arquivos'>   
+                        <tbody>
+                        <?php $ArquivosDespesa  =   $obj->retornaArquivos($valores['DespesaCodigo']);?>
                         <?php foreach($ArquivosDespesa  as  $cpsArquivo =>  $vlsArquivo){
-                                $Categoria      =   $vlsArquivo['CategoriaCodigo']                          ;
-                                $ArquivoCodigo  =   $vlsArquivo['ArquivoCodigo']                            ;
-                                $Extensao       =   $vlsArquivo['ExtensaoNome']                             ;
-                                $LinkArquivo    =   $obj->linkArquivo($Categoria, $ArquivoCodigo, $Extensao);
                             
-                            
+                                        $Categoria      =   $vlsArquivo['CategoriaCodigo']                          ;
+                                        $ArquivoCodigo  =   $vlsArquivo['ArquivoCodigo']                            ;
+                                        $Extensao       =   $vlsArquivo['ExtensaoNome']                             ;
+                                        $LinkArquivo    =   $obj->linkArquivo($Categoria, $ArquivoCodigo, $Extensao);
+                                        
+                                        if( $cont%2 == 0)
+                                               $cor = "line_color";
+                                        else
+                                               $cor = "";                            
+
                             ?>
-                        <a target="_blank" href="<?php echo $LinkArquivo?>"><?php echo $vlsArquivo['ArquivoNome'];?></a>  <?php if ($statusDespesa==1){?>|  <a href="javascript:excluir('T0026','T0026/home&cod=<?php echo $valores['DespesaCodigo'];?>&path=<?php echo $obj->preencheZero("E", 4, $Categoria)."/".$obj->preencheZero("E", 4, $ArquivoCodigo).".".$Extensao;?>','T016_T055','T055_codigo','<?php echo $vlsArquivo['ArquivoCodigo']?>')">Excluir</a><?php }?>
+                        <tr class="<?php echo $cor;?>">
+                            <td width="95%"><a target="_blank" href="<?php echo $LinkArquivo?>">Despesa</a></td>  
+                            <td width="5%"><a class="excluir" title="Excluir" href="javascript:excluir('T0016','T0016/home&amp;cod=22501&amp;path=0004/53592.pdf','T008_T055','T055_codigo','53592')"></a></td>                            
+                        </tr>
                         <?php }?>
-                </td>-->
+                        </tbody>
+                    </table>
+                 </td>
                 <td style="display:none;"><?php echo $valores['DespesaCodigo'];?>;EtapaCodigo:<?php echo $valores['CodigoEtapa'];?></td>
                 <td>                                    
                     <ul class="lista-de-acoes">                                        
@@ -236,7 +241,3 @@ switch ($statusDespesa) {
     </table>
     
 </div>
-
-
-
-

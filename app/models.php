@@ -1397,6 +1397,18 @@ class models extends PDO
                               WHERE T57.T057_nome = '$extensao'");
     }      
     
+    public function verificaExtensaoArquivo($extensao)
+    {
+       $sql =   "  SELECT T57.T057_codigo CodigoExtensao
+                     FROM T057_extensao   T57
+                    WHERE T57.T057_nome = '$extensao'"; 
+              
+       $extensao    =   $this->query($sql)->fetchAll(PDO::FETCH_COLUMN);
+       
+       return $extensao[0];
+              
+    }      
+    
     //Formata data para as views com Hora [Ex.: 01/10/2011 00:00:00]
     public function formataDataHoraView($data)
     {
