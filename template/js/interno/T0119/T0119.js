@@ -34,12 +34,12 @@ $(function(){
             draggable: false,
             width:200,
             modal: true,
-            title:"Aprovar Lote "+Lote,
+            title:"Aprovar Lote "+Lote+" ? ",
             buttons:
             {
-                    Sim: function() 
+                    Aprovar: function() 
                     {
-                        $.get("?router=T0119/js.Aprovar",{Lote:Lote,Loja:Loja},function(retorno){
+                        $.get("?router=T0119/js.AprovarReprovar",{Lote:Lote,Loja:Loja,Acao:2},function(retorno){
                             if(retorno==1){
                                 show_stack_bottomleft(false," ","Lote Aprovado com sucesso");
                                 //$($thisAprovar).remove();
@@ -53,7 +53,41 @@ $(function(){
                         $(this).dialog("close");
                     }
                     ,
-                    Não: function()
+                    Sair: function()
+                    {
+                        $(this).dialog("close");
+                    }
+            }
+    });
+   };
+   function reprovarLote(Lote,Loja,Obj){
+    $("#dialog-aprovar").dialog
+    ({
+            resizable: false,
+            height:200,
+            draggable: false,
+            width:200,
+            modal: true,
+            title:"Reprovar Lote "+Lote+" ? ",
+            buttons:
+            {
+                    Reprovar: function() 
+                    {
+                        $.get("?router=T0119/js.AprovarReprovar",{Lote:Lote,Loja:Loja,Acao:7},function(retorno){
+                            if(retorno==1){
+                                show_stack_bottomleft(false," ","Lote Reprovado com sucesso");
+                                //$($thisAprovar).remove();
+                                Obj.parents("tr").remove();
+                            }else{
+                              show_stack_bottomleft(true,"Erro","Lote Não Reprovado");
+                            }
+
+                        });
+
+                        $(this).dialog("close");
+                    }
+                    ,
+                    Sair: function()
                     {
                         $(this).dialog("close");
                     }
@@ -133,10 +167,17 @@ $(function(){
                         Fechar: function()
                         {
                             $(this).dialog("close");
-                        },
+                        }
+                        ,
                         Aprovar: function() 
                         {
                             aprovarLote(Lote,Loja,$thisAprovar);
+                            $(this).dialog("close");
+                        }
+                        ,
+                        Reprovar: function() 
+                        {
+                           reprovarLote(Lote,Loja,$thisAprovar);
                             $(this).dialog("close");
                         }
 
@@ -153,6 +194,16 @@ $(function(){
         var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
         
         aprovarLote(Lote,Loja,$thisAprovar);
+        
+    }) ;
+    
+    $(".Reprovar").live("click",function(e){
+        e.preventDefault(); // nao aparece a "#" da tela
+        var $thisAprovar=$(this);
+        var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
+        var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
+        
+        reprovarLote(Lote,Loja,$thisAprovar);
         
     }) ;
 });

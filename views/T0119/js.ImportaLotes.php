@@ -48,12 +48,23 @@ function calculaDigitoMod11($NumDado, $NumDig, $LimMult)
 function retornaLotesDisponiveis(){
     $sql = "   SELECT l.store_key , l.lote_numero , l.tipo_codigo , l.aprovacao_status_id
                  FROM davo_ccu_lote l
-                WHERE l.aprovacao_status_id in ( 0 , 8 )
+                WHERE l.aprovacao_status_id in ( 0 )
            ";
 
     $db =       conectaEmporium();
-    echo $sql ;
+    
     return $db->query($sql);    
+}
+
+function retornaLotesCancelados(){
+    $sql = "   SELECT l.store_key , l.lote_numero , l.tipo_codigo , l.aprovacao_status_id , l.aprovacao_data
+                 FROM davo_ccu_lote l
+                WHERE l.aprovacao_status_id in ( 8 )
+           ";
+
+    $db =       conectaEmporium();
+    
+    return $db->query($sql);      
 }
 
 function insereIntranet(){
@@ -62,7 +73,7 @@ function insereIntranet(){
   $dbEMP =   conectaEmporium();
 
   foreach($dados as $campos => $valores)
-  {
+  {  
       $DigLoja = calculaDigitoMod11($valores['store_key'],1,100);
       $LojaCD  = $valores['store_key'].$DigLoja; // loja Com Digito
       $Loja    = $valores['store_key'];
@@ -74,12 +85,12 @@ function insereIntranet(){
       if($Status==0)
         $Status=1;  
       
-      $insere = $db->exec("INSERT INTO T116_ccu_lote (T006_codigo  , T116_lote  
-                                                    , T116_status_aprovacao ,T117_codigo)
+      $insere = $db->exec("INSERT INTO T116_ccu_lote (T006_codigo              , T116_lote  
+                                                    , T116_aprovacao_status_id ,T117_codigo)
                                               VALUES ($LojaCD      , $Lote  
                                                     , $Status , $Tipo ) ");
       
-      echo $insere ; 
+     
       if($insere)
       {
             $atualiza = $dbEMP->exec("UPDATE davo_ccu_lote l
@@ -99,7 +110,45 @@ function insereIntranet(){
   }
 }
 
+function atualizaCanceladosIntranet(){
+  $dadosC =   retornaLotesCancelados();
+  $db    =   conectaIntranet();
+  
+  foreach($dadosC as $camposC => $valoresC)
+  {     
+      $DigLoja = calculaDigitoMod11($valoresC['store_key'],1,100);
+      $LojaCD  = $valoresC['store_key'].$DigLoja; // loja Com Digito
+     
+      $Lote    = $valoresC['lote_numero'];
+      $Tipo    = $valoresC['tipo_codigo'];
+      $Status  = $valoresC['aprovacao_status_id'];
+      $Data    = $valoresC['aprovacao_data'];
+      
+      $insere = $db->exec("INSERT INTO T116_ccu_lote (T006_codigo              , T116_lote  
+                                                    , T116_aprovacao_status_id , T116_aprovacao_data
+                                                    , T117_codigo)
+                                              VALUES ($LojaCD      , $Lote  
+                                                    , $Status , '$Data' 
+                                                    , $Tipo ) ");
+      
+      if(!$insere)
+      {
+        // registro ja existe na Intranet, atualiza status para cancelado
+        $atualiza = $db->exec("UPDATE T116_ccu_lote l
+                                  SET l.T116_aprovacao_status_id = $Status
+                                    , l.T116_aprovacao_data      = '$Data'
+                                WHERE l.T006_codigo              = $LojaCD
+                                  AND l.T116_lote                = $Lote
+                                  AND l.T116_aprovacao_status_id = 1 /* somente em aprovacao */
+                              ");        
+      }
+                
+  }
+  
+}
+
 insereIntranet();
+atualizaCanceladosIntranet();
 // 
 
 /*
