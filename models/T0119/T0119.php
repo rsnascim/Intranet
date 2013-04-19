@@ -131,6 +131,13 @@ class models_T0119 extends models
         
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
+    
+    public function ConsultaDetalhesLoteLojaProducao($Loja,$Lote)
+    {
+        $sql="  CALL spDVCCU_ExtratoProducaoLoteLoja ( $Loja , $Lote ) ";
+
+        return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
+    }
 
     public function RetornaStringTipo ($Tipo)
     {
