@@ -187,6 +187,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
 
                 
                 <td width="10%"><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
+                <td hidden class="txtTipo"><?php echo $valores['tipo_codigo']; ?></td>
                 <td ><?php echo $objEMP->formataDataHoraView($valores['start_time']); ?></td>
                 <td align="right"><?php  echo $valores['quantity_rows'];?></td>
                 <td align="right"><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>

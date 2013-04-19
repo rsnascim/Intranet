@@ -15,7 +15,7 @@ $(function(){
 //
 //                                  });
 
-    $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+   $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
                                 , locale: 'br'  // nao sei se funciona
                                 , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
                                 , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
@@ -76,7 +76,7 @@ $(function(){
                         $.get("?router=T0119/js.AprovarReprovar",{Lote:Lote,Loja:Loja,Acao:7},function(retorno){
                             if(retorno==1){
                                 show_stack_bottomleft(false," ","Lote Reprovado com sucesso");
-                                //$($thisAprovar).remove();
+                               
                                 Obj.parents("tr").remove();
                             }else{
                               show_stack_bottomleft(true,"Erro","Lote Não Reprovado");
@@ -94,53 +94,16 @@ $(function(){
             }
     });
    };
-    // backup 16.04.2013 11:15
-//    $(".Detalhes").live("click",function(e){
-//        e.preventDefault(); // nao aparece a "#" da tela
-//        var $thisAprovar=$(this);
-//        var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
-//        $("#dialog-detalhes").dialog
-//        ({
-//                resizable: true,
-//                height:600,
-//                draggable: true,
-//                width:800,
-//                modal: true,
-//                title:"Detalhes do Lote "+Lote,
-//                buttons:
-//                {
-//                        Fechar: function()
-//                        {
-//                            $(this).dialog("close");
-//                        },
-//                        Aprovar: function() 
-//                        {
-//                            $.get("?router=T0119/js.Aprovar",{Lote:Lote},function(retorno){
-//                                if(retorno==1){
-//                                    show_stack_bottomleft(false," ","Lote Aprovado com sucesso");
-//                                    //$($thisAprovar).remove();
-//                                    $($thisAprovar).parents("tr").remove();
-//                                }else{
-//                                  show_stack_bottomleft(true,"Erro","Lote Não Aprovado");
-//                                }
-//                                    
-//                            });
-//                            $(this).dialog("close");
-//
-//                        }
-//
-//                }
-//        })
-//    }) ;
 
         $(".Detalhes").live("click",function(e){
         e.preventDefault(); // nao aparece a "#" da tela
         var $thisAprovar=$(this);
         var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
         var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
-        $.get("?router=T0119/js.ConsultaDetalhes",{Lote:Lote,Loja:Loja},function(retorno){
+        var Tipo=$($thisAprovar).parents("tr").find(".txtTipo").text();
+        
+        $.get("?router=T0119/js.ConsultaDetalhes",{Lote:Lote,Loja:Loja,Tipo:Tipo},function(retorno){
             $("#dialog-detalhes").html(retorno);
-  
             $("#tDetalhes").tablesorter({ widgets:['zebra']                //Tabela Zebrada
                                         , locale: 'br'  // nao sei se funciona
                                         , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
@@ -153,7 +116,8 @@ $(function(){
                                                   }
                                         });
            
-        });        
+        });  
+        
         $("#dialog-detalhes").dialog
         ({
                 resizable: true,
