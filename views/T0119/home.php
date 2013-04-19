@@ -187,20 +187,44 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
 
                 
                 <td width="10%"><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
-                <td hidden class="txtTipo"><?php echo $valores['tipo_codigo']; ?></td>
+                <td style="display:none" class="txtTipo"><?php echo $valores['tipo_codigo']; ?></td>
                 <td ><?php echo $objEMP->formataDataHoraView($valores['start_time']); ?></td>
                 <td align="right"><?php  echo $valores['quantity_rows'];?></td>
                 <td align="right"><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>
-                <td ><?php echo $valores['status_consumo_id'].'-'.$valores['status_consumo_descricao']; ?></td>
-                
-                <td onmouseover ="show_tooltip_alert('','<?php echo "Mostrar data, usuario da aprovacao";?>');tooltip.pnotify_display();" 
-                    onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
-                    onmouseout  ="tooltip.pnotify_remove();"
+                <td
+                <?php if(($valores['status_consumo_id']!=0)&&($valores['status_consumo_id']!=2))
+                    { ?>
+                         onmouseover ="show_tooltip_alert('<?php echo $valores['status_consumo_descricao'] ;?>'
+                                                         ,'<?php echo "<B>Em: </B>".$objEMP->formataDataHoraView($valores['consumo_data'])
+                                                                                  ."<BR>"
+                                                                                  ."<B>Usuário: </B>".$valores['consumo_agent_key']
+                                                                           ;?>');tooltip.pnotify_display();" 
+                         onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
+                         onmouseout  ="tooltip.pnotify_remove();" 
+               <?php }?>
+                ><?php echo $valores['status_consumo_id'].'-'.$valores['status_consumo_descricao']; ?></td>
+                <td
+                <?php if($valores['status_aprovacao_id']!=1)
+                    { ?>
+                         onmouseover ="show_tooltip_alert('<?php echo $valores['status_aprovacao_descricao'] ;?>'
+                                                         ,'<?php echo "<B>Em: </B>".$objEMP->formataDataHoraView($valores['aprovacao_data'])
+                                                                                  ."<BR>"
+                                                                                  ."<B>Usuário: </B>".$valores['aprovacao_usuario']
+                                                                           ;?>');tooltip.pnotify_display();" 
+                         onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
+                         onmouseout  ="tooltip.pnotify_remove();" 
+               <?php }?>
                 ><?php echo $valores['status_aprovacao_id'].'-'.$valores['status_aprovacao_descricao']; ?> </td>
                 
-                <td onmouseover ="show_tooltip_alert('','<?php echo "Mostrar data da integracao";?>');tooltip.pnotify_display();" 
-                    onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
-                    onmouseout  ="tooltip.pnotify_remove();"
+                <td
+                <?php if($valores['status_integracao_id']!=0)
+                    { ?>
+                         onmouseover ="show_tooltip_alert('<?php echo $valores['status_integracao_descricao'] ;?>'
+                                                         ,'<?php echo "<B>Em: </B>".$objEMP->formataDataHoraView($valores['integracao_data'])
+                                                         ;?>');tooltip.pnotify_display();" 
+                         onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
+                         onmouseout  ="tooltip.pnotify_remove();" 
+               <?php }?>
                 ><?php echo $valores['status_integracao_id'].'-'.$valores['status_integracao_descricao']; ?></td>
                 
                 <td>                                    
