@@ -41,20 +41,13 @@ $obj->excluir($tabela, $delim);
        
        } elseif($_REQUEST["cod"]    ==  3){
            
-            $tabela     =   "T004_T113";
+           
+            $tabela     =   "T119_executores_externos";
             $codRM      =  $_REQUEST["codRM"];  
-            $nome       =  $_REQUEST["nome"];
-            $tel        =  $_REQUEST["tel"];
-            $notif      =  $_REQUEST["notif"];
-            $email      =  $_REQUEST["email"]; 
-            
-        
-       
-        $delim   =  "T004_T113_nome =   '$nome'";
-        $delim  .=  "AND T004_T113_telefone = '$tel'"; 
-        $delim  .=  "AND T004_T113_email = '$email'";
-        $delim  .=  "AND T004_T113_notificado   =   '$notif'"; 
-        $delim  .=  "AND T113_codigo  =   $codRM";
+            $codExecExt  =   $_REQUEST["codExecExt"];
+           
+        $delim  =  "T113_codigo  =   $codRM";
+        $delim  .=  "AND T119_codigo    =   $codExecExt";
        
           $obj->excluir($tabela, $delim);
            
@@ -63,12 +56,11 @@ $obj->excluir($tabela, $delim);
         $codRM      =  $_REQUEST["codRM"];  
         $login      =  $_REQUEST["login"];
             
-        $tabela     =   "T004_T113";
+        $tabela     =   "T113_T118";
         
         $delim   =   "T113_codigo       =    $codRM ";
         $delim  .=   "AND T004_login        =   '$login' "; 
-        $delim  .=   "AND T004_T113_tipo    =   4" ;
-        
+       
         $obj->excluir($tabela, $delim);
            
            

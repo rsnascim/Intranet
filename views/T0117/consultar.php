@@ -154,7 +154,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             
             <div style="position: absolute; top: 450px; left: 170px;">
                 <label class="label">Qual impacto durante a ocorrência? (Para o negócio)*</label>
-                <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoRmOc"]; ?></textarea>            
+                <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoOcorrencia"]; ?></textarea>            
             </div>  
 
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -207,8 +207,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
 
                                 <div style="position: absolute; top: 40px; left: 370px;">
                                     <label class="label">Total</label>
-                                    <input style="width: 60px" type="text" name="T113_tempo_total" placeholder="" id="tempoTotal" readonly value="<?php echo $vlrRM["TempoTotal"]; ?>"
-                                           readonly/>
+                                    <input style="width: 60px" type="text" value="<?php echo $vlrRM['TempoTotal'];?>"  name="T113_tempo_total" placeholder="" id="tempoTotal"  readonly/>
                                 </div> 
                                 
                                 <div style="position: absolute; top: 63px; left: 440px;">
@@ -260,7 +259,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                 <label class="label">Executores Externos</label>
                 <select style="width: 625px;" name="ExeExt[]" multiple readonly>
             <?php foreach ($retExecExternoRM as $cpsExtRm => $vlrExtRM) { ?>
-                        <option value="<?php echo $vlrExtRM['Nome'] . "|" . $vlrExtRM['Telefone'] . "|" . $vlrExtRM['Email'] . "|" . $vlrExtRM['Notificado'] ?>">
+                        <option value="<?php echo $vlrExtRM['Codigo'] ?>">
         <?php echo $vlrExtRM['Nome'] . "|" . $vlrExtRM['Telefone'] . "|" . $vlrExtRM['Email'] . "|" . $vlrExtRM['Notificado'] ?>
                         </option>
                     <?php } ?>    

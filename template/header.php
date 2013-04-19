@@ -148,9 +148,9 @@ if(!is_null($fp))
 <!-- FIM MENSAGENS ----------------------------------------------------------------------------------->
 
 <!-- FLIP PAGE --------------------------------------------------------------------------------------->
-<script type="text/javascript" src="template/js/flipPage/js/swfobject.js"></script>
+<!--<script type="text/javascript" src="template/js/flipPage/js/swfobject.js"></script>
 <script type="text/javascript" src="template/js/flipPage/js/swfaddress.js"></script>
-<script type="text/javascript" src="template/js/flipPage/megazine/megazine.js"></script>
+<script type="text/javascript" src="template/js/flipPage/megazine/megazine.js"></script>-->
 <!-- FIM FLIP PAGE ----------------------------------------------------------------------------------->
 
 <!-- ORDENAÇÃO DE TABELA (TABLESORTER) ----------------------------------------------------------------------------------->

@@ -592,29 +592,31 @@ $(function(){
     
     $(".uploadArquivo").live("click",function(e){
         e.preventDefault();
-        
-        $("#dialog-upload").dialog
-        ({
+        var $this           =   $(this);
+        var codigoDespesa   =   $this.parents("tr").find(".codigoDespesa").text();
+        $('<iframe class="externalSite" src="?router=T0026/js.upload" />').dialog({
+            title:'Form', 
+            autoOpen: true, 
+            width: 320, 
+            height: 170, 
+            modal: true, 
             resizable: false,
-            height:250,
-            width:330,
-            modal: true,
-            draggable: false,
-            buttons:
-            {
-                    "Upload": function()
-                    {
-                        $("#form-upload").append("<input type='hidden' name='T008_codigo' value='"+cod+"'</input>");
-                        $("#form-upload").submit();
-                    } 
-                    ,
-                    Cancelar: function()
-                    {
-                        $(this).dialog("close");
-                    }
-            }
-        }); 
+            buttons:{                
+                'Upload':function(){
+                    $(".externalSite").contents().find("#codigoDespesa").val(codigoDespesa);
+                    $(".externalSite").contents().find('form').submit();
+                    var msgRetorno  =   $(".externalSite").contents().find('#resposta').text();
+                    if(msgRetorno!="")
+                        show_stack_bottomleft(true, "Erro!",msgRetorno);
+                                        
+                    $(this).dialog("close");
+                },
+                
+                'Fechar':function(){
+                    $(this).dialog("close");
+                }}
+        }).width(800 - 25);
         
     });
-                                            
+
 });

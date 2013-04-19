@@ -28,9 +28,15 @@ if (!empty($_POST))
     $impactoOcorren     =   $_POST['T113_impacto_ocorrencia']                       ;    
     $tempo_previsto     =   $_POST['T113_tempo_previsto']                           ;    
     $arrResp            =   explode("-",$_POST['T004_responsavel'])                 ;    
-    $responsavel        =   str_replace(" ", "", $arrResp[1])                   ;
+    $responsavel        =   str_replace(" ", "", $arrResp[1])                       ;
     $obs_contingencia   =   $_POST['T113_obs_contingencia']                         ;
     $status             =   1;                                                  //Status 1 = Aberta
+    $hora_total         =   $_POST["T113_hora_total"]                               ;
+    $hora_prevista      =   $_POST["T113_hora_prevista"]                            ;
+    $hora_disponivel    =   $_POST["T113_hora_disponivel"]                          ;
+    $janela_disp        =   $_POST["T113_janela_disponivel"]                        ;
+    $tempoTotal         =   $_POST["T113_tempo_total"]                              ;
+    
 //    $prioridade         =   $_POST['T113_'];
     
     $campos =   array(
@@ -47,6 +53,11 @@ if (!empty($_POST))
                      ,  "T113_obs_contingencia"     => $obs_contingencia
                      ,  "T004_responsavel"          => $responsavel
                      ,  "T113_status"               => $status
+                     ,  "T113_hora_total"           => $hora_total
+                     ,  "T113_hora_prevista"        => $hora_prevista 
+                     ,  "T113_hora_disponivel"      => $hora_disponivel
+                     ,  "T113_janela_disponivel"    => $janela_disp
+                     ,  "T113_tempo_total"          => $tempoTotal
                      );
     
     $insere     =   $obj->inserir($tabela, $campos);
@@ -58,28 +69,35 @@ if (!empty($_POST))
     
     foreach($usuariosContingencia   as $campos  =>  $valores)
     {
+        
+        $funcRM =0;
+        foreach ($obj->retornaFuncionariosRM($login) as $cps => $val) {
+        $funcRM++;
+    } 
+
+    if($funcRM == 0){
+    
+        $tabelaFuncRM   =    "T004_T009";
+        $camposFuncRM   =    array("T004_Login"     =>  $login
+                                  ,"T009_codigo"    =>  57     );
+
+        $obj->inserir($tabelaFuncRM, $camposFuncRM);
+    
+    }
+    
         $tabela     =   "T004_T113";
         
         $user       =   $valores;
-        $dadosUser  =   $obj->retornaDadosUsuario($user);
         
-        foreach($dadosUser as $cp   =>  $vl)
-        {
-            $nomeUsuario    =   $vl['NomeUsuario'];
-            $emailUsuario   =   $vl['EmailUsuario'];
-        }
-                
         $campos =   array(
                             "T113_codigo"           =>  $codigoRM
-                         ,  "T004_login"            =>  $valores
-                         ,  "T004_T113_nome"        =>  $nomeUsuario
-                         ,  "T004_T113_email"       =>  $emailUsuario
-                         ,  "T004_T113_telefone"    =>  ""
-                         ,  "T004_T113_notificado"  =>  ""
+                         ,  "T004_login"            =>  $user
                          ,  "T004_T113_tipo"        =>  2               //Tipo 1 = Responsaveis RM
                          );
         
         $insere     =   $obj->inserir($tabela, $campos);
+        
+        $obj->enviaEmailExec($user, $codigoRM);
         
     }    
     
@@ -89,27 +107,34 @@ if (!empty($_POST))
     
     foreach($usuariosInterno   as $campos  =>  $valores)
     {
+            $funcRM =0;
+            foreach ($obj->retornaFuncionariosRM($login) as $cps => $val) {
+            $funcRM++;
+        } 
+
+        if($funcRM == 0){
+
+            $tabelaFuncRM   =    "T004_T009";
+            $camposFuncRM   =    array("T004_Login"     =>  $login
+                                      ,"T009_codigo"    =>  57     );
+
+            $obj->inserir($tabelaFuncRM, $camposFuncRM);
+
+        }
+        
         $tabela     =   "T004_T113";
         
         $user       =   $valores;
-        $dadosUser  =   $obj->retornaDadosUsuario($user);
-        
-        foreach($dadosUser as $cp   =>  $vl)
-        {
-            $nomeUsuario    =   $vl['NomeUsuario'];
-            $emailUsuario   =   $vl['EmailUsuario'];
-        }
-                
+       
         $campos =   array(
                             "T113_codigo"           =>  $codigoRM
-                         ,  "T004_login"            =>  $valores
-                         ,  "T004_T113_nome"        =>  $nomeUsuario
-                         ,  "T004_T113_email"       =>  $emailUsuario
-                         ,  "T004_T113_telefone"    =>  ""
+                         ,  "T004_login"            =>  $user
                          ,  "T004_T113_tipo"        =>  1               //Tipo 1 = Responsaveis RM
                          );
         
         $insere     =   $obj->inserir($tabela, $campos);
+        
+        $obj->enviaEmailExec($user, $codigoRM);
         
     }
     
@@ -118,7 +143,7 @@ if (!empty($_POST))
     
     foreach($usuariosExterno   as $campos  =>  $valores)
     {
-        $tabela         =   "T004_T113";
+        $tabela         =   "T119_executores_externos";
         
         $strUserExt     =   explode("|", $valores);
         
@@ -128,12 +153,11 @@ if (!empty($_POST))
         $notificado     =   $strUserExt[3];
                 
         $campos =   array(
-                            "T113_codigo"           =>  $codigoRM
-                         ,  "T004_T113_nome"        =>  $nomeExterno
-                         ,  "T004_T113_email"       =>  $emailExterno
-                         ,  "T004_T113_telefone"    =>  $foneExterno
-                         ,  "T004_T113_notificado"  =>  $notificado
-                         ,  "T004_T113_tipo"        =>  3               //Tipo 3 = Responsaveis RM Externo
+                            "T113_codigo"      =>  $codigoRM
+                         ,  "T119_nome"        =>  $nomeExterno
+                         ,  "T119_email"       =>  $emailExterno
+                         ,  "T119_telefone"    =>  $foneExterno
+                         ,  "T119_notificado"  =>  $notificado
                          );
         
         $insere     =   $obj->inserir($tabela, $campos);
@@ -213,7 +237,6 @@ if (!empty($_POST))
             <div style="position: absolute; top: 205px; left: 900px;">
                 <label class="label">Responsável da Requisição de Mudança*</label>
                 <input style="width: 268px" type="text" class="buscaUsuario validate[required]"
-                       readonly                    
                        name="T004_responsavel"
                        value   ="<?php echo $vlrRM["Responsavel"]; ?>"
                        />
