@@ -594,8 +594,9 @@ $(function(){
         e.preventDefault();
         var $this           =   $(this);
         var codigoDespesa   =   $this.parents("tr").find(".codigoDespesa").text();
+        $(".externalSite").remove();
         $('<iframe class="externalSite" src="?router=T0026/js.upload" />').dialog({
-            title:'Form', 
+            title:'Upload', 
             autoOpen: true, 
             width: 320, 
             height: 170, 
@@ -605,9 +606,6 @@ $(function(){
                 'Upload':function(){
                     $(".externalSite").contents().find("#codigoDespesa").val(codigoDespesa);
                     $(".externalSite").contents().find('form').submit();
-                    var msgRetorno  =   $(".externalSite").contents().find('#resposta').text();
-                    if(msgRetorno!="")
-                        show_stack_bottomleft(true, "Erro!",msgRetorno);
                                         
                     $(this).dialog("close");
                 },
