@@ -353,7 +353,7 @@ font-size: 15px;
 
 .list-iten-arquivos td{
     padding: 0px 2px;
-    border: 1px solid red;
+    border: 1px solid transparent;
 }
 .excluir{
 	background:url(-template-imagens/excluir.png) no-repeat;

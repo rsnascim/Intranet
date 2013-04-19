@@ -2,71 +2,90 @@
 //Instancia Classe
 $obj  =   new models_T0026();
 
-$codigoDespesa          =   $_REQUEST['codigoDespesa']              ;
-$categoria              =   $_REQUEST['codigoCategoria']            ;
-$arquivo                =   $_FILES["despesaArquivo"]               ;
-$tmp                    =   $arquivo["tmp_name"]                    ;
-$nome                   =   $arquivo["name"]                        ;
-$diretorio              =   CAMINHO_ARQUIVOS."CAT"                  ;
-$arrExtensao            =   explode('.' , $arquivo["name"])         ;
-$extensao               =   $arrExtensao[1]                         ;
-$data                   =   date("d/m/Y")                           ;
-
-$strCategoria           =   $obj->preencheZero("E", 4, $categoria)  ;
-
-$procura    =   $obj->retornaExtensaoArquivo($extensao);
-$i          =   0;
-foreach ($procura   as $campos=>$valores)
+if(!empty($_POST))
 {
-    $codExt     =   $valores['codigoExtensao'];
-    $i++;
-}
+    
+    $codigoDespesa          =   $_REQUEST['codigoDespesa']              ;
+    $arquivo                =   $_FILES["despesaArquivo"]               ;
+    $tmp                    =   $arquivo["tmp_name"]                    ;
+    $nome                   =   $arquivo["name"]                        ;
+    $diretorio              =   CAMINHO_ARQUIVOS."CAT0002/"             ;   //Categoria de Arquivo de RD
+    $user                   =   $_SESSION['user']                       ;
 
-$_POST['T057_codigo']   =   $codExt;
+    $arrExtensao            =   explode('.' , $arquivo["name"])         ;
+    $extensao               =   $arrExtensao[1]                         ;
 
-if($i==1)
-{
-    //copia arquivo para diretóio files
-    $copiar     =   move_uploaded_file($tmp, $diretorio .$categoria. "/" . $nome);
-    if(!$copiar)
-    {
-        echo "nao copiou o arquivo!!";
-        echo "arquivo nome: $arquivo";
-        exit (0);
-    }
-    else
-    {
-        //Limpa variaveis array
-        unset($_POST['T059_codigo']);
-        unset($_POST['T008_codigo']);
-        //Atribui nome INTERNO (ex.: 0001.pdf)
-        $_POST['T055_dt_upload']    =   $data;
-        //inseri T055_arquivo
-        $tabela      =  "T055_arquivos";
-        $_POST['T055_nome']         =   "[Automatico] - P0016/Aprovação de Pagamento";
-        $_POST['T055_desc']         =   "[Automatico] - P0016/Aprovação de Pagamento";
-        $insUpload   =  $objUpload->inserir($tabela, $_POST);
-        $codArq      =  $objUpload->lastInsertId();
-        //Renomeia arquivo
-        $nomeInt    =   $objUpload->preencheZero("E", 4, $codArq).".".strtolower($extensao);
+    $dataHora               =   date("d/m/Y H:i:s")                     ;
 
-        if (rename($diretorio.$categoria."/".$nome,$diretorio.$categoria."/".$nomeInt))
+    $codigoExtensao         =   $obj->verificaExtensaoArquivo($extensao);
+    if($codigoExtensao)
+    {   
+        //copia arquivo para diretóio files
+        $copiar     =   move_uploaded_file($tmp, $diretorio.$nome);    
+        if(!$copiar)
         {
-            //Inseri T008_T055
-            $tabela      =  "T008_T055";
-            $dados       = array('T008_codigo' => $ap
-                               , 'T055_codigo' => $codArq);
-
-            $insUpload   =  $objUpload->inserir($tabela, $dados);
-            //echo $insUpload;
-            //Lê página inicial
-            header("location:?router=T0016/home");
+            //$msgRetorno     =   "Não foi possível mover o arquivo para o diretório $diretorio.$nome";
         }
         else
         {
-            echo "<script>alert('Erro!')</script>";
+            $tabela =   "T055_arquivos";
+
+            $campos =   array( "T055_nome"          =>  "[Automatico] - P0026/Reembolso de Despesa"
+                             , "T055_desc"          =>  "[Automatico] - P0026/Reembolso de Despesa"
+                             , "T055_dt_upload"     =>  $dataHora
+                             , "T004_login"         =>  $user
+                             , "T057_codigo"        =>  $codigoExtensao
+                             , "T056_codigo"        =>  2   //Categoria de RD
+                             , "T061_codigo"        =>  2   //Processo de RD
+                             );
+
+            $inseri =   $obj->inserir($tabela, $campos);
+            if($inseri)
+            {
+                $codigoArquivo  =   $obj->lastInsertId();
+
+                //Renomeia arquivo
+                $nomeInt    =   $obj->preencheZero("E", 4, $codigoArquivo).".".strtolower($extensao);
+
+                if (rename($diretorio.$nome,$diretorio.$nomeInt))
+                {
+                    $tabela      =  "T016_T055";
+                    $campos      = array('T016_codigo' => $codigoDespesa
+                                       , 'T055_codigo' => $codigoArquivo);
+
+                    $obj->inserir($tabela, $campos);
+                }
+                else
+                {
+                    $msgRetorno =   "Não foi possível renomear arquivo!";
+                }
+            }
         }
     }
+    else
+        $msgRetorno =   "Extensão inválida!";
 }
-
 ?>
+<link rel="stylesheet" href="template/css/-estilo-include-tudo.css"/>
+
+<?php if($_SERVER['SERVER_NAME']=='localhost'){?>
+    <link rel="stylesheet" href="template/css/-layout-local.css"/>
+<?php }?>
+<?php if($_SERVER['SERVER_NAME']=='oraas141'){?>
+    <link rel="stylesheet" href="template/css/-layout-qas.css"/>
+<?php }?>
+<?php if($_SERVER['SERVER_NAME']=='oraas041'){?>
+    <link rel="stylesheet" href="template/css/-layout-prd.css"/>
+<?php }?>
+
+<p    class="validateTips">Selecione um tipo e um arquivo para carregar no sistema!</p>
+<span class="form-input">
+<form action="" method="post"  enctype="multipart/form-data">
+    <fieldset>
+            <label class="label">Escolha o Arquivo*</label>                
+            <input type="file"      name="despesaArquivo"   id="arquivo"        />
+            <input type="hidden"    name="codigoDespesa"    id="codigoDespesa"  />
+            <p id="resposta" style="display:none"><?php echo $msgRetorno;?></p>
+    </fieldset>
+</form>
+</span>

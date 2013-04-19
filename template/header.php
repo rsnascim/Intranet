@@ -148,9 +148,9 @@ if(!is_null($fp))
 <!-- FIM MENSAGENS ----------------------------------------------------------------------------------->
 
 <!-- FLIP PAGE --------------------------------------------------------------------------------------->
-<script type="text/javascript" src="template/js/flipPage/js/swfobject.js"></script>
+<!--<script type="text/javascript" src="template/js/flipPage/js/swfobject.js"></script>
 <script type="text/javascript" src="template/js/flipPage/js/swfaddress.js"></script>
-<script type="text/javascript" src="template/js/flipPage/megazine/megazine.js"></script>
+<script type="text/javascript" src="template/js/flipPage/megazine/megazine.js"></script>-->
 <!-- FIM FLIP PAGE ----------------------------------------------------------------------------------->
 
 <!-- ORDENAÇÃO DE TABELA (TABLESORTER) ----------------------------------------------------------------------------------->
@@ -355,7 +355,7 @@ if (file_exists($arquivoJs))
                                 else
                                 {   if($valores!="A")
                                     { ?>
-                                        <li><a href='?router=T<?php echo $valores = str_pad($valores, 4, "0", STR_PAD_LEFT);?>/home'><span><?php echo $chaves?></span></a></li>
+                                        <li><a href='?router=T<?php echo $valores = str_pad($valores, 4, "0", STR_PAD_LEFT);?>/home'><span style="color: rgb(132, 112, 255);"><?php echo $chaves?></span></a></li>
                               <?php }
                                     else
                                     {?>
@@ -365,7 +365,7 @@ if (file_exists($arquivoJs))
                             }?>
                          <?php
                          } ?>
-                <ul id="menu"><?php menu($menu);?></ul>
+                <ul class="menu"><?php menu($menu);?></ul>
                 </div>
             </div>
         </div>

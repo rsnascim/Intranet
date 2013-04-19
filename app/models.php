@@ -161,13 +161,13 @@ class models extends PDO
                             break;
                      case "emporium"     :   
                          //Testa se deve apresentar erro de conexão na view
-                 // $link = mysql_connect(QAS_HOST_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);    
-                   $link = mysql_connect(PRD_HOST_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM); 
+                  $link = mysql_connect(QAS_HOST_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);    
+//                   $link = mysql_connect(PRD_HOST_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM); 
                             if (!$link) 
                                 echo ($verificaConexao==1)?"Não foi possivel conectar":die('Não foi possível conectar: ' . mysql_error());
                             else 
-                             parent::__construct('mysql:host='.PRD_HOST_EMPORIUM.';dbname='.PRD_BD_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM);
-                           // parent::__construct('mysql:host='.QAS_HOST_EMPORIUM.';dbname='.QAS_BD_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);
+//                             parent::__construct('mysql:host='.PRD_HOST_EMPORIUM.';dbname='.PRD_BD_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM);
+                            parent::__construct('mysql:host='.QAS_HOST_EMPORIUM.';dbname='.QAS_BD_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);
                                 
                             break; 
                      //Caso não seja nenhum dos casos acima ele faz a conexão com o MySQL Satélite/Intranet
@@ -1326,6 +1326,29 @@ class models extends PDO
     {
         return $valor  =   'R$ ' . number_format($valor, 2, ',', '.'); // retorna R$100.000,50
     }   
+
+    public function formataMoedaSufixo($valor,$Decimais,$Sufixo)
+    { // Funcao para formatar valores em moedas
+        
+        // verifica se retornará quantidade de casas decimais espeficas
+        if(!$Decimais)
+            $Decimais=2;
+        
+        // verifica se retornará quantidade de sufixo R$
+        if($Sufixo)
+           return $valor  =   'R$ ' . number_format($valor, $Decimais, ',', '.'); // retorna R$100.000,50
+        else
+           return $valor  =   number_format($valor, $Decimais, ',', '.'); // retorna 100.000,50
+    }   
+
+    public function formataNumero($valor,$Decimais)
+    {
+        if(!$Decimais)
+            $Decimais=2;
+
+        return $valor  =   number_format($valor, $Decimais, ',', '.'); // retorna 100.000,50
+    }   
+    
     
     public function uploadArquivo($path)
     {       
@@ -1372,7 +1395,34 @@ class models extends PDO
                                   , T57.T057_desc   descricaoExtensao
                                FROM T057_extensao   T57
                               WHERE T57.T057_nome = '$extensao'");
-    }       
+    }      
+    
+    public function verificaExtensaoArquivo($extensao)
+    {
+       $sql =   "  SELECT T57.T057_codigo CodigoExtensao
+                     FROM T057_extensao   T57
+                    WHERE T57.T057_nome = '$extensao'"; 
+              
+       $extensao    =   $this->query($sql)->fetchAll(PDO::FETCH_COLUMN);
+       
+       return $extensao[0];
+              
+    }      
+    
+    //Formata data para as views com Hora [Ex.: 01/10/2011 00:00:00]
+    public function formataDataHoraView($data)
+    {
+        $arrData    = explode(" ",$data);
+        $hora       = $arrData[1];
+        if($this->validaData($arrData[0]))
+        {
+            $data = implode(!strstr($arrData[0], '/') ? "/" : "-", array_reverse(explode(!strstr($arrData[0], '/') ? "-" : "/", $arrData[0])));
+        }
+        
+        $strDataHora    =   $data." ".$hora;
+        
+        return $strDataHora;
+    }     
     
 }
 ?>
