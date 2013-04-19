@@ -315,9 +315,10 @@ $(function(){
          
          var status    =   2;
          var codRM    =   $("#codRM").val();
-     
-        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
-        location.reload();
+        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(dados){
+            
+        });
+       $(".conteudo_16").load("?router=T0117/home .conteudo_16");
         
      });
      

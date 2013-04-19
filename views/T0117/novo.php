@@ -97,7 +97,7 @@ if (!empty($_POST))
         
         $insere     =   $obj->inserir($tabela, $campos);
         
-        $obj->enviaEmailExec($user, $codigoRM);
+        
         
     }    
     
@@ -134,7 +134,7 @@ if (!empty($_POST))
         
         $insere     =   $obj->inserir($tabela, $campos);
         
-        $obj->enviaEmailExec($user, $codigoRM);
+        
         
     }
     
