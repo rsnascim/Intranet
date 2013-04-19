@@ -31,7 +31,7 @@ $user = $_SESSION['user'];
         <div id="cont-bord-imagem">
             <?php foreach($banners as $campos=>$valores){?>
             <span class="cont-bord-imagem-img">
-                <a href="template/img/noticias/CONFIANCAPREMIO.pdf" target="_blank"><img src="<?php echo $valores['CAMINHO'];?>" /></a>
+                <a href="\\oraas012\GN\1.Áreas\6.Açougue - IC Renata\4. Fotos\5ª turma" target="_blank"><img src="<?php echo $valores['CAMINHO'];?>" /></a>
             </span>
             <?php }?>
         </div>
