@@ -63,9 +63,9 @@ class models_T0119 extends models
         $sql="  SELECT l.store_key , l.lote_numero , l.start_time 
                      , l.amount , l.quantity_rows 
                      , t.tipo_codigo 
-                     , sc.status_consumo_id     , sc.status_consumo_descricao
-                     , si.status_integracao_id  , si.status_integracao_descricao
-                     , sa.status_aprovacao_id   , sa.status_aprovacao_descricao
+                     , sc.status_consumo_id     , sc.status_consumo_descricao     , l.consumo_data , l.consumo_agent_key
+                     , si.status_integracao_id  , si.status_integracao_descricao  , l.integracao_data
+                     , sa.status_aprovacao_id   , sa.status_aprovacao_descricao   , l.aprovacao_data , l.aprovacao_agent_key , l.aprovacao_usuario
                   FROM davo_ccu_lote l
                   INNER JOIN davo_ccu_tipo t                 ON (     t.tipo_codigo           = l.tipo_codigo          )
                   INNER JOIN davo_ccu_status_consumo    sc   ON (     sc.status_consumo_id    = l.consumo_status_id    )

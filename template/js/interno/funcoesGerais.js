@@ -18,6 +18,15 @@ $(function() {
         // 
         //$( "input:submit, button").button();
         
+        //Filtro Dinamico
+    //js.busca Dinamica para elementos dinamicos
+        $("#filtroDinamico").quicksearch(".dados", {
+                                            noResults: '#semresultado',
+                                            stripeRows: ['odd', 'even'],
+                                            loader: 'span.loading'
+        });        
+        
+        
         // Href com estilo dos botões
         $( "a",".botao-jquery-padrao").button();
         

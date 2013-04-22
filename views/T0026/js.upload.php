@@ -1,6 +1,7 @@
 <?php
 //Instancia Classe
-$obj  =   new models_T0026();
+$obj        =   new models_T0026();
+$msgRetorno =   "to aki";
 
 if(!empty($_POST))
 {
@@ -18,13 +19,14 @@ if(!empty($_POST))
     $dataHora               =   date("d/m/Y H:i:s")                     ;
 
     $codigoExtensao         =   $obj->verificaExtensaoArquivo($extensao);
+    $msgRetorno             =   1;
     if($codigoExtensao)
     {   
         //copia arquivo para diretóio files
         $copiar     =   move_uploaded_file($tmp, $diretorio.$nome);    
         if(!$copiar)
         {
-            //$msgRetorno     =   "Não foi possível mover o arquivo para o diretório $diretorio.$nome";
+            $msgRetorno     =   2;
         }
         else
         {
@@ -57,13 +59,14 @@ if(!empty($_POST))
                 }
                 else
                 {
-                    $msgRetorno =   "Não foi possível renomear arquivo!";
+                    $msgRetorno =   2;
                 }
             }
         }
     }
     else
-        $msgRetorno =   "Extensão inválida!";
+        $msgRetorno =   2;
+    
 }
 ?>
 <link rel="stylesheet" href="template/css/-estilo-include-tudo.css"/>
@@ -78,7 +81,7 @@ if(!empty($_POST))
     <link rel="stylesheet" href="template/css/-layout-prd.css"/>
 <?php }?>
 
-<p    class="validateTips">Selecione um tipo e um arquivo para carregar no sistema!</p>
+<p    class="validateTips">Selecione a despesa para efetuar o upload!</p>
 <span class="form-input">
 <form action="" method="post"  enctype="multipart/form-data">
     <fieldset>

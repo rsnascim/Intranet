@@ -87,11 +87,6 @@ switch ($statusDespesa) {
 <div id="dialog-cancelar" title="Mensagem!" style="display:none">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja cancelar essa Despesa?</p>
 </div>
-<!-- Caixa de Upload-->
-<!--<div id="dialog-upload" title="Upload" style="display:none">
-    <iframe src="?router=T0026/js.upload"></iframe>
-</div>-->
-<!-- FIM Caixa de Upload-->
 
 <!-- Divs com a barra de ferramentas -->
 <div class="div-primaria caixa-de-ferramentas padding-padrao-vertical">
@@ -227,7 +222,7 @@ switch ($statusDespesa) {
                 <td>                                    
                     <ul class="lista-de-acoes">                                        
                         <li><a href="?router=T0026/detalhes&despesaCodigo=<?php echo $valores['DespesaCodigo']?>" title="Detalhes"><span class='ui-icon ui-icon-search'></span></a></li>
-                        <!--<li><a href="javascript:upload(<?php echo $valores['DespesaCodigo'];?>)" title="Anexar"  >  <span class='ui-icon ui-icon-pin-s'></span></a></li>-->
+                        <li><a href="?router=T0026/alterar&despesaCodigo=<?php echo $valores['DespesaCodigo']?>" title="Alterar"><span class='ui-icon ui-icon-pencil'></span></a></li>
                         <li><a target="_blank" href="?router=T0026/js.pdf&DespesaCodigo=<?php echo $valores['DespesaCodigo'];?>" title="Imprimir"><span class='ui-icon ui-icon-print'></span></a></li>
                         <li><a href="#" title="Aprovar"     class="aprovarDespesa"  ><span class='ui-icon ui-icon-check'>   </span></a></li>                                    
                         <li><a href="#" title="Cancelar"    class="cancelarDespesa" ><span class='ui-icon ui-icon-cancel'>  </span></a></li>                                    

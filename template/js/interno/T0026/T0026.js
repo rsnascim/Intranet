@@ -594,8 +594,9 @@ $(function(){
         e.preventDefault();
         var $this           =   $(this);
         var codigoDespesa   =   $this.parents("tr").find(".codigoDespesa").text();
-        $('<iframe class="externalSite" src="?router=T0026/js.upload" />').dialog({
-            title:'Form', 
+        $(".externalSite").remove();
+        var $dialog = $('<iframe class="externalSite" src="?router=T0026/js.upload" />').dialog({
+            title:'Upload', 
             autoOpen: true, 
             width: 320, 
             height: 170, 
@@ -604,16 +605,18 @@ $(function(){
             buttons:{                
                 'Upload':function(){
                     $(".externalSite").contents().find("#codigoDespesa").val(codigoDespesa);
-                    $(".externalSite").contents().find('form').submit();
-                    var msgRetorno  =   $(".externalSite").contents().find('#resposta').text();
-                    if(msgRetorno!="")
-                        show_stack_bottomleft(true, "Erro!",msgRetorno);
-                                        
-                    $(this).dialog("close");
+                    $(".externalSite").contents().find('form').submit(function(){
+
+                        alert($(".externalSite").contents().find('#retorno').text());
+                        $dialog.dialog("close");
+                    }).submit();
+                                   
+                    
+                    
                 },
                 
                 'Fechar':function(){
-                    $(this).dialog("close");
+                    $dialog.dialog("close");
                 }}
         }).width(800 - 25);
         

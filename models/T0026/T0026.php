@@ -353,17 +353,16 @@ class models_T0026 extends models
 
     public function retornaDespesaDetalhe($DespesaCodigo)
     {
-        $sql    =   "  SELECT date_format(T1516.T015_T016_saida,'%d/%m/%Y')     DespesaData
-                            , T1516.T015_T016_desc                              DespesaDescricao
-                            , T1516.T006_codigo_origem                          DespesaOrigem
-                            , T06A.T006_nome                                    OrigemNome
-                            , date_format(T1516.T015_T016_saida,'%H:%i')        DespesaSaida
-                            , T1516.T015_T016_origem                            DespesaDescOrigem
-                            , T1516.T015_T016_destino                           DespesaDescDestino
-                            , T1516.T006_codigo_destino                         DespesaDestino
-                            , T06B.T006_nome                                    DestinoNome
-                            , date_format(T1516.T015_T016_chegada,'%H:%i')      DespesaChegada
-                            , T1516.T015_T016_km                                DespesaKm
+        $sql    =   "  SELECT date_format(T1516.T015_T016_saida,'%d/%m/%Y %H:%i')   DespesaSaida
+                            , date_format(T1516.T015_T016_chegada,'%d/%m/%Y %H:%i') DespesaChegada                            
+                            , T1516.T015_T016_desc                                  DespesaDescricao
+                            , T1516.T006_codigo_origem                              DespesaOrigem
+                            , T06A.T006_nome                                        OrigemNome
+                            , T1516.T015_T016_origem                                DespesaDescOrigem
+                            , T1516.T015_T016_destino                               DespesaDescDestino
+                            , T1516.T006_codigo_destino                             DespesaDestino
+                            , T06B.T006_nome                                        DestinoNome                            
+                            , T1516.T015_T016_km                                    DespesaKm
                          FROM T015_T016 T1516
                          JOIN T006_loja T06A ON T1516.T006_codigo_origem = T06A.T006_codigo
                          JOIN T006_loja T06B ON T1516.T006_codigo_destino = T06B.T006_codigo
