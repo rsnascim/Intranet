@@ -15,9 +15,27 @@ if(!empty($_POST))
     $filtroStatusIntegracao =   $_REQUEST['FiltroStatusIntegracao'] ;
     $filtroStatusAprovacao  =   $_REQUEST['FiltroStatusAprovacao']  ;
     $filtroRegistros        =   $_REQUEST['FiltroRegistros']        ;
-        
-    $RetornoLotes   =   $objEMP->ConsultaLotesLoja($filtroLoja, $filtroDtInicio, $filtroDtFim, $filtroStatusConsumo, $filtroStatusIntegracao, $filtroStatusAprovacao, $filtroRegistros);
+
+    if(empty($_REQUEST['FiltroStatusAprovacao']))
+        $filtroStatusAprovacao = "1";            
+    
+    if(empty($_REQUEST['FiltroDataInicio']))
+        $dataI  =   date("d/m/Y", strtotime("-5 day"));
+    else
+        $dataI  =   $_REQUEST['FiltroDataInicio'];    
+    
+    if(empty($_REQUEST['FiltroDataFim']))
+        $dataF  =   date("d/m/Y");
+    else
+        $dataF  =   $_REQUEST['FiltroDataFim'];      
+    
+    
+    $RetornoLotes   =   $objEMP->ConsultaLotesLoja($filtroLoja, $dataI, $dataF, $filtroStatusConsumo, $filtroStatusIntegracao, $filtroStatusAprovacao, $filtroRegistros);
+    
+  
 }
+
+
 
 $SelectBoxLoja              =   $obj->retornaLojasSelectBox();
 $SelectStatusIntegracao     =   $objEMP->retornaStatusIntegracao();
@@ -81,21 +99,27 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
             </select>                                       
         </div>
         
+        <div class="grid_4">
+            <label class="label">Filtro Dinâmico</label>
+            <input width="155px" type="text" id="filtroDinamico" value="" name="search">
+        </div>
+        
         <div class="grid_2">
             <label class="label">Data Início</label>
-            <input type="text" name="FiltroDataInicio"  class="data"    value="<?php echo $_REQUEST['FiltroDataInicio'];?>"/>               
+            <input type="text" name="FiltroDataInicio"  class="data"    value="<?php if(!empty($dataI)) echo $dataI;?>"/>               
         </div>
         
         <div class="grid_2">
             <label class="label">Data Fim</label>
-            <input type="text" name="FiltroDataFim"     class="data"    value="<?php echo $_REQUEST['FiltroDataFim'];?>"/>               
+            <input type="text" name="FiltroDataFim"     class="data"    value="<?php if(!empty($dataF)) echo $dataF;?>"/>               
         </div>
         <div class="clear"></div>
         
         <div class="grid_4">
         <label class="label">Status Consumo</label>
             <select name="FiltroStatusConsumo">
-                <option value="">Todos</option>
+                <option value="">Selecione...</option>
+                <option value="999">Todos</option>
                 <?php foreach($SelectStatusConsumo as $campos=>$valores){?>
                 <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusConsumo?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
                 <?php }?>
@@ -105,7 +129,8 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <div class="grid_4">
         <label class="label">Status Integração</label>
             <select name="FiltroStatusIntegracao">
-                <option value="">Todos</option>
+                <option value="">Selecione...</option>
+                <option value="999">Todos</option>
                 <?php foreach($SelectStatusIntegracao as $campos=>$valores){?>
                 <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusIntegracao?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
                 <?php }?>
@@ -115,9 +140,10 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <div class="grid_4">
         <label class="label">Status Aprovação</label>
             <select name="FiltroStatusAprovacao">
-                <option value="">Todos</option>
+                <option value="">Selecione...</option>
+                <option value="999" <?php echo $filtroStatusAprovacao=='999'?"selected":"";?>>Todos</option>
                 <?php foreach($SelectStatusAprovacao as $campos=>$valores){?>
-                <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusAprovacao?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
+                <option value="<?php echo $valores['Codigo'];?>" <?php echo $filtroStatusAprovacao==$valores['Codigo']?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
                 <?php }?>
             </select>            
         </div>
@@ -147,6 +173,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <thead>
             <tr>
                 <!--<th><input type="checkbox" value="1" class="chkSelecionaTodos" <?php echo $statusDespesa!=1?"disabled":""?>/></th>-->
+                <th><input type='checkbox' id='selecionaTodos'/></th>
                 <th>Loja</th>
                 <th>Lote</th>
                 <th>Tipo</th>
@@ -173,17 +200,17 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                    if($existeIntranet)
                    {
             ?>            
-            <tr>
-                <!--<td><?php echo "DespesaCodigo:".$valores['DespesaCodigo'].";"."EtapaCodigo:".$valores['CodigoEtapa'];?>" class="chkItem" <?php echo $statusDespesa!=1?"disabled":""?></td>-->
+            <tr class="dados">
+                
+                <td><?php if($valores['status_aprovacao_id']==1){ ?><input type='checkbox' class='selecionaItem' name="selecionaItem[]" value="<?php echo $valores['store_key']?>"/><?php }?></td>
+                
                 <td class="txtLoja"><?php echo $valores['store_key'];   ?></td>
 
                 <td class="txtLote"
                     onmouseover ="show_tooltip_alert('','<?php echo "Mostrar Ticket, PDV, etc...";?>');tooltip.pnotify_display();" 
                     onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
                     onmouseout  ="tooltip.pnotify_remove();"
-                >
-                    <?php echo $valores['lote_numero']; ?>
-                </td>
+                ><?php echo $valores['lote_numero'];?></td>
 
                 
                 <td width="10%"><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
@@ -229,7 +256,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 
                 <td>                                    
                     <ul class="lista-de-acoes">                                        
-                        <li><a href="#" title="Detalhes"  class="Detalhes">     <span class='ui-icon ui-icon-search'>  </span></a></li>                                    
+                        <li><a href="#" title="Detalhes"  class="<?php echo $valores['status_aprovacao_id']==1?'DetalhesAprovar':'Detalhes';?>">     <span class='ui-icon ui-icon-search'>  </span></a></li>                                    
                         <?php // verifica se está no Status de Aprovação e apresenta os botoes
                               if($valores['status_aprovacao_id']==1)
                               { ?>
@@ -245,5 +272,16 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         </tbody>
         
     </table>
+    
+    <div class="clear10"></div>
+    
+    <div class="grid_3">
+        <input type="button" class="botao-padrao" value="Aprovar Selecionados" id="aprovarSelecionados"/>
+    </div>
+    
+    <div class="grid_3">
+        <input type="button" class="botao-padrao" value="Reprovar Selecionados" id="reprovarSelecionados"/>
+    </div>
+    
 </div>
                         

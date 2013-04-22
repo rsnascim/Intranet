@@ -13,8 +13,8 @@ $HTML      =   "
                   <label class='label'>Alguns campos do Header do Lote</label>
                   <label class='label'>Alguns campos do Header do Lote</label>
                 </div>
-                <BR>
-                <BR>
+                
+                <div class='clear'></div>
                "; 
 
 // verifica qual será o tipo de retorno
@@ -37,12 +37,13 @@ if ($Tipo==2)
    
    // monta as duas tabelas, de producoes e insumos
    
-   $HTML   .= "
-                <BR>
+   $HTML   .= "                
                 <div class='grid_2'>
                   <label class='label'>Itens Produzidos</label>
                 </div>
                 
+                <div class='clear'></div>
+
                 <div class='conteudo_10'>
                 <table id='tDetalhes' class='tablesorter'>
                     <thead>
@@ -80,11 +81,12 @@ if ($Tipo==2)
    
    $HTML   .= "
 
-                <BR>
                 <div class='grid_2'>
                   <label class='label'>Insumos Utilizados</label>
                 </div>
                 
+                <div class='clear'></div>
+
                 <div class='conteudo_10'>
                 <table id='tDetalhes' class='tablesorter'>
                     <thead>
