@@ -193,7 +193,7 @@ class models_T0117 extends models
                 echo    "Aberta";
                 break;
             case 2:
-               echo     "Concluída";
+               echo     "Elaborada";
                 break;
             case 3:
                 echo    "Revisada";
@@ -277,7 +277,7 @@ class models_T0117 extends models
         
     }
     
-    public function enviaEmailExec($user, $codRM){
+    public function enviaEmailExec($user, $codRM, $tipo){
         
         $sql = "SELECT T004_email Email
                       ,T004_nome  Nome
@@ -286,6 +286,12 @@ class models_T0117 extends models
         
         $emailUser  =   $this->query($sql);
         
+        if($tipo    ==  1){
+            $rmTipo =   "da RM.";
+        } elseif($tipo == 2){
+            $rmTipo =   "de Contingência.";
+        }
+        
         foreach ($emailUser as $cpsEmail => $valEmail) {
           
         $to         = $valEmail["Email"]; 
@@ -293,7 +299,7 @@ class models_T0117 extends models
         $subject    = "[Intranet] - Aviso de RM aos Executores";
         
         $html   =   $valEmail["Nome"].'<br>';
-        $html   .=   'Há uma Requisição de Mundança onde você foi incluído como executor.<br>';
+        $html   .=   'Há uma Requisição de Mundança onde você foi incluído como executor '.$rmTipo.'<br>';
         $html   .=   'Requisição Nº '. $codRM;
     
         $headers  = "From: $from\r\n"; 
@@ -305,7 +311,24 @@ class models_T0117 extends models
         mail($to, $subject, $html, $headers); 
             
         }
-
+        
+    }
+    
+    public function retornaExecGeral($codRM) {
+              
+        
+        $sql    =   "  SELECT T04.T004_login            Login
+                            , T004_nome                 Nome
+                            , T04113.T113_codigo        Codigo
+                            , T04113.T004_T113_tipo     Tipo
+                         FROM    T004_usuario T04
+                              JOIN
+                                 T004_T113 T04113
+                              ON T04.T004_login = T04113.T004_login
+                      WHERE T04113.T113_codigo    = $codRM";
+        
+        echo $sql;
+        return $this->query($sql);
         
     }
     
