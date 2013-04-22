@@ -147,9 +147,12 @@ function atualizaCanceladosIntranet(){
   
 }
 echo 'Inicio Execucao';
-echo date();
+echo '<BR>';
 insereIntranet();
 atualizaCanceladosIntranet();
+echo 'Fim Execucao';
+echo '<BR>';
+
 // 
 
 /*
