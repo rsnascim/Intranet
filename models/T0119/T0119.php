@@ -88,13 +88,13 @@ class models_T0119 extends models
                  }
 
                  
-                 if(!empty($filtroStatusConsumo))
+                 if((!empty($filtroStatusConsumo))&&($filtroStatusConsumo<>"999"))
                     $sql   .=  " AND sc.status_consumo_id       = $filtroStatusConsumo";
                  
-                 if(!empty($filtroStatusIntegracao))
+                 if((!empty($filtroStatusIntegracao))&&($filtroStatusIntegracao<>"999"))
                     $sql   .=  " AND si.status_integracao_id    = $filtroStatusIntegracao";
                  
-                 if(!empty($filtroStatusAprovacao))
+                 if((!empty($filtroStatusAprovacao))&&($filtroStatusAprovacao<>"999"))
                     $sql   .=  " AND sa.status_aprovacao_id     = $filtroStatusAprovacao";
                  
                   $sql  .=  " ORDER BY l.start_time ";
@@ -102,7 +102,6 @@ class models_T0119 extends models
                   if(!empty($filtroRegistros))
                     $sql  .=  " LIMIT $filtroRegistros";
 
-        
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
     
@@ -114,6 +113,19 @@ class models_T0119 extends models
                 ." AND t.T116_lote    =  $Lote
                    AND $CondSQL 
                LIMIT 1
+             ";   
+        
+        $Retorno=$this->query($sql)->fetchAll(PDO::FETCH_COLUMN) ;
+        return $Retorno[0];
+        
+    }
+    
+    public function ConsultaLote($Loja,$Lote)
+    {
+        $sql=" SELECT *
+                 FROM davo_ccu_lote l
+                WHERE l.store_key   = $Loja
+                  AND l.lote_numero = $Lote
              ";   
         
         $Retorno=$this->query($sql)->fetchAll(PDO::FETCH_COLUMN) ;

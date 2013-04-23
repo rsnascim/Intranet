@@ -59,7 +59,7 @@ function retornaLotesDisponiveis(){
 function retornaLotesCancelados(){
     $sql = "   SELECT l.store_key , l.lote_numero , l.tipo_codigo , l.aprovacao_status_id , l.aprovacao_data
                  FROM davo_ccu_lote l
-                WHERE l.aprovacao_status_id in ( 8 )
+                WHERE l.aprovacao_status_id in ( 6 , 8 )
            ";
 
     $db =       conectaEmporium();
