@@ -88,13 +88,13 @@ class models_T0119 extends models
                  }
 
                  
-                 if(!empty($filtroStatusConsumo))
+                 if((!empty($filtroStatusConsumo))&&($filtroStatusConsumo<>"999"))
                     $sql   .=  " AND sc.status_consumo_id       = $filtroStatusConsumo";
                  
-                 if(!empty($filtroStatusIntegracao))
+                 if((!empty($filtroStatusIntegracao))&&($filtroStatusIntegracao<>"999"))
                     $sql   .=  " AND si.status_integracao_id    = $filtroStatusIntegracao";
                  
-                 if(!empty($filtroStatusAprovacao))
+                 if((!empty($filtroStatusAprovacao))&&($filtroStatusAprovacao<>"999"))
                     $sql   .=  " AND sa.status_aprovacao_id     = $filtroStatusAprovacao";
                  
                   $sql  .=  " ORDER BY l.start_time ";
@@ -102,7 +102,6 @@ class models_T0119 extends models
                   if(!empty($filtroRegistros))
                     $sql  .=  " LIMIT $filtroRegistros";
 
-        
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
     
@@ -118,6 +117,39 @@ class models_T0119 extends models
         
         $Retorno=$this->query($sql)->fetchAll(PDO::FETCH_COLUMN) ;
         return $Retorno[0];
+        
+    }
+    
+    public function ConsultaLote($Loja,$Lote)
+    {
+        $sql=" SELECT *
+                 FROM davo_ccu_lote l
+                WHERE l.store_key   = $Loja
+                  AND l.lote_numero = $Lote
+             ";   
+        
+        return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
+        
+    }
+    
+    public function ConsultaLotesDestino($Loja,$Lote)
+    {
+        $sql="    SELECT ld.*
+                    FROM davo_ccu_lote l
+                    JOIN davo_ccu_tipo t ON (      t.tipo_codigo = l.tipo_codigo 
+                                              AND  t.consumivel = 1
+                                            )
+                    JOIN davo_ccu_lote_consumo c ON (     c.lote_numero_origem = l.lote_numero 
+                                                      AND c.store_key_origem   = l.store_key                        
+                                                    ) 
+                    JOIN davo_ccu_lote ld ON (     ld.lote_numero = c.lote_numero_destino 
+                                               AND ld.store_key   = c.store_key_destino                                  
+                                             )  
+                   WHERE l.lote_numero  = $Lote
+                     AND l.store_key    = $Loja 
+             ";   
+        
+        return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
         
     }
     
