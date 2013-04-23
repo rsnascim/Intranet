@@ -97,7 +97,7 @@ if ($Tipo==2)
                 <div class='clear'></div>
 
                 <div class='conteudo_10'>
-                <table id='tDetalhes' class='tablesorter'>
+                <table id='tDetalhes2' class='tablesorter'>
                     <thead>
                         <tr>
                             <th>LoteOrigem</th>
@@ -161,136 +161,137 @@ else
                 </div> ";
     
 }
+if ($Tipo==1)
+{ 
+    $RetornoConsumos   = $objEMP->ConsultaLotesDestino($Loja, $Lote);
 
-$RetornoConsumos   = $objEMP->ConsultaLotesDestino($Loja, $Lote);
+    if($RetornoConsumos)
+    {    $HTML      .= "
+                        <BR>
+                        <BR>
+                        <div class='clear'></div>
+                        <div class='clear'></div>
+                        <div class='grid_2'>
+                          <H2><label class='label'>Lote Consumido em: </label></H2>
+                        </div>
+                       ";
 
-if($RetornoConsumos)
-{    $HTML      .= "
-                    <BR>
-                    <BR>
-                    <div class='clear'></div>
-                    <div class='clear'></div>
-                    <div class='grid_2'>
-                      <H2><label class='label'>Lote Consumido em: </label></H2>
-                    </div>
-                   ";
-                   
-    $HTML      .=   " 
-                    <div class='clear'></div>
-                    <div class='grid_2'>
-                   ";
-    // apresenta campos do Lote do Destino
-    foreach($RetornoConsumos as $campos=>$valores)
-    {
-        $HTML     .= "<label class='label'>Lote:  ".$objEMP->formataDataHoraView($valores['lote_numero'])."</label>";
-        $HTML     .= "<label class='label'>Data:  ".$objEMP->formataDataHoraView($valores['start_time'])."</label>";
-        $HTML     .= "<label class='label'>Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."</label>";
-        
-        $RetornoDetalhes= $objEMP->ConsultaDetalhesLoteLojaProducao($valores['store_key'],$valores['lote_numero']);    
-        
-         // Divide o array em 2, para producoes e insumos
-         $ArrayProducoes=Array();
-         $ArrayInsumos=Array();
+        $HTML      .=   " 
+                        <div class='clear'></div>
+                        <div class='grid_2'>
+                       ";
+        // apresenta campos do Lote do Destino
+        foreach($RetornoConsumos as $campos=>$valores)
+        {
+            $HTML     .=   "<label class='label'>Lote:  ".$objEMP->formataDataHoraView($valores['lote_numero'])."</label>";
+            $HTML     .=   "<label class='label'>Data:  ".$objEMP->formataDataHoraView($valores['start_time'])."</label>";
+            $HTML     .=   "<label class='label'>Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."</label>";
+            $HTML     .= "</div>";
 
-         foreach($RetornoDetalhes as $campos=>$valores)
-         {
-             if($valores['itipo']=="P")
-                $ArrayProducoes[]=$valores;
-             else
-                $ArrayInsumos[]=$valores;
-         }   
+            $RetornoDetalhes= $objEMP->ConsultaDetalhesLoteLojaProducao($valores['store_key'],$valores['lote_numero']);    
 
-         // monta as duas tabelas, de producoes e insumos
+             // Divide o array em 2, para producoes e insumos
+             $ArrayProducoes=Array();
+             $ArrayInsumos=Array();
 
-         $HTML   .= "                
-                      <div class='grid_2'>
-                        <label class='label'>Itens Produzidos</label>
-                      </div>
+             foreach($RetornoDetalhes as $campos=>$valores)
+             {
+                 if($valores['itipo']=="P")
+                    $ArrayProducoes[]=$valores;
+                 else
+                    $ArrayInsumos[]=$valores;
+             }   
 
-                      <div class='clear'></div>
+             // monta as duas tabelas, de producoes e insumos
 
-                      <div class='conteudo_10'>
-                      <table id='tDetalhes' class='tablesorter'>
-                          <thead>
-                              <tr>
-                                  <th>PLU</th>
-                                  <th>Descricao</th>
-                                  <th>Secao</th>
-                                  <th>Qtde</th>
-                                  <th>Valor Unit.</th>
-                                  <th>Valor Total</th>
-                                  <th>Preço Venda</th>
-                                  <th>Carga Trib.</th>
-                              </tr>
-                          </thead>
-                          <tbody>";
-                           foreach($ArrayProducoes as $campos=>$valores){
-          $HTML .=           "<tr>
-                                  <td>".$valores['icditem']  ."</td>
-                                  <td>".$valores['idsplu']."</td>
-                                  <td>".$valores['idepto']."</td>
-                                  <td align='right'>".$objEMP->formataNumero($valores['iqtde'],3)."</td>
-                                  <td align='right'>".$objEMP->formataMoedaSufixo($valores['iunitprice'],3)."</td>
-                                  <td align='right'>".$objEMP->formataMoedaSufixo($valores['ivalor'])."</td>
-                                  <td align='right'>".$objEMP->formataMoedaSufixo($valores['ipreco'])."</td>
-                                  <td align='right'>".$objEMP->formataNumero($valores['ict'])."</td>
-                              </tr> ";
-                           }  
-          $HTML .=     "  </tbody>
-                      </table>
-                      </div> ";
+             $HTML   .= " <div class='clear'></div>
+                          <div class='grid_2'>
+                            <label class='label'>Itens Produzidos</label>
+                          </div>
 
+                          <div class='clear'></div>
+
+                          <div class='conteudo_10'>
+                          <table id='tDetalhes' class='tablesorter'>
+                              <thead>
+                                  <tr>
+                                      <th>PLU</th>
+                                      <th>Descricao</th>
+                                      <th>Secao</th>
+                                      <th>Qtde</th>
+                                      <th>Valor Unit.</th>
+                                      <th>Valor Total</th>
+                                      <th>Preço Venda</th>
+                                      <th>Carga Trib.</th>
+                                  </tr>
+                              </thead>
+                              <tbody>";
+                               foreach($ArrayProducoes as $campos=>$valores){
+              $HTML .=           "<tr>
+                                      <td>".$valores['icditem']  ."</td>
+                                      <td>".$valores['idsplu']."</td>
+                                      <td>".$valores['idepto']."</td>
+                                      <td align='right'>".$objEMP->formataNumero($valores['iqtde'],3)."</td>
+                                      <td align='right'>".$objEMP->formataMoedaSufixo($valores['iunitprice'],3)."</td>
+                                      <td align='right'>".$objEMP->formataMoedaSufixo($valores['ivalor'])."</td>
+                                      <td align='right'>".$objEMP->formataMoedaSufixo($valores['ipreco'])."</td>
+                                      <td align='right'>".$objEMP->formataNumero($valores['ict'])."</td>
+                                  </tr> ";
+                               }  
+              $HTML .=     "  </tbody>
+                          </table>
+                          </div> ";
 
 
 
 
-         $HTML   .= "
 
-                      <div class='grid_2'>
-                        <label class='label'>Insumos Utilizados</label>
-                      </div>
+             $HTML   .= "
 
-                      <div class='clear'></div>
+                          <div class='grid_2'>
+                            <label class='label'>Insumos Utilizados</label>
+                          </div>
 
-                      <div class='conteudo_10'>
-                      <table id='tDetalhes' class='tablesorter'>
-                          <thead>
-                              <tr>
-                                  <th>LoteOrigem</th>
-                                  <th>PLU</th>
-                                  <th>Descricao</th>
-                                  <th>Secao</th>
-                                  <th>Qtde</th>
-                                  <th>Valor Unit.</th>
-                                  <th>Valor Total</th>
-                                  <th>Carga Trib.</th>
-                              </tr>
-                          </thead>
-                          <tbody>";
-                           foreach($ArrayInsumos as $campos=>$valores){
-          $HTML .=           "<tr>
-                                  <td>".$valores['iloteori']."</td>
-                                  <td>".$valores['icditem']  ."</td>
-                                  <td>".$valores['idsplu']."</td>
-                                  <td>".$valores['idepto']."</td>
-                                  <td align='right'>".$objEMP->formataNumero($valores['iqtde'],3)."</td>
-                                  <td align='right'>".$objEMP->formataMoedaSufixo($valores['iunitprice'],3)."</td>
-                                  <td align='right'>".$objEMP->formataMoedaSufixo($valores['ivalor'])."</td>
-                                  <td align='right'>".$objEMP->formataNumero($valores['ict'])."</td>
-                              </tr> ";
-                           }  
-          $HTML .=     "  </tbody>
-                      </table>
-                      </div> ";    
-      
+                          <div class='clear'></div>
+
+                          <div class='conteudo_10'>
+                          <table id='tDetalhes' class='tablesorter'>
+                              <thead>
+                                  <tr>
+                                      <th>LoteOrigem</th>
+                                      <th>PLU</th>
+                                      <th>Descricao</th>
+                                      <th>Secao</th>
+                                      <th>Qtde</th>
+                                      <th>Valor Unit.</th>
+                                      <th>Valor Total</th>
+                                      <th>Carga Trib.</th>
+                                  </tr>
+                              </thead>
+                              <tbody>";
+                               foreach($ArrayInsumos as $campos=>$valores){
+              $HTML .=           "<tr>
+                                      <td>".$valores['iloteori']."</td>
+                                      <td>".$valores['icditem']  ."</td>
+                                      <td>".$valores['idsplu']."</td>
+                                      <td>".$valores['idepto']."</td>
+                                      <td align='right'>".$objEMP->formataNumero($valores['iqtde'],3)."</td>
+                                      <td align='right'>".$objEMP->formataMoedaSufixo($valores['iunitprice'],3)."</td>
+                                      <td align='right'>".$objEMP->formataMoedaSufixo($valores['ivalor'])."</td>
+                                      <td align='right'>".$objEMP->formataNumero($valores['ict'])."</td>
+                                  </tr> ";
+                               }  
+              $HTML .=     "  </tbody>
+                          </table>
+                          </div> ";    
+
+        }
+
+        $HTML     .=   "
+                        <div class='clear'>
+                        </div>
+                       "; 
     }
-
-    $HTML     .=   "
-                     </div>
-                    <div class='clear'>
-                    </div>
-                   "; 
-
 }
 echo $HTML ; 
 ?>

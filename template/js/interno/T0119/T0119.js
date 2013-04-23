@@ -125,7 +125,18 @@ $(function(){
                                         , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
-                                                        7:{sorter: false}   
+                                                        100:{sorter: false}   
+                                                      , 3: {sorter:"brazilNumber"}   
+                                                      , 4: {sorter:"brazilCurrency"} // moeda
+                                                      , 5: {sorter:"brazilCurrency"}
+                                                  }
+                                        });
+            $("#tDetalhes2").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+                                        , locale: 'br'  // nao sei se funciona
+                                        , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                        , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
+                                        , headers: {
+                                                        100:{sorter: false}   
                                                       , 3: {sorter:"brazilNumber"}   
                                                       , 4: {sorter:"brazilCurrency"} // moeda
                                                       , 5: {sorter:"brazilCurrency"}
@@ -169,7 +180,18 @@ $(function(){
                                         , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
-                                                        7:{sorter: false}   
+                                                        100:{sorter: false}   
+                                                      , 3: {sorter:"brazilNumber"}   
+                                                      , 4: {sorter:"brazilCurrency"} // moeda
+                                                      , 5: {sorter:"brazilCurrency"}
+                                                  }
+                                        });
+            $("#tDetalhes2").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+                                        , locale: 'br'  // nao sei se funciona
+                                        , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                        , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
+                                        , headers: {
+                                                        100:{sorter: false}   
                                                       , 3: {sorter:"brazilNumber"}   
                                                       , 4: {sorter:"brazilCurrency"} // moeda
                                                       , 5: {sorter:"brazilCurrency"}
