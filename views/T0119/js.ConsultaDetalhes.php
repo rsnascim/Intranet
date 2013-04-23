@@ -16,6 +16,7 @@ $HTML      =   "
 // apresenta campos do Header do Lote
 foreach($Retorno as $campos=>$valores)
 {
+  $HTML     .= "<label class='label'>Lote:  ".$valores['lote_numero']."</label>";
   $HTML     .= "<label class='label'>Data:  ".$objEMP->formataDataHoraView($valores['start_time'])."</label>";
   $HTML     .= "<label class='label'>Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."</label>";
   $HTML     .= "<label class='label'>Tipo: ".$objEMP->RetornaStringTipo($valores['tipo_codigo'])."</label>";
@@ -48,7 +49,7 @@ if ($Tipo==2)
    
    $HTML   .= "                
                 <div class='grid_2'>
-                  <label class='label'>Itens Produzidos</label>
+                  <label class='label'>PRODUÇÃO : </label>
                 </div>
                 
                 <div class='clear'></div>
@@ -91,7 +92,7 @@ if ($Tipo==2)
    $HTML   .= "
 
                 <div class='grid_2'>
-                  <label class='label'>Insumos Utilizados</label>
+                  <label class='label'>INSUMOS : </label>
                 </div>
                 
                 <div class='clear'></div>
@@ -166,24 +167,26 @@ if ($Tipo==1)
     $RetornoConsumos   = $objEMP->ConsultaLotesDestino($Loja, $Lote);
 
     if($RetornoConsumos)
-    {    $HTML      .= "
-                        <BR>
-                        <BR>
-                        <div class='clear'></div>
-                        <div class='clear'></div>
-                        <div class='grid_2'>
-                          <H2><label class='label'>Lote Consumido em: </label></H2>
-                        </div>
-                       ";
-
-        $HTML      .=   " 
-                        <div class='clear'></div>
-                        <div class='grid_2'>
-                       ";
+    {    
         // apresenta campos do Lote do Destino
         foreach($RetornoConsumos as $campos=>$valores)
         {
-            $HTML     .=   "<label class='label'>Lote:  ".$objEMP->formataDataHoraView($valores['lote_numero'])."</label>";
+           $HTML      .= "
+                            <BR>
+                            <BR>
+                            <div class='clear'></div>
+                            <div class='clear'></div>
+                            <div class='grid_2'>
+                              <H2><label class='label'>LOTE $Lote CONSUMIDO EM : </label></H2>
+                            </div>
+                           ";
+
+            $HTML      .=   " 
+                            <div class='clear'></div>
+                            <div class='grid_2'>
+                           ";
+            
+            $HTML     .=   "<label class='label'>Lote:  ".$valores['lote_numero']." - ".$objEMP->RetornaStringTipo($valores['tipo_codigo'])."</label>";
             $HTML     .=   "<label class='label'>Data:  ".$objEMP->formataDataHoraView($valores['start_time'])."</label>";
             $HTML     .=   "<label class='label'>Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."</label>";
             $HTML     .= "</div>";
@@ -206,7 +209,7 @@ if ($Tipo==1)
 
              $HTML   .= " <div class='clear'></div>
                           <div class='grid_2'>
-                            <label class='label'>Itens Produzidos</label>
+                            <label class='label'>PRODUÇÃO :</label>
                           </div>
 
                           <div class='clear'></div>
@@ -249,7 +252,7 @@ if ($Tipo==1)
              $HTML   .= "
 
                           <div class='grid_2'>
-                            <label class='label'>Insumos Utilizados</label>
+                            <label class='label'>INSUMOS :</label>
                           </div>
 
                           <div class='clear'></div>

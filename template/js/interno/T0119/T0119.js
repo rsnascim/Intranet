@@ -15,23 +15,15 @@ $(function(){
 //
 //                                  });
 
-//   $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
-//                                , locale: 'br'  // nao sei se funciona
-//                                , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
-//                                , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
-//                                , headers: {
-//                                                0:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
-//                                              , 100:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
-//                                              , 3: {sorter:"text"} 
-//                                              , 6: {sorter:"brazilCurrency"} // moeda
-//                                          }
-//                                });
+//   
 
    function aprovarLote(Lote, Loja, Tipo, Obj){
     var arrLote = new Array();
     var arrLoja = new Array();
     var arrTipo = new Array();
-    $("#dialog-aprovar").html("<p>Detalhes da chamada </p>");
+    var Valor=Obj.parents("tr").find(".txtValor").text();
+    var TipoString=Obj.parents("tr").find(".txtTipoString").text();
+    $("#dialog-aprovar").html("<p>"+"Tipo: "+TipoString+"<BR>"+"Valor: "+Valor+"</p>");
     $("#dialog-aprovar").dialog
     ({
             resizable: false,
@@ -401,6 +393,17 @@ $(function(){
         
     });
     
+    $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+                                , locale: 'br'  // nao sei se funciona
+                                , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
+                                , headers: {
+                                                0:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
+                                              , 100:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
+                                              , 3: {sorter:"text"} 
+                                              , 6: {sorter:"brazilCurrency"} // moeda
+                                          }
+                                });
 });
 /* ============== Função para Upload Fim  =================== */ 
 
