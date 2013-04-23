@@ -76,10 +76,10 @@ if(!is_null($fp))
 <?php if($_SERVER['SERVER_NAME']=='localhost'){?>
     <link rel="stylesheet" href="template/css/-layout-local.css"/>
 <?php }?>
-<?php if($_SERVER['SERVER_NAME']=='oraas141'){?>
+<?php if($_SERVER['SERVER_NAME']=='oraas141' || $_SERVER['SERVER_NAME']=='10.2.1.141'){?>
     <link rel="stylesheet" href="template/css/-layout-qas.css"/>
 <?php }?>
-<?php if($_SERVER['SERVER_NAME']=='oraas041'){?>
+<?php if($_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41'){?>
     <link rel="stylesheet" href="template/css/-layout-prd.css"/>
 <?php }?>
 <!--[if IE 7]>

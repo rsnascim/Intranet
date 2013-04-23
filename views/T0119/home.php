@@ -35,8 +35,6 @@ if(!empty($_POST))
   
 }
 
-
-
 $SelectBoxLoja              =   $obj->retornaLojasSelectBox();
 $SelectStatusIntegracao     =   $objEMP->retornaStatusIntegracao();
 $SelectStatusConsumo        =   $objEMP->retornaStatusConsumo();
