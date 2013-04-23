@@ -404,6 +404,7 @@ $(function(){
                                               , 6: {sorter:"brazilCurrency"} // moeda
                                           }
                                 });
+                                
 });
 /* ============== Função para Upload Fim  =================== */ 
 
