@@ -1125,13 +1125,11 @@
 				if (fieldAlt.is(":disabled"))
 					return;
 				pdate = methods._parseDate(fieldAlt.val());
-                                alert('pdate:'+pdate);
 			} else {
 				pdate = methods._parseDate(p);
 			}
 			var vdate = methods._parseDate(field.val());
                         
-                        alert('vdate:'+vdate);
                         
 			if (vdate < pdate ) {
 				var rule = options.allrules.future;
@@ -1438,14 +1436,17 @@
 		* @param {String} d
 		*/
 		_parseDate: function(d) {
-
 			var dateParts = d.split("/");
-                        alert('dateParts'+dateParts);
 			if(dateParts==d)
 				dateParts = d.split("/");
                             
-                            alert('Return Date:'+Date(dateParts[0], (dateParts[1]) ,dateParts[2]));
-			return new Date(dateParts[0], (dateParts[1]) ,dateParts[2]);
+                            var Dia=dateParts[0];
+                            var Mes=dateParts[1];
+                            var Ano=dateParts[2];
+                            
+                            var myDate=new Date(Ano+'-'+Mes+'-'+Dia);
+                            
+			return myDate;
 		},
 		/**
 		* Builds or updates a prompt with the given information
