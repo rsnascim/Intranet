@@ -217,7 +217,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
 
                 
                 <td class="txtTipoString" width="10%"><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
-                <td style="display:none" class="txtTipo"><?php echo $valores['tipo_codigo']; ?></td>
+                
                 <td class="txtData"><?php echo $objEMP->formataDataHoraView($valores['start_time']); ?></td>
                 <td class="txtVolumes" align="right"><?php  echo $valores['quantity_rows'];?></td>
                 <td class="txtValor" align="right"><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>
@@ -271,6 +271,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                         <?php } ?>  
                     </ul>
                 </td>
+                <td style="display:none" class="txtTipo"><?php echo $valores['tipo_codigo']; ?></td>
             </tr>
               <?php 
                    }

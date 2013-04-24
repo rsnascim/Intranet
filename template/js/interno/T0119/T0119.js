@@ -18,22 +18,14 @@ $(function(){
 //   
 
     $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
-                                
-                                , sortList: [[1,0]]               //Ordena Coluna 1 Crescente
-                               // , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
+                                , sortList: [[4,0]]               //Ordena Coluna 1 Crescente
+                                , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                 , headers: {
-                                                0:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
-                                              , 10:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
-                                              
-                                              , 1: {sorter:"brazilNumber"} 
-                                              , 2: {sorter:"brazilNumber"} 
-                                              , 3: {sorter:"text"} 
-                                              , 4: {sorter:"brazilDate"} 
-                                              , 5: {sorter:"brazilNumber"} 
-                                              , 7: {sorter:"brazilCurrency"} // moeda
-                                              //, 7: {sorter:"text"} 
+                                                0:{sorter: false}   
+                                              , 3: {sorter:"text"}   
+                                              , 6: {sorter:"brazilCurrency"}   
                                           }
-                                });        
+                                });
 
    function aprovarLote(Lote, Loja, Tipo, Obj){
     var arrLote = new Array();
@@ -154,9 +146,13 @@ $(function(){
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
                                                         100:{sorter: false}   
+                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 1: {sorter:"text"}   
+                                                      , 2: {sorter:"text"}   
                                                       , 3: {sorter:"brazilNumber"}   
                                                       , 4: {sorter:"brazilCurrency"} // moeda
                                                       , 5: {sorter:"brazilCurrency"}
+                                                      , 6: {sorter:"brazilCurrency"}
                                                   }
                                         });
             $("#tDetalhes2").tablesorter({ widgets:['zebra']                //Tabela Zebrada
@@ -165,9 +161,16 @@ $(function(){
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
                                                         100:{sorter: false}   
-                                                      , 3: {sorter:"brazilNumber"}   
-                                                      , 4: {sorter:"brazilCurrency"} // moeda
-                                                      , 5: {sorter:"brazilCurrency"}
+                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 1: {sorter:"brazilNumber"}   
+                                                      , 2: {sorter:"text"}   
+                                                      , 3: {sorter:"text"}   
+                                                      
+                                                      
+                                                      , 4: {sorter:"brazilNumber"}   
+                                                      , 5: {sorter:"brazilCurrency"} // moeda
+                                                      , 6: {sorter:"brazilCurrency"}
+                                                      , 7: {sorter:"brazilCurrency"}
                                                   }
                                         });
 
@@ -209,9 +212,13 @@ $(function(){
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
                                                         100:{sorter: false}   
+                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 1: {sorter:"text"}   
+                                                      , 2: {sorter:"text"}   
                                                       , 3: {sorter:"brazilNumber"}   
                                                       , 4: {sorter:"brazilCurrency"} // moeda
                                                       , 5: {sorter:"brazilCurrency"}
+                                                      , 6: {sorter:"brazilCurrency"}
                                                   }
                                         });
             $("#tDetalhes2").tablesorter({ widgets:['zebra']                //Tabela Zebrada
@@ -220,9 +227,16 @@ $(function(){
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
                                                         100:{sorter: false}   
-                                                      , 3: {sorter:"brazilNumber"}   
-                                                      , 4: {sorter:"brazilCurrency"} // moeda
-                                                      , 5: {sorter:"brazilCurrency"}
+                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 1: {sorter:"brazilNumber"}   
+                                                      , 2: {sorter:"text"}   
+                                                      , 3: {sorter:"text"}   
+                                                      
+                                                      
+                                                      , 4: {sorter:"brazilNumber"}   
+                                                      , 5: {sorter:"brazilCurrency"} // moeda
+                                                      , 6: {sorter:"brazilCurrency"}
+                                                      , 7: {sorter:"brazilCurrency"}
                                                   }
                                         });
 
