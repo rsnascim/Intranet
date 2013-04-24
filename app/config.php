@@ -9,7 +9,7 @@
 ini_set("display_errors",0);    
  
 /* Inicializa characters com UTF-8 */
-ini_set('default_charset','UTF-8');
+ini_set('default_charset','ISO-8859-1');
 
 /* Definir header depois de fazer um print          */
 ob_start();

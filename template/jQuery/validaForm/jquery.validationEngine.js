@@ -1099,7 +1099,8 @@
 			if (vdate > pdate ) {
 				var rule = options.allrules.past;
 				if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
-				return rule.alertText + methods._dateToString(pdate);
+				//return rule.alertText + methods._dateToString(pdate);
+				return rule.alertText + 'Data Final';
 			}
 		},
 		/**
@@ -1117,23 +1118,27 @@
 			var p=rules[i + 1];
 			var fieldAlt = $(form.find("input[name='" + p.replace(/^#+/, '') + "']"));
 			var pdate;
-
+                        
 			if (p.toLowerCase() == "now") {
 				pdate = new Date();
 			} else if (undefined != fieldAlt.val()) {
 				if (fieldAlt.is(":disabled"))
 					return;
 				pdate = methods._parseDate(fieldAlt.val());
+                                alert('pdate:'+pdate);
 			} else {
 				pdate = methods._parseDate(p);
 			}
 			var vdate = methods._parseDate(field.val());
-
+                        
+                        alert('vdate:'+vdate);
+                        
 			if (vdate < pdate ) {
 				var rule = options.allrules.future;
 				if (rule.alertText2)
 					return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
-				return rule.alertText + methods._dateToString(pdate);
+				// return rule.alertText + methods._dateToString(pdate);
+				return rule.alertText + 'Data Inicial';
 			}
 		},
 		/**
@@ -1434,10 +1439,13 @@
 		*/
 		_parseDate: function(d) {
 
-			var dateParts = d.split("-");
+			var dateParts = d.split("/");
+                        alert('dateParts'+dateParts);
 			if(dateParts==d)
 				dateParts = d.split("/");
-			return new Date(dateParts[0], (dateParts[1] - 1) ,dateParts[2]);
+                            
+                            alert('Return Date:'+Date(dateParts[0], (dateParts[1]) ,dateParts[2]));
+			return new Date(dateParts[0], (dateParts[1]) ,dateParts[2]);
 		},
 		/**
 		* Builds or updates a prompt with the given information

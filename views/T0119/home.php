@@ -84,7 +84,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
 <!-- Divs com filtros oculta -->
 <div class="conteudo_16  div-filtro">
     
-    <form action="" method="post" class="div-filtro-visivel">
+    <form action="" method="post" class="div-filtro-visivel validaFormulario">
         <!--<input type="hidden" name="router" value="T0119/home" />-->
         
         <div class="grid_4">       
@@ -104,12 +104,12 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         
         <div class="grid_2">
             <label class="label">Data Início</label>
-            <input type="text" name="FiltroDataInicio"  class="data"    value="<?php if(!empty($dataI)) echo $dataI;?>"/>               
+            <input type="text" name="FiltroDataInicio"  class="data validate[custom[date],past[#FiltroDataFim]]"  value="<?php if(!empty($dataI)) echo $dataI;?>"/>               
         </div>
         
         <div class="grid_2">
             <label class="label">Data Fim</label>
-            <input type="text" name="FiltroDataFim"     class="data"    value="<?php if(!empty($dataF)) echo $dataF;?>"/>               
+            <input type="text" name="FiltroDataFim"   class="data validate[custom[date],future[#FiltroDataInicio]] "    value="<?php if(!empty($dataF)) echo $dataF;?>"/>               
         </div>
         <div class="clear"></div>
         
@@ -171,17 +171,17 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <thead>
             <tr>
                 <!--<th><input type="checkbox" value="1" class="chkSelecionaTodos" <?php echo $statusDespesa!=1?"disabled":""?>/></th>-->
-                <th><input type='checkbox' id='selecionaTodos'/></th>
-                <th>Loja</th>
-                <th>Lote</th>
-                <th>Tipo</th>
-                <th>Data/Hora</th>
-                <th>Volumes</th>
-                <th>Valor</th>
-                <th>Status Consumo</th>
-                <th>Status Aprovação</th>
-                <th>Status Integração</th>
-                <th>Ações</th>
+                <th width="2%"><input type='checkbox' id='selecionaTodos'/></th>
+                <th width="5%">Loja</th>
+                <th width="5%">Lote</th>
+                <th width="18%">Tipo</th>
+                <th width="12%">Data/Hora</th>
+                <th width="3%">Vol.</th>
+                <th width="7%">Valor</th>
+                <th width="12%">Associação</th>
+                <th width="12%">Aprovação</th>
+                <th width="12%">Integração</th>
+                <th width="10%" >Ações</th>
                 
 <!--                <th>Data</th>
                 <th>Última Etapa</th>

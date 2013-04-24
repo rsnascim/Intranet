@@ -24,6 +24,7 @@ $(function(){
                                                 0:{sorter: false}   
                                               , 3: {sorter:"text"}   
                                               , 6: {sorter:"brazilCurrency"}   
+                                              , 10:{sorter: false}   
                                           }
                                 });
 
@@ -142,7 +143,7 @@ $(function(){
             $("#dialog-detalhes").html(retorno);
             $("#tDetalhes").tablesorter({ widgets:['zebra']                //Tabela Zebrada
                                         , locale: 'br'  // nao sei se funciona
-                                        , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                        // , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
                                                         100:{sorter: false}   
@@ -208,7 +209,7 @@ $(function(){
             $("#dialog-detalhes").html(retorno);
             $("#tDetalhes").tablesorter({ widgets:['zebra']                //Tabela Zebrada
                                         , locale: 'br'  // nao sei se funciona
-                                        , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                        // , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
                                                         100:{sorter: false}   
