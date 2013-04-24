@@ -61,16 +61,20 @@ class models_T0119 extends models
         
         
         $sql="  SELECT l.store_key , l.lote_numero , l.start_time 
+                     , l.pos_number , l.ticket_number
                      , l.amount , l.quantity_rows 
                      , t.tipo_codigo 
                      , sc.status_consumo_id     , sc.status_consumo_descricao     , l.consumo_data , l.consumo_agent_key
                      , si.status_integracao_id  , si.status_integracao_descricao  , l.integracao_data
                      , sa.status_aprovacao_id   , sa.status_aprovacao_descricao   , l.aprovacao_data , l.aprovacao_agent_key , l.aprovacao_usuario
+                     , a.id , u.alternate_id, UPPER(a.name) name
                   FROM davo_ccu_lote l
                   INNER JOIN davo_ccu_tipo t                 ON (     t.tipo_codigo           = l.tipo_codigo          )
                   INNER JOIN davo_ccu_status_consumo    sc   ON (     sc.status_consumo_id    = l.consumo_status_id    )
                   INNER JOIN davo_ccu_status_integracao si   ON (     si.status_integracao_id = l.integracao_status_id )
                   INNER JOIN davo_ccu_status_aprovacao  sa   ON (     sa.status_aprovacao_id  = l.aprovacao_status_id  )                  
+                  LEFT JOIN `user` u                         ON (     l.agent_key = u.agent_key )
+                  LEFT JOIN agent a                          ON (     u.agent_key = a.agent_key )
                  WHERE 1    =   1";
                  
                  if(!empty($filtroLoja))
@@ -240,6 +244,29 @@ class models_T0119 extends models
                         ";
         
         return $this->query($sql);
+    }
+    
+    public function retornaDadosOperador($Operador)
+    {
+        $sql    =   "  SELECT CONCAT(a.id ,' - ', u.alternate_id,' - ', UPPER(a.name))
+                        FROM `user` u
+                        LEFT JOIN agent a ON (u.agent_key = a.agent_key) 
+                       WHERE u.agent_key =  $Operador   
+                        ";
+
+        $Retorno=$this->query($sql)->fetchAll(PDO::FETCH_COLUMN) ;
+        return $Retorno[0];        
+    }
+    
+    public function retornaDadosUsuario($Login)
+    {
+        $sql    =   " select T004.T004_nome
+                        from T004_usuario T004
+                       where T004.T004_login =  '$Login'
+                        ";
+
+        $Retorno=$this->query($sql)->fetchAll(PDO::FETCH_COLUMN) ;
+        return $Retorno[0];        
     }
     
     public function retornaTiposFilhos($Tipo)

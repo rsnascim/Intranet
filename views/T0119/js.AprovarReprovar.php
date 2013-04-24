@@ -29,7 +29,7 @@ for($i=0;$i<$qtd;$i++)
     $Delim     = "lote_numero=$arrLote[$i] AND store_key=$arrLoja[$i]";
 
     $Retorno   = $objEMP->altera($Tabela, $arrStatus, $Delim) ;
-
+    
     if($Retorno)
     {
         $DigLoja   = $obj->calculaDigitoMod11($arrLoja[$i],1,100);

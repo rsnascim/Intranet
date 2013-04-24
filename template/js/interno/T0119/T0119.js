@@ -3,7 +3,7 @@
 // Desenvolvedor:  
 
 $(function(){
-    
+
     //Tablesorter
     // original
     
@@ -17,21 +17,47 @@ $(function(){
 
 //   
 
+    $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+                                
+                                , sortList: [[1,0]]               //Ordena Coluna 1 Crescente
+                               // , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
+                                , headers: {
+                                                0:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
+                                              , 10:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
+                                              
+                                              , 1: {sorter:"brazilNumber"} 
+                                              , 2: {sorter:"brazilNumber"} 
+                                              , 3: {sorter:"text"} 
+                                              , 4: {sorter:"brazilDate"} 
+                                              , 5: {sorter:"brazilNumber"} 
+                                              , 7: {sorter:"brazilCurrency"} // moeda
+                                              //, 7: {sorter:"text"} 
+                                          }
+                                });        
+
    function aprovarLote(Lote, Loja, Tipo, Obj){
     var arrLote = new Array();
     var arrLoja = new Array();
     var arrTipo = new Array();
     var Valor=Obj.parents("tr").find(".txtValor").text();
+    var Data=Obj.parents("tr").find(".txtData").text();
     var TipoString=Obj.parents("tr").find(".txtTipoString").text();
-    $("#dialog-aprovar").html("<p>"+"Tipo: "+TipoString+"<BR>"+"Valor: "+Valor+"</p>");
+    $("#dialog-aprovar").html("<div class='grid_2'>"+
+                                "<label class='label'>Loja: "+Loja+"</label>"+
+                                "<label class='label'>Lote: "+Lote+"</label>"+
+                                "<label class='label'>Data: "+Data+"</label>"+
+                                "<label class='label'>Valor: "+Valor+"</label>"+
+                                "<label class='label'>Tipo: "+TipoString+"</label>"+
+                               "</div>"
+                             );
     $("#dialog-aprovar").dialog
     ({
             resizable: false,
             height:200,
             draggable: false,
-            width:200,
+            width:300,
             modal: true,
-            title:"Aprovar Lote "+Lote+" ? ",
+            title:"Confirma APROVAÇÃO do Lote ? ",
             buttons:
             {
                     Aprovar: function() 
@@ -53,7 +79,7 @@ $(function(){
                         $(this).dialog("close");
                     }
                     ,
-                    Sair: function()
+                    Não: function()
                     {
                         $(this).dialog("close");
                     }
@@ -64,27 +90,37 @@ $(function(){
    function reprovarLote(Lote, Loja, Tipo, Obj){
     var arrLote = new Array();
     var arrLoja = new Array();
-    var arrTipo = new Array();       
-    $("#dialog-aprovar").html("<p>Confirma reprovação de Lote?<BR>Essa ação <B>NÃO</B> pode ser desfeita. </p>")
+    var arrTipo = new Array();
+    var Valor=Obj.parents("tr").find(".txtValor").text();
+    var Data=Obj.parents("tr").find(".txtData").text();
+    var TipoString=Obj.parents("tr").find(".txtTipoString").text();
+    $("#dialog-aprovar").html("<div class='grid_2'>"+
+                                "<label class='label'>Loja: "+Loja+"</label>"+
+                                "<label class='label'>Lote: "+Lote+"</label>"+
+                                "<label class='label'>Data: "+Data+"</label>"+
+                                "<label class='label'>Valor: "+Valor+"</label>"+
+                                "<label class='label'>Tipo: "+TipoString+"</label>"+
+                               "</div>"
+                             );
     $("#dialog-aprovar").dialog
     ({
             resizable: false,
             height:200,
             draggable: false,
-            width:200,
+            width:300,
             modal: true,
-            title:"Reprovar Lote "+Lote+" ? ",
+            title:"Confirma REPROVAÇÃO do Lote ? ",
             buttons:
             {
                     Reprovar: function() 
-                    {                        
+                    {
                         arrLote.push(Lote);
                         arrLoja.push(Loja);
-                        arrTipo.push(Tipo);                        
-                        $.get("?router=T0119/js.AprovarReprovar",{arrLote:arrLote, arrLoja:arrLoja, arrTipo:arrTipo, Acao:7},function(retorno){
+                        arrTipo.push(Tipo);
+                        $.get("?router=T0119/js.AprovarReprovar",{arrLote:arrLote,arrLoja:arrLoja, arrTipo:arrTipo, Acao:7},function(retorno){
                             if(retorno==1){
                                 show_stack_bottomleft(false," ","Lote Reprovado com sucesso");
-                               
+                                //$($thisAprovar).remove();
                                 Obj.parents("tr").remove();
                             }else{
                               show_stack_bottomleft(true,"Erro","Lote Não Reprovado");
@@ -95,14 +131,14 @@ $(function(){
                         $(this).dialog("close");
                     }
                     ,
-                    Sair: function()
+                    Não: function()
                     {
                         $(this).dialog("close");
                     }
             }
     });
    };
-
+   
     $(".Detalhes").live("click",function(e){
         e.preventDefault(); // nao aparece a "#" da tela
         var $thisAprovar=$(this);
@@ -144,7 +180,7 @@ $(function(){
                 draggable: true,
                 width:800,
                 modal: true,
-                title:"Detalhes do Lote "+Lote,            
+                title:"Detalhes do Lote ",            
                 buttons:
                 {
                         Fechar: function()
@@ -200,7 +236,7 @@ $(function(){
                 draggable: true,
                 width:800,
                 modal: true,
-                title:"Detalhes do Lote "+Lote,            
+                title:"Detalhes do Lote ",            
                 buttons:
                 {
                         Fechar: function()
@@ -264,7 +300,11 @@ $(function(){
         var Loja            = new Array();
         var Tipo            = new Array();
         var QtdeReg         = 0;  
-        $("#dialog-detalhes").html("<p>Detalhes da chamada</p>")
+        $("#dialog-detalhes").html("<div class='grid_2'>"+
+                                    "<label class='label'>Confirma APROVAÇÃO de todos os lotes selecionados ? </label>"+
+                                    "<label class='label'>Essa Ação NÃO pode ser desfeita </label>"+
+                                   "</div>"
+                                 );
         $("#dialog-detalhes").dialog
         
         ({
@@ -273,15 +313,10 @@ $(function(){
                 draggable: true,
                 width:250,
                 modal: true,
-                title:"Aprovar todos selecionados ? ",
+                title:"APROVAR todos ? ",
                 
                 buttons:
                 {
-                        Não: function()
-                        {
-                            $(this).dialog("close");
-                        }
-                        ,
                         Sim: function() 
                         {
                             if($this.is(':checked'))
@@ -318,7 +353,13 @@ $(function(){
                                     show_stack_bottomleft(true, 'Erro!', 'Não foi selecionado nenhum lote!');                 
                             
                             $(this).dialog("close");
+                        },            
+                        Não: function()
+                        {
+                            $(this).dialog("close");
                         }
+                        
+                        
 
                 }
 
@@ -331,7 +372,12 @@ $(function(){
         var Loja            = new Array();
         var Tipo            = new Array();
         var QtdeReg         = 0;  
-        $("#dialog-detalhes").html("<p>Detalhes da chamada</p>")
+        $("#dialog-detalhes").html("<div class='grid_2'>"+
+                                    "<label class='label'>Confirma REPROVAÇÃO de todos os lotes selecionados ? </label>"+
+                                    "<label class='label'>Essa Ação NÃO pode ser desfeita </label>"+
+                                   "</div>"
+                                  );
+
         $("#dialog-detalhes").dialog
         ({
                 resizable: false,
@@ -339,15 +385,10 @@ $(function(){
                 draggable: false,
                 width:250,
                 modal: true,
-                title:"Reprovar todos selecionados ? ",
+                title:"REPROVAR todos ? ",
                 // escrever dentro da caixa
                 buttons:
                 {
-                        Não: function()
-                        {
-                            $(this).dialog("close");
-                        }
-                        ,
                         Sim: function() 
                         {   
                             if($this.is(':checked'))
@@ -384,6 +425,10 @@ $(function(){
                                     show_stack_bottomleft(true, 'Erro!', 'Não foi selecionado nenhum lote!');                 
                             
                             $(this).dialog("close");
+                        },
+                        Não: function()
+                        {
+                            $(this).dialog("close");
                         }
 
                 }
@@ -393,18 +438,7 @@ $(function(){
         
     });
     
-    $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
-                                , locale: 'br'  // nao sei se funciona
-                                , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
-                                , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
-                                , headers: {
-                                                0:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
-                                              , 100:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
-                                              , 3: {sorter:"text"} 
-                                              , 6: {sorter:"brazilCurrency"} // moeda
-                                          }
-                                });
-                                
+                        
 });
 /* ============== Função para Upload Fim  =================== */ 
 

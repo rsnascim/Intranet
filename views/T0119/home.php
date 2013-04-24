@@ -114,7 +114,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <div class="clear"></div>
         
         <div class="grid_4">
-        <label class="label">Status Consumo</label>
+        <label class="label">Status Associação</label>
             <select name="FiltroStatusConsumo">
                 <option value="">Selecione...</option>
                 <option value="999">Todos</option>
@@ -205,7 +205,12 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 <td class="txtLoja"><?php echo $valores['store_key'];   ?></td>
 
                 <td class="txtLote"
-                    onmouseover ="show_tooltip_alert('','<?php echo "Mostrar Ticket, PDV, etc...";?>');tooltip.pnotify_display();" 
+                    onmouseover ="show_tooltip_alert('','<?php echo "<B>PDV: </B>".$valores['pos_number']
+                                                                    ."<BR>"
+                                                                    ."<B>Cupom: </B>".$valores['ticket_number']
+                                                                    ."<BR>" 
+                                                                    ."<B>Operador: </B>".$valores['id']."-".$valores['alternate_id']."-".$valores['name'];
+                                                             ;?>');tooltip.pnotify_display();" 
                     onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
                     onmouseout  ="tooltip.pnotify_remove();"
                 ><?php echo $valores['lote_numero'];?></td>
@@ -213,7 +218,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 
                 <td class="txtTipoString" width="10%"><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
                 <td style="display:none" class="txtTipo"><?php echo $valores['tipo_codigo']; ?></td>
-                <td ><?php echo $objEMP->formataDataHoraView($valores['start_time']); ?></td>
+                <td class="txtData"><?php echo $objEMP->formataDataHoraView($valores['start_time']); ?></td>
                 <td class="txtVolumes" align="right"><?php  echo $valores['quantity_rows'];?></td>
                 <td class="txtValor" align="right"><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>
                 <td
@@ -222,7 +227,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                          onmouseover ="show_tooltip_alert('<?php echo $valores['status_consumo_descricao'] ;?>'
                                                          ,'<?php echo "<B>Em: </B>".$objEMP->formataDataHoraView($valores['consumo_data'])
                                                                                   ."<BR>"
-                                                                                  ."<B>Usuário: </B>".$valores['consumo_agent_key']
+                                                                                  ."<B>Operador: </B>".$objEMP->retornaDadosOperador($valores['consumo_agent_key']);
                                                                            ;?>');tooltip.pnotify_display();" 
                          onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
                          onmouseout  ="tooltip.pnotify_remove();" 
@@ -232,9 +237,12 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 <?php if($valores['status_aprovacao_id']!=1)
                     { ?>
                          onmouseover ="show_tooltip_alert('<?php echo $valores['status_aprovacao_descricao'] ;?>'
-                                                         ,'<?php echo "<B>Em: </B>".$objEMP->formataDataHoraView($valores['aprovacao_data'])
-                                                                                  ."<BR>"
-                                                                                  ."<B>Usuário: </B>".$valores['aprovacao_usuario']
+                                                         ,'<?php $Box = "<B>Em: </B>".$objEMP->formataDataHoraView($valores['aprovacao_data']);
+                                                                 if(!empty($valores['aprovacao_usuario']))
+                                                                     $Box .="<BR><B>Login: </B>".$valores['aprovacao_usuario'].' - '.$obj->retornaDadosUsuario($valores['aprovacao_usuario']);
+                                                                 if(!empty($valores['aprovacao_agent_key']))
+                                                                     $Box .="<BR><B>Operador: </B>".$objEMP->retornaDadosOperador($valores['aprovacao_agent_key']);
+                                                                  echo $Box;
                                                                            ;?>');tooltip.pnotify_display();" 
                          onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
                          onmouseout  ="tooltip.pnotify_remove();" 
