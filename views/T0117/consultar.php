@@ -315,7 +315,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                             <?php $retComiteRM = $obj->retornaComiteRM($codRM);?>
                             <select style="width: 950px" name="T004_login[]" multiple readonly >
                         <?php foreach ($retComiteRM as $cpsComt => $vlrComt) { ?>
-                                    <option value="<?php echo $vlrComt["Login"] ?>"><?php echo $vlrComt["Nome"]." | ".$vlrComt["Aprovado"]." | ".$vlrComt["Justificativa"]; ?></option>
+                                    <option value="<?php echo $vlrComt["Login"] ?>"><?php echo $vlrComt["Nome"]." | ".$vlrComt["Voto"]." | ".$vlrComt["Parecer"]; ?></option>
     <?php } ?>    
                             </select><br>
                             

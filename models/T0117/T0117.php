@@ -150,15 +150,16 @@ class models_T0117 extends models
     
     public function retornaComiteRM($codRm){
         
-           $sql    =   "SELECT T04113.T113_codigo           Codigo
-                          , T04113.T004_T113_nome           Nome
-                          , T04113.T004_login               Login
-                          , T04113.T004_T113_justificativa  Justificativa
-                          , T04113.T004_T113_aprovado       Aprovado    
-                       FROM T004_T113 T04113
-                      WHERE T04113.T004_T113_tipo = 4
-                        AND T04113.T113_codigo    = $codRm";
-           
+           $sql    =   "SELECT  T04.T004_nome               Nome,
+                                T113118.T113_T118_parecer   Parecer,
+                                T113118.T113_T118_voto      Voto,
+                                T113118.T004_login          Login
+                           FROM    T113_T118 T113118
+                                JOIN
+                                   T004_usuario T04
+                                ON T113118.T004_login = T04.T004_login
+                          WHERE T113118.T113_codigo = ".$codRm;
+
            return $this->query($sql);
         
     }
