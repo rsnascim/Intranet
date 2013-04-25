@@ -146,6 +146,11 @@ foreach($Retorno as $campos=>$valores)
   $HTML     .= "<label class='label'>Loja:  ".$valores['store_key']."  -  Lote:  ".$valores['lote_numero']."</label>";
   $HTML     .= "<label class='label'>Data:  ".$objEMP->formataDataHoraView($valores['start_time'])." - Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."</label>";
   $HTML     .= "<label class='label'>Tipo: ".$objEMP->RetornaStringTipo($valores['tipo_codigo'])."</label>";
+  
+  
+  // armazena Status da Aprovação
+  // utilizado para Producoes reprovadas/rejeitadas
+  $StatusAprovacao = $valores['aprovacao_status_id'];
 }
                       
 $HTML     .=   "
@@ -154,7 +159,7 @@ $HTML     .=   "
                "; 
 
 // verifica qual será o tipo de retorno
-if ($Tipo==2)
+if (($Tipo==2)&&($StatusAprovacao<>7)&&$StatusAprovacao<>8)
 {  // 2 = Producoes, chama procedure do Emporium;
     $HTML .= detalhesProducao($Loja, $Lote);
 

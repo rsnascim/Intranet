@@ -117,24 +117,13 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <label class="label">Status Associação</label>
             <select name="FiltroStatusConsumo">
                 <option value="">Selecione...</option>
-                <option value="999">Todos</option>
+                <option value="999" <?php echo $filtroStatusConsumo=='999'?"selected":"";?>>Todos</option>
                 <?php foreach($SelectStatusConsumo as $campos=>$valores){?>
                 <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusConsumo?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
                 <?php }?>
             </select>            
         </div>
-        
-        <div class="grid_4">
-        <label class="label">Status Integração</label>
-            <select name="FiltroStatusIntegracao">
-                <option value="">Selecione...</option>
-                <option value="999">Todos</option>
-                <?php foreach($SelectStatusIntegracao as $campos=>$valores){?>
-                <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusIntegracao?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
-                <?php }?>
-            </select>            
-        </div>
-        
+
         <div class="grid_4">
         <label class="label">Status Aprovação</label>
             <select name="FiltroStatusAprovacao">
@@ -145,7 +134,18 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 <?php }?>
             </select>            
         </div>
-                
+        
+        <div class="grid_4">
+        <label class="label">Status Integração</label>
+            <select name="FiltroStatusIntegracao">
+                <option value="">Selecione...</option>
+                <option value="999" <?php echo $filtroStatusIntegracao=='999'?"selected":"";?>>Todos</option>
+                <?php foreach($SelectStatusIntegracao as $campos=>$valores){?>
+                <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusIntegracao?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
+                <?php }?>
+            </select>            
+        </div>
+        
         <div class="grid_2">
         <label class="label">Qtde Registros</label>
             <select name="FiltroRegistros">

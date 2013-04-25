@@ -58,8 +58,6 @@ class models_T0119 extends models
     public function ConsultaLotesLoja($filtroLoja, $filtroDtInicio, $filtroDtFim, $filtroStatusConsumo, $filtroStatusIntegracao, $filtroStatusAprovacao, $filtroRegistros)
     {   
         
-        
-        
         $sql="  SELECT l.store_key , l.lote_numero , l.start_time 
                      , l.pos_number , l.ticket_number
                      , l.amount , l.quantity_rows 
@@ -92,13 +90,13 @@ class models_T0119 extends models
                  }
 
                  
-                 if((!empty($filtroStatusConsumo))&&($filtroStatusConsumo<>"999"))
+                 if((is_numeric($filtroStatusConsumo))&&($filtroStatusConsumo<>"999"))
                     $sql   .=  " AND sc.status_consumo_id       = $filtroStatusConsumo";
                  
-                 if((!empty($filtroStatusIntegracao))&&($filtroStatusIntegracao<>"999"))
+                 if((is_numeric($filtroStatusIntegracao))&&($filtroStatusIntegracao<>"999"))
                     $sql   .=  " AND si.status_integracao_id    = $filtroStatusIntegracao";
                  
-                 if((!empty($filtroStatusAprovacao))&&($filtroStatusAprovacao<>"999"))
+                 if((is_numeric($filtroStatusAprovacao))&&($filtroStatusAprovacao<>"999"))
                     $sql   .=  " AND sa.status_aprovacao_id     = $filtroStatusAprovacao";
                  
                   $sql  .=  " ORDER BY l.start_time ";
@@ -106,6 +104,7 @@ class models_T0119 extends models
                   if(!empty($filtroRegistros))
                     $sql  .=  " LIMIT $filtroRegistros";
 
+        
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
     
@@ -153,6 +152,17 @@ class models_T0119 extends models
                      AND l.store_key    = $Loja 
              ";   
         
+        return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
+        
+    }
+    
+    public function ConsultaLotesOrigem($Loja,$Lote)
+    {
+        $sql="  SELECT c.lote_numero_origem , c.store_key_origem
+                  FROM davo_ccu_lote_consumo c
+                 WHERE lote_numero_destino  = $Lote
+                   AND store_key_destino    = $Loja            
+             ";   
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
         
     }
