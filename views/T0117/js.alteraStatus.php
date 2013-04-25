@@ -25,7 +25,7 @@ if($status == 3){
    $campos =   array("T113_status" => 3);
    $delim  =   "T113_codigo    =   ".$codRM;
     
-  //echo $obj->altera($tabela, $campos, $delim);
+  echo $obj->altera($tabela, $campos, $delim);
 
    
 }

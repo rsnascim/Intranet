@@ -165,7 +165,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             
             <div style="position: absolute; top: 450px; left: 170px;">
                 <label class="label">Qual impacto durante a ocorrência? (Para o negócio)*</label>
-                <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRmOc"]; ?></textarea>            
+                <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoOcorrencia"]; ?></textarea>            
             </div>
 
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

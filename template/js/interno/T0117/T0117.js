@@ -300,16 +300,23 @@ $(function(){
      
      });
      
-     $(".revisar").click(function(){
+     $(".revisar").live("click", function(){
          
          var status    =   3;
-         var codRM    =   $("#codRM").val();
+        var $this   =   $(this);
+        var codRM = $this.parents("tr.linha").find(".codRM").text();
      
-        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+    
+     
+        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
+            
+            $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
+            
+        });
         
-        $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
+
        
-          location.reload();
+        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
      });
      
          $(".concluir").click(function(){
