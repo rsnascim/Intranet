@@ -3,7 +3,7 @@
 // Desenvolvedor:  
 
 $(function(){
-    
+
     //Tablesorter
     // original
     
@@ -15,31 +15,50 @@ $(function(){
 //
 //                                  });
 
-   $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
-                                , locale: 'br'  // nao sei se funciona
-                                , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+//   
+
+    $("#tPrincipal").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+                                , sortList: [[4,0]]               //Ordena Coluna 1 Crescente
                                 , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                 , headers: {
-                                                100:{sorter: false}    // retira sorter da coluna 99 ** exemplo **
-                                              , 2: {sorter:"text"} 
-                                              , 5: {sorter:"brazilCurrency"} // moeda
+                                                0:{sorter: false}   
+                                              , 3: {sorter:"text"}   
+                                              , 6: {sorter:"brazilCurrency"}   
+                                              , 10:{sorter: false}   
                                           }
                                 });
 
-   function aprovarLote(Lote,Loja,Obj){
+   function aprovarLote(Lote, Loja, Tipo, Obj){
+    var arrLote = new Array();
+    var arrLoja = new Array();
+    var arrTipo = new Array();
+    var Valor=Obj.parents("tr").find(".txtValor").text();
+    var Data=Obj.parents("tr").find(".txtData").text();
+    var TipoString=Obj.parents("tr").find(".txtTipoString").text();
+    $("#dialog-aprovar").html("<div class='grid_2'>"+
+                                "<label class='label'>Loja: "+Loja+"</label>"+
+                                "<label class='label'>Lote: "+Lote+"</label>"+
+                                "<label class='label'>Data: "+Data+"</label>"+
+                                "<label class='label'>Valor: "+Valor+"</label>"+
+                                "<label class='label'>Tipo: "+TipoString+"</label>"+
+                               "</div>"
+                             );
     $("#dialog-aprovar").dialog
     ({
             resizable: false,
             height:200,
             draggable: false,
-            width:200,
+            width:300,
             modal: true,
-            title:"Aprovar Lote "+Lote+" ? ",
+            title:"Confirma APROVAÇÃO do Lote ? ",
             buttons:
             {
                     Aprovar: function() 
                     {
-                        $.get("?router=T0119/js.AprovarReprovar",{Lote:Lote,Loja:Loja,Acao:2},function(retorno){
+                        arrLote.push(Lote);
+                        arrLoja.push(Loja);
+                        arrTipo.push(Tipo);
+                        $.get("?router=T0119/js.AprovarReprovar",{arrLote:arrLote,arrLoja:arrLoja, arrTipo:arrTipo, Acao:2},function(retorno){
                             if(retorno==1){
                                 show_stack_bottomleft(false," ","Lote Aprovado com sucesso");
                                 //$($thisAprovar).remove();
@@ -53,30 +72,48 @@ $(function(){
                         $(this).dialog("close");
                     }
                     ,
-                    Sair: function()
+                    Não: function()
                     {
                         $(this).dialog("close");
                     }
             }
     });
    };
-   function reprovarLote(Lote,Loja,Obj){
+   
+   function reprovarLote(Lote, Loja, Tipo, Obj){
+    var arrLote = new Array();
+    var arrLoja = new Array();
+    var arrTipo = new Array();
+    var Valor=Obj.parents("tr").find(".txtValor").text();
+    var Data=Obj.parents("tr").find(".txtData").text();
+    var TipoString=Obj.parents("tr").find(".txtTipoString").text();
+    $("#dialog-aprovar").html("<div class='grid_2'>"+
+                                "<label class='label'>Loja: "+Loja+"</label>"+
+                                "<label class='label'>Lote: "+Lote+"</label>"+
+                                "<label class='label'>Data: "+Data+"</label>"+
+                                "<label class='label'>Valor: "+Valor+"</label>"+
+                                "<label class='label'>Tipo: "+TipoString+"</label>"+
+                               "</div>"
+                             );
     $("#dialog-aprovar").dialog
     ({
             resizable: false,
             height:200,
             draggable: false,
-            width:200,
+            width:300,
             modal: true,
-            title:"Reprovar Lote "+Lote+" ? ",
+            title:"Confirma REPROVAÇÃO do Lote ? ",
             buttons:
             {
                     Reprovar: function() 
                     {
-                        $.get("?router=T0119/js.AprovarReprovar",{Lote:Lote,Loja:Loja,Acao:7},function(retorno){
+                        arrLote.push(Lote);
+                        arrLoja.push(Loja);
+                        arrTipo.push(Tipo);
+                        $.get("?router=T0119/js.AprovarReprovar",{arrLote:arrLote,arrLoja:arrLoja, arrTipo:arrTipo, Acao:7},function(retorno){
                             if(retorno==1){
                                 show_stack_bottomleft(false," ","Lote Reprovado com sucesso");
-                               
+                                //$($thisAprovar).remove();
                                 Obj.parents("tr").remove();
                             }else{
                               show_stack_bottomleft(true,"Erro","Lote Não Reprovado");
@@ -87,35 +124,57 @@ $(function(){
                         $(this).dialog("close");
                     }
                     ,
-                    Sair: function()
+                    Não: function()
                     {
                         $(this).dialog("close");
                     }
             }
     });
    };
-
-        $(".Detalhes").live("click",function(e){
+   
+    $(".Detalhes").live("click",function(e){
         e.preventDefault(); // nao aparece a "#" da tela
         var $thisAprovar=$(this);
         var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
         var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
         var Tipo=$($thisAprovar).parents("tr").find(".txtTipo").text();
-        
+
         $.get("?router=T0119/js.ConsultaDetalhes",{Lote:Lote,Loja:Loja,Tipo:Tipo},function(retorno){
             $("#dialog-detalhes").html(retorno);
             $("#tDetalhes").tablesorter({ widgets:['zebra']                //Tabela Zebrada
                                         , locale: 'br'  // nao sei se funciona
-                                        , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                        // , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
                                         , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
                                         , headers: {
-                                                        7:{sorter: false}   
+                                                        100:{sorter: false}   
+                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 1: {sorter:"text"}   
+                                                      , 2: {sorter:"text"}   
                                                       , 3: {sorter:"brazilNumber"}   
                                                       , 4: {sorter:"brazilCurrency"} // moeda
                                                       , 5: {sorter:"brazilCurrency"}
+                                                      , 6: {sorter:"brazilCurrency"}
                                                   }
                                         });
-           
+            $("#tDetalhes2").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+                                        , locale: 'br'  // nao sei se funciona
+                                        , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                        , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
+                                        , headers: {
+                                                        100:{sorter: false}   
+                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 1: {sorter:"brazilNumber"}   
+                                                      , 2: {sorter:"text"}   
+                                                      , 3: {sorter:"text"}   
+                                                      
+                                                      
+                                                      , 4: {sorter:"brazilNumber"}   
+                                                      , 5: {sorter:"brazilCurrency"} // moeda
+                                                      , 6: {sorter:"brazilCurrency"}
+                                                      , 7: {sorter:"brazilCurrency"}
+                                                  }
+                                        });
+
         });  
         
         $("#dialog-detalhes").dialog
@@ -125,7 +184,74 @@ $(function(){
                 draggable: true,
                 width:800,
                 modal: true,
-                title:"Detalhes do Lote "+Lote,
+                title:"Detalhes do Lote ",            
+                buttons:
+                {
+                        Fechar: function()
+                        {
+                            $(this).dialog("close");
+                        }
+
+                }
+
+        });
+
+    }) ;
+
+    $(".DetalhesAprovar").live("click",function(e){
+        e.preventDefault(); // nao aparece a "#" da tela
+        var $thisAprovar=$(this);
+        var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
+        var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
+        var Tipo=$($thisAprovar).parents("tr").find(".txtTipo").text();
+
+        $.get("?router=T0119/js.ConsultaDetalhes",{Lote:Lote,Loja:Loja,Tipo:Tipo},function(retorno){
+            $("#dialog-detalhes").html(retorno);
+            $("#tDetalhes").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+                                        , locale: 'br'  // nao sei se funciona
+                                        // , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                        , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
+                                        , headers: {
+                                                        100:{sorter: false}   
+                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 1: {sorter:"text"}   
+                                                      , 2: {sorter:"text"}   
+                                                      , 3: {sorter:"brazilNumber"}   
+                                                      , 4: {sorter:"brazilCurrency"} // moeda
+                                                      , 5: {sorter:"brazilCurrency"}
+                                                      , 6: {sorter:"brazilCurrency"}
+                                                  }
+                                        });
+            $("#tDetalhes2").tablesorter({ widgets:['zebra']                //Tabela Zebrada
+                                        , locale: 'br'  // nao sei se funciona
+                                        , sortList: [[0,0]]               //Ordena Coluna 1 Crescente
+                                        , sortMultiSortKey: 'ctrlKey' // seleção de mais de uma coluna para ordenacao
+                                        , headers: {
+                                                        100:{sorter: false}   
+                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 1: {sorter:"brazilNumber"}   
+                                                      , 2: {sorter:"text"}   
+                                                      , 3: {sorter:"text"}   
+                                                      
+                                                      
+                                                      , 4: {sorter:"brazilNumber"}   
+                                                      , 5: {sorter:"brazilCurrency"} // moeda
+                                                      , 6: {sorter:"brazilCurrency"}
+                                                      , 7: {sorter:"brazilCurrency"}
+                                                  }
+                                        });
+
+        });  
+
+        
+        $("#dialog-detalhes").dialog
+        ({
+                resizable: true,
+                height:600,
+                draggable: true,
+                width:800,
+                modal: true,
+                title:"Detalhes do Lote ",            
                 buttons:
                 {
                         Fechar: function()
@@ -135,19 +261,19 @@ $(function(){
                         ,
                         Aprovar: function() 
                         {
-                            aprovarLote(Lote,Loja,$thisAprovar);
+                            aprovarLote(Lote, Loja, Tipo,$thisAprovar);
                             $(this).dialog("close");
                         }
                         ,
                         Reprovar: function() 
                         {
-                           reprovarLote(Lote,Loja,$thisAprovar);
+                           reprovarLote(Lote, Loja, Tipo,$thisAprovar);
                             $(this).dialog("close");
                         }
 
                 }
-                
-        })
+
+        });
 
     }) ;
     
@@ -156,8 +282,9 @@ $(function(){
         var $thisAprovar=$(this);
         var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
         var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
+        var Tipo=$($thisAprovar).parents("tr").find(".txtTipo").text();
         
-        aprovarLote(Lote,Loja,$thisAprovar);
+        aprovarLote(Lote, Loja, Tipo, $thisAprovar);
         
     }) ;
     
@@ -166,10 +293,167 @@ $(function(){
         var $thisAprovar=$(this);
         var Lote=$($thisAprovar).parents("tr").find(".txtLote").text();
         var Loja=$($thisAprovar).parents("tr").find(".txtLoja").text();
+        var Tipo=$($thisAprovar).parents("tr").find(".txtTipo").text();
         
-        reprovarLote(Lote,Loja,$thisAprovar);
+        reprovarLote(Lote, Loja, Tipo, $thisAprovar);
         
     }) ;
+    
+    $("#selecionaTodos").live("click", function(){
+        var $this = $(".dados").find(".selecionaItem");
+        if ($("#selecionaTodos").attr("checked")) {
+           $this.attr("checked", "checked");  
+        }
+        else {
+            $this.removeAttr("checked");
+        }
+    });
+    
+    $('#aprovarSelecionados').live("click", function(){       
+        var $this           = $(".dados").find(".selecionaItem");
+        var Lote            = new Array();
+        var Loja            = new Array();
+        var Tipo            = new Array();
+        var QtdeReg         = 0;  
+        $("#dialog-detalhes").html("<div class='grid_2'>"+
+                                    "<label class='label'>Confirma APROVAÇÃO de todos os lotes selecionados ? </label>"+
+                                    "<label class='label'>Essa Ação NÃO pode ser desfeita </label>"+
+                                   "</div>"
+                                 );
+        $("#dialog-detalhes").dialog
+        
+        ({
+                resizable: true,
+                height:200,
+                draggable: true,
+                width:250,
+                modal: true,
+                title:"APROVAR todos ? ",
+                
+                buttons:
+                {
+                        Sim: function() 
+                        {
+                            if($this.is(':checked'))
+                            {
+                                $(".selecionaItem:checked").each(function(){
+                                     // verifica se a linha esta oculta usando o FILTRO DINAMICO
+                                    if($(this).parents('tr').css('display') != 'none')
+                                    {
+                                        Lote.push($(this).parents('tr').find('.txtLote').text());
+                                        Loja.push($(this).parents('tr').find('.txtLoja').text());
+                                        Tipo.push($(this).parents('tr').find('.txtTipo').text());
+                                        QtdeReg=QtdeReg+1;
+                                    }
+
+                                });
+                                // verifica se foi selecionado algum registro
+                                if(QtdeReg>0)
+                                {    
+                                    $.post("?router=T0119/js.AprovarReprovar",{arrLote:Lote, arrLoja:Loja, arrTipo:Tipo, Acao:2}, function(dados){
+                                        if ( dados == 1){
+                                            $(".selecionaItem:checked").each(function(){
+                                                $(this).parents('tr').remove();
+                                            });
+
+                                            show_stack_bottomleft(false, '', 'Lote(s) Aprovado(s) com sucesso!'); 
+
+                                        }                        
+                                        else
+                                            show_stack_bottomleft(true, 'Erro!', 'Lote(s) Não Aprovado(s)'); 
+                                    });
+                                }else
+                                    show_stack_bottomleft(true, 'Erro!', 'Não foi selecionado nenhum lote!');                 
+                            }else
+                                    show_stack_bottomleft(true, 'Erro!', 'Não foi selecionado nenhum lote!');                 
+                            
+                            $(this).dialog("close");
+                        },            
+                        Não: function()
+                        {
+                            $(this).dialog("close");
+                        }
+                        
+                        
+
+                }
+
+        });
+    });
+    
+    $('#reprovarSelecionados').live("click", function(){       
+        var $this           = $(".dados").find(".selecionaItem");
+        var Lote            = new Array();
+        var Loja            = new Array();
+        var Tipo            = new Array();
+        var QtdeReg         = 0;  
+        $("#dialog-detalhes").html("<div class='grid_2'>"+
+                                    "<label class='label'>Confirma REPROVAÇÃO de todos os lotes selecionados ? </label>"+
+                                    "<label class='label'>Essa Ação NÃO pode ser desfeita </label>"+
+                                   "</div>"
+                                  );
+
+        $("#dialog-detalhes").dialog
+        ({
+                resizable: false,
+                height:200,
+                draggable: false,
+                width:250,
+                modal: true,
+                title:"REPROVAR todos ? ",
+                // escrever dentro da caixa
+                buttons:
+                {
+                        Sim: function() 
+                        {   
+                            if($this.is(':checked'))
+                            {
+                                $(".selecionaItem:checked").each(function(){
+                                     // verifica se a linha esta oculta usando o FILTRO DINAMICO
+                                    if($(this).parents('tr').css('display') != 'none')
+                                    {
+                                        Lote.push($(this).parents('tr').find('.txtLote').text());
+                                        Loja.push($(this).parents('tr').find('.txtLoja').text());
+                                        Tipo.push($(this).parents('tr').find('.txtTipo').text());
+                                        QtdeReg=QtdeReg+1;
+                                    }
+
+                                });
+                                // verifica se foi selecionado algum registro
+                                if(QtdeReg>0)
+                                {    
+                                    $.post("?router=T0119/js.AprovarReprovar",{arrLote:Lote, arrLoja:Loja, arrTipo:Tipo, Acao:7}, function(dados){
+                                        if ( dados == 1){
+                                            $(".selecionaItem:checked").each(function(){
+                                                $(this).parents('tr').remove();
+                                            });
+
+                                            show_stack_bottomleft(false, '', 'Lote(s) Reprovado(s) com sucesso!'); 
+
+                                        }                        
+                                        else
+                                            show_stack_bottomleft(true, 'Erro!', 'Lote(s) Não Reprovado(s)'); 
+                                    });
+                                }else
+                                    show_stack_bottomleft(true, 'Erro!', 'Não foi selecionado nenhum lote!');                 
+                            }else
+                                    show_stack_bottomleft(true, 'Erro!', 'Não foi selecionado nenhum lote!');                 
+                            
+                            $(this).dialog("close");
+                        },
+                        Não: function()
+                        {
+                            $(this).dialog("close");
+                        }
+
+                }
+
+        });
+        
+        
+    });
+    
+                        
 });
 /* ============== Função para Upload Fim  =================== */ 
 

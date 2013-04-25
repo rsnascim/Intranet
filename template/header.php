@@ -66,7 +66,7 @@ if(!is_null($fp))
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
 <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
 <title>Intranet D´avó</title>
 <link rel="shortcut icon" href="template/img/favicon.ico" />
@@ -76,10 +76,10 @@ if(!is_null($fp))
 <?php if($_SERVER['SERVER_NAME']=='localhost'){?>
     <link rel="stylesheet" href="template/css/-layout-local.css"/>
 <?php }?>
-<?php if($_SERVER['SERVER_NAME']=='oraas141'){?>
+<?php if($_SERVER['SERVER_NAME']=='oraas141' || $_SERVER['SERVER_NAME']=='10.2.1.141'){?>
     <link rel="stylesheet" href="template/css/-layout-qas.css"/>
 <?php }?>
-<?php if($_SERVER['SERVER_NAME']=='oraas041'){?>
+<?php if($_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41'){?>
     <link rel="stylesheet" href="template/css/-layout-prd.css"/>
 <?php }?>
 <!--[if IE 7]>
@@ -119,13 +119,12 @@ if(!is_null($fp))
 <script src="template/js/interno/funcoesGerais.js"></script>
 
 <!-- VALIDAÇÃO DE FORMULÁRIO INICIO ------------------------------------------------------------------>
-<script src="template/js/validacao/jquery.validationEngine.js"></script>
-<script src="template/js/validacao/languages/jquery.validationEngine-pt.js"></script>
-<script src="template/js/validacao/jquery.ui.datepicker.validation.js"></script>
+<script src="template/jQuery/validaForm/jquery.validationEngine.js"></script>
+<script src="template/jQuery/validaForm/jquery.validationEngine-pt.js"></script>
 <script>
     jQuery(document).ready(function(){
         // Liga Submit do formulário com os vampos para a engine de validação
-        jQuery("#formCad").validationEngine();
+        jQuery(".validaFormulario").validationEngine();
     });
 </script>
 <!-- VALIDAÇÃO DE FORMULÁRIO FIM --------------------------------------------------------------------->
