@@ -77,7 +77,7 @@ for($i=0;$i<$qtd;$i++)
 
     $Tabela     = "davo_ccu_lote";
 
-    $Delim     = "lote_numero=$arrLote[$i] AND store_key=$arrLoja[$i]";
+    $Delim     = "lote_numero=$arrLote[$i] AND store_key=$arrLoja[$i] AND aprovacao_status_id=1";
 
     $Retorno   = $objEMP->altera($Tabela, $arrStatus, $Delim) ;
     
@@ -92,7 +92,7 @@ for($i=0;$i<$qtd;$i++)
                           );
 
         $Tabela    = "T116_ccu_lote";
-        $Delim     = "T116_lote=$arrLote[$i] AND T006_codigo=$LojaCD";
+        $Delim     = "T116_lote=$arrLote[$i] AND T006_codigo=$LojaCD AND T116_aprovacao_status_id=1";
 
         $Retorno   = $obj->altera($Tabela, $arrStatus, $Delim) ;
     
