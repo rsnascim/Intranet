@@ -46,7 +46,7 @@ class models_T0075 extends models
                         FROM ft094_ems
                         WHERE   DataPDV = date_format('$dataini', '%Y%m%d')
                         AND     TipoDeOperacao = 105
-                        AND     Status  = 2
+                        AND     Status  in (2, 5)
                         GROUP BY CodigoDaLoja, NumeroDoPDV";
             
             
@@ -72,7 +72,7 @@ class models_T0075 extends models
                         WHERE   DataPDV = date_format('$dataini', '%Y%m%d')
                         AND     CodigoDaLoja    =   $loja    
                         AND     TipoDeOperacao = 105
-                        AND     Status  = 2
+                        AND     Status  in (2, 5)
                         GROUP BY CodigoDaLoja, NumeroDoPDV";
                     
                }

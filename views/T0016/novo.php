@@ -6,6 +6,7 @@ $objWkf         =   new models_T0016();
 //Seleciona Lojas
 $ListLoja       =   $objWkf->listaLojas();
 
+
 //Captura Login para inserção
 $user           =   $_SESSION['user'];
 
@@ -276,7 +277,7 @@ $GrpsUser=  $objWkf->listaWF();
                 </td>
             </tr>
         </table>
-        <span class="form-titulo">
+    <span class="form-titulo">
             <p>Informações / Descrições</p>
         </span>
         
