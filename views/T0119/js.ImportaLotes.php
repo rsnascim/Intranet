@@ -5,7 +5,7 @@ function conectaIntranet()
     try
     {
             ob_start();
-            return $db = new PDO('mysql:host=10.2.1.141;dbname=Satelite', 'root', '');
+            return $db = new PDO('mysql:host=10.2.1.41;dbname=Satelite', 'root', '');
 
     }catch (Exception $e) {
             $db->rollBack();
@@ -18,7 +18,7 @@ function conectaEmporium()
     try
     {
             ob_start();
-            return $db = new PDO('mysql:host=10.2.1.110;dbname=emporium', 'root', 'emporium');
+            return $db = new PDO('mysql:host=10.2.1.10;dbname=emporium', 'root', 'emporium');
 
     }catch (Exception $e) {
             $db->rollBack();
