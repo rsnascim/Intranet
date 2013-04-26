@@ -165,7 +165,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                         <li><a href="#tabs-2">Executores Internos</a></li>
                         <li><a href="#tabs-3">Executores Externos</a></li>
                      <?php 
-                        $CM =   $obj->retornaPerfil($user, 58);
+                        $CM =   $obj->retornaComite($user);
                         $cmt = 0;
                         foreach ($CM as $cpPerCM => $vlPerCM) {
                             $cmt++;
@@ -302,7 +302,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                             <?php $retComiteRM = $obj->retornaComiteRM($codRM);?>
                             <select style="width: 950px" name="T004_login[]" multiple id="cmbComite" >
                         <?php foreach ($retComiteRM as $cpsComt => $vlrComt) { ?>
-                                    <option value="<?php echo $vlrComt["Login"] ?>"><?php echo $vlrComt["Nome"]." | ".$vlrComt["Aprovado"]." | ".$vlrComt["Justificativa"]; ?></option>
+                                    <option value="<?php echo $vlrComt["Login"] ?>"><?php echo $vlrComt["Nome"]." | ".$vlrComt["Voto"]." | ".$vlrComt["Parecer"]; ?></option>
     <?php } ?>    
                             </select><br>
                             *Clique em cima do Executor para exclui-lo da lista.
