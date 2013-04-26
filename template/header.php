@@ -73,7 +73,15 @@ if(!is_null($fp))
 <link rel="icon" href="template/img/favicon.ico" />
 <link rel="stylesheet" href="template/css/-estilo-include-tudo.css"/>
 
-<link rel="stylesheet" href="template/css/-layout-prd.css"/>
+<?php if($_SERVER['SERVER_NAME']=='localhost'){?>
+    <link rel="stylesheet" href="template/css/-layout-local.css"/>
+<?php }?>
+<?php if($_SERVER['SERVER_NAME']=='oraas141' || $_SERVER['SERVER_NAME']=='10.2.1.141' || $_SERVER['SERVER_NAME']=='intranet_qas') {?>
+    <link rel="stylesheet" href="template/css/-layout-qas.css"/>
+<?php }?>
+<?php if($_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') {?>
+    <link rel="stylesheet" href="template/css/-layout-prd.css"/>
+<?php }?>
 <!--[if IE 7]>
         <link rel="stylesheet" type="text/css" href="template/css/-estilo-include-tudo-ie7.css" />
 <![endif]-->
