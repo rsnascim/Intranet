@@ -19,15 +19,45 @@ $qtd        =   count($arrLote);
 
 for($i=0;$i<$qtd;$i++)
 {
-    // verifica se Ã© uma producao e Ã© uma Reprovacao
-    if(($arrTipo[$i]==2)&&($Acao==7))
+
+    $arrStatus = array( "aprovacao_status_id" =>$Acao
+                       ,"aprovacao_data"      =>$DataHora
+                       ,"aprovacao_usuario"   =>$user
+                      );
+
+    $Tabela     = "davo_ccu_lote";
+
+    $Delim     = "lote_numero=$arrLote[$i] AND store_key=$arrLoja[$i] AND aprovacao_status_id=1";
+
+    $Retorno   = $objEMP->altera($Tabela, $arrStatus, $Delim) ;
+    
+    if($Retorno)
+    {
+        $DigLoja   = $obj->calculaDigitoMod11($arrLoja[$i],1,100);
+        $LojaCD    = $arrLoja[$i].$DigLoja; // loja Com Digito
+
+        $arrStatus = array("T116_aprovacao_status_id" =>$Acao
+                          ,"T116_aprovacao_data"      =>$DataHora
+                          ,"T004_login"               =>$user
+                          );
+
+        $Tabela    = "T116_ccu_lote";
+        $Delim     = "T116_lote=$arrLote[$i] AND T006_codigo=$LojaCD AND T116_aprovacao_status_id=1";
+
+        $Retorno   = $obj->altera($Tabela, $arrStatus, $Delim) ;
+    
+    }
+    
+    
+    // verifica se é uma producao e é uma Reprovacao, somente se houve sucesso no update
+    if(($Retorno)&&($arrTipo[$i]==2)&&($Acao==7))
     {
         // recupera lotes consumidos pelo Destino
         $RetornoOrigens = $objEMP->ConsultaLotesOrigem($arrLoja[$i], $arrLote[$i]);
         
         foreach($RetornoOrigens as $camposO=>$valoresO)
         {
-            // retira "PrÃ©-aprovacao", se existir e nao houver integracao
+            // retira "Pré-aprovacao", se existir e nao houver integracao
             $arrUpdateApr = array(   "aprovacao_status_id"   => 1
                                     ,"aprovacao_data"        => 'NULL'
                                     ,"aprovacao_usuario"     => 'NULL'
@@ -68,34 +98,6 @@ for($i=0;$i<$qtd;$i++)
             }
      
         }
-    }
-    
-    $arrStatus = array( "aprovacao_status_id" =>$Acao
-                       ,"aprovacao_data"      =>$DataHora
-                       ,"aprovacao_usuario"   =>$user
-                      );
-
-    $Tabela     = "davo_ccu_lote";
-
-    $Delim     = "lote_numero=$arrLote[$i] AND store_key=$arrLoja[$i] AND aprovacao_status_id=1";
-
-    $Retorno   = $objEMP->altera($Tabela, $arrStatus, $Delim) ;
-    
-    if($Retorno)
-    {
-        $DigLoja   = $obj->calculaDigitoMod11($arrLoja[$i],1,100);
-        $LojaCD    = $arrLoja[$i].$DigLoja; // loja Com Digito
-
-        $arrStatus = array("T116_aprovacao_status_id" =>$Acao
-                          ,"T116_aprovacao_data"      =>$DataHora
-                          ,"T004_login"               =>$user
-                          );
-
-        $Tabela    = "T116_ccu_lote";
-        $Delim     = "T116_lote=$arrLote[$i] AND T006_codigo=$LojaCD AND T116_aprovacao_status_id=1";
-
-        $Retorno   = $obj->altera($Tabela, $arrStatus, $Delim) ;
-    
     }
     
 }
