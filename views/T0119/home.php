@@ -225,13 +225,20 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 <?php if(($valores['status_consumo_id']!=0)&&($valores['status_consumo_id']!=2))
                     { ?>
                          onmouseover ="show_tooltip_alert('<?php echo $valores['status_consumo_descricao'] ;?>'
-                                                         ,'<?php echo "<B>Em: </B>".$objEMP->formataDataHoraView($valores['consumo_data'])
-                                                                                  ."<BR>"
-                                                                                  ."<B>Operador: </B>".$objEMP->retornaDadosOperador($valores['consumo_agent_key']);
-                                                                           ;?>');tooltip.pnotify_display();" 
+                                                         ,'<?php $Box = '' ;
+                                                                 if(!empty($valores['consumo_data']))
+                                                                 {
+                                                                    $Box .= "<B>Em: </B>".$objEMP->formataDataHoraView($valores['consumo_data'])
+                                                                                  ."<BR>";
+                                                                 }
+                                                                 if(!empty($valores['consumo_agent_key']))
+                                                                 {
+                                                                    $Box .= "<B>Operador: </B>".$objEMP->retornaDadosOperador($valores['consumo_agent_key']);
+                                                                 }   
+                                                                 echo $Box ;?>');tooltip.pnotify_display();" 
                          onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
                          onmouseout  ="tooltip.pnotify_remove();" 
-               <?php }?>
+                <?php }?>
                 ><?php echo $valores['status_consumo_id'].'-'.$valores['status_consumo_descricao']; ?></td>
                 <td
                 <?php if($valores['status_aprovacao_id']!=1)
