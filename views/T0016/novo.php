@@ -6,7 +6,6 @@ $objWkf         =   new models_T0016();
 //Seleciona Lojas
 $ListLoja       =   $objWkf->listaLojas();
 
-
 //Captura Login para inserção
 $user           =   $_SESSION['user'];
 
@@ -56,7 +55,7 @@ if (!is_null($_POST['T026_rms_cgc_cpf'])
                        , "T004_login"           =>  $user);
         //inserirFluxoAp($valores['ProxEtapaCodigo'],1);
         $insere2 = $objWkf->inserir($tabela, $array);
-        $insere3 = $objWkf->inserirFluxo($codigoDespesa, $valores['ProxEtapaCodigo'],2);
+        $insere3 = $objWkf->inserirFluxoAp($codAp, $valores['ProxEtapaCodigo'],2);
     }
 
     header('location:?router=T0016/home');
@@ -124,7 +123,7 @@ $GrpsUser=  $objWkf->listaWF();
         </form>
     </div>
 </div>
-<form action="" method="post" class="validaFormulario">
+<form action="" method="post" id="formCad">
 <div id="formulario" class="formulario">
     <span class="form-titulo">
         <p>Os campos com asterisco (*) são obrigatórios o preechimento</p>
@@ -277,7 +276,7 @@ $GrpsUser=  $objWkf->listaWF();
                 </td>
             </tr>
         </table>
-    <span class="form-titulo">
+        <span class="form-titulo">
             <p>Informações / Descrições</p>
         </span>
         
@@ -342,14 +341,14 @@ $GrpsUser=  $objWkf->listaWF();
 <div id="formulario" class="formulario">
     <span class="form-input">
         <div class="form-inpu-botoes">
-            <input type="hidden"  name="T026_rms_digito"    value=""                                                />
-            <input type="hidden"  name="T008_status"        value="0"                                               />
-            <input type="hidden"  name="T008_dt_elaboracao" value="<?php echo $data; ?>"                            />
-            <input type="hidden"  name="T026_codigo"        value=""  id="CodForn"                                  />
-            <input type="hidden"  name="T008_T026T059_T026_codigo"        value=""          id="CodFornWkf"         />
-            <input type="hidden"  name="T004_login"         value="<?php echo $user;?>"                             />
-            <input type="hidden"  name="T008_T026T059_T061_codigo"        value="1"         id="processo"           />
-            <input type="submit"                            value="Gerar AP"                id="P0016_btn_criar"    />
+            <input type="hidden"  name="T026_rms_digito"    value=""                                />
+            <input type="hidden"  name="T008_status"        value="0"                               />
+            <input type="hidden"  name="T008_dt_elaboracao" value="<?php echo $data; ?>"            />
+            <input type="hidden"  name="T026_codigo"        value=""  id="CodForn"                  />
+            <input type="hidden"  name="T008_T026T059_T026_codigo"        value=""  id="CodFornWkf"               />
+            <input type="hidden"  name="T004_login"         value="<?php echo $user;?>"             />
+            <input type="hidden"  name="T008_T026T059_T061_codigo"        value="1"      id="processo"            />
+            <input type="submit"                            value="Gerar AP"    id="P0016_btn_criar"/>
         </div>
     </span>
 </div>
