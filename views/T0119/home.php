@@ -290,12 +290,11 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
     <div class="clear10"></div>
     
     <div class="grid_3">
-        <input type="button" class="botao-padrao" value="Aprovar Selecionados" id="aprovarSelecionados"/>
+        <input type="button" class="botao-padrao" value="Confirmar Selecionados" id="aprovarSelecionados"/>
     </div>
     
     <div class="grid_3">
-        <input type="button" class="botao-padrao" value="Reprovar Selecionados" id="reprovarSelecionados"/>
+        <input type="button" class="botao-padrao" value="Ignorar Selecionados" id="reprovarSelecionados"/>
     </div>
     
-</div>
-                        
+</div>   
