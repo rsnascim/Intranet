@@ -13,10 +13,7 @@ ZERA AS PROPRIEDADES PADRÕES DO ESPAÇAMENTO, BORDA E MARGEM DAS TAGS
 DE HTML, DIV, P, UL E LI 
 */ 
 html, body, div, p, ul, li { 
-    padding-left: 0px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    padding-right: 0px;
+    padding: 0px; 
     border:  0px; 
     margin:  0px;
     outline: 0px;
