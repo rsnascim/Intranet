@@ -115,7 +115,7 @@ else if ($tipo == 4)
 
 }
 
-if ($tipo == 5)
+if ($tipo==5)
 {
     //INSERI EM T026_fornecedor
     $tabela     =   "T026_fornecedor";
@@ -366,8 +366,7 @@ if ($tipo == 10)
             {
                 $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Aprovar'                    ><a href=".$AD."javascript:aprovar('T0016','T0016/home','T008_T060','1','T008_codigo',".$valores['APCodigo'].",".$valores['CodigoEtapa'].",".$valores['TpNota'].")".$AD."          class='ui-icon ui-icon-check'                                   ></a></li>";                
                 //$html[$i] .= "<li class='ui-state-default ui-corner-all' title='Voltar Aprovação'           ><a href=".$AD."?router=T0016/ultimas&FornCodigo=".$valores['FornCodigo'].$AD."                                                                             class='ui-icon ui-icon-arrowreturnthick-1-w'    target='_blank' ></a></li>";                
-                if ($valores['StatusAp']==0)
-                    $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Transferir Fluxo'              ><a href='#' class='ui-icon ui-icon-transferthick-e-w transferirAP'                       ></a></li>";                                
+                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Transferir Fluxo'              ><a href='#' class='ui-icon ui-icon-transferthick-e-w transferirAP'                       ></a></li>";                                
             }            
             // Status de Aprovacao, Digitadas e posteriores
             if(($status == 1) || ($status == 2) || ($status==4))

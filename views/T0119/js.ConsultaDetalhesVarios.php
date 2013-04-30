@@ -4,9 +4,13 @@
 $conn      =   "emporium";
 $objEMP    =   new models_T0119($conn);
 
-$Lote      = $_REQUEST['Lote'];
-$Loja      = $_REQUEST['Loja'];
-$Tipo      = $_REQUEST['Tipo'];
+$arrLote    =   $_REQUEST['arrLote'];
+
+$arrLoja    =   $_REQUEST['arrLoja'];
+$arrTipo    =   $_REQUEST['arrTipo'];
+$qtd        =   count($arrLote);
+
+$HTML='';
 
 function detalhesProducao($Loja, $Lote)
 {
@@ -106,7 +110,6 @@ function detalhesProducao($Loja, $Lote)
                 <table id='tDetalhes2' class='tablesorter'>
                     <thead>
                         <tr>
-                            <th>Data/Hora</th>
                             <th>LoteOrigem</th>
                             <th>PLU</th>
                             <th>Descricao</th>
@@ -119,7 +122,6 @@ function detalhesProducao($Loja, $Lote)
                     <tbody>";
                      foreach($ArrayInsumos as $campos=>$valores){
     $HTML .=           "<tr>
-                            <td>".$valores['horamov']."</td>
                             <td>".$valores['iloteori']."</td>
                             <td>".$valores['icditem']  ."</td>
                             <td>".$valores['idsplu']."</td>
@@ -137,110 +139,130 @@ function detalhesProducao($Loja, $Lote)
     
 }
 
-$Retorno   = $objEMP->ConsultaLote($Loja, $Lote);
-
-$HTML      =   " 
-                <div class='grid_2'>
-               ";
-// apresenta campos do Header do Lote
-foreach($Retorno as $campos=>$valores)
-{ 
-  $HTML     .= "<label class='label'>Loja:  ".$valores['store_key']."  -  Lote:  ".$valores['lote_numero']."</label>";
-  $HTML     .= "<label class='label'>Data:  ".$objEMP->formataDataHoraView($valores['start_time'])." - Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."</label>";
-  $HTML     .= "<label class='label'>Tipo: ".$objEMP->RetornaStringTipo($valores['tipo_codigo'])."</label>";
-  
-  
-  // armazena Status da Aprovação
-  // utilizado para Producoes reprovadas/rejeitadas
-  $StatusAprovacao = $valores['aprovacao_status_id'];
-}
-                      
-$HTML     .=   "
-                 </div>
-                <div class='clear'></div>
-               "; 
-
-// verifica qual será o tipo de retorno
-if (($Tipo==2)&&($StatusAprovacao<>7)&&$StatusAprovacao<>8)
-{  // 2 = Producoes, chama procedure do Emporium;
-    $HTML .= detalhesProducao($Loja, $Lote);
-
-}
-else
+for($i=0;$i<$qtd;$i++)
 {
-    $RetornoDetalhes = $objEMP->ConsultaDetalhesLoteLoja($Loja,$Lote);
-    $HTML   .= "
-                <div class='conteudo_10'>
-                <table id='tDetalhes' class='tablesorter'>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>PLU</th>
-                            <th>Descricao</th>
-                            <th>Qtde</th>
-                            <th>Valor Unit.</th>
-                            <th>Valor Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>";
-                     foreach($RetornoDetalhes as $campos=>$valores)
-                     {
-    $HTML .=           "<tr>
-                            <td>".$valores['sequence']."</td>
-                            <td>".$valores['plu_id']  ."</td>
-                            <td>".$valores['desc_plu']."</td>
-                            <td align='right'>".$objEMP->formataNumero($valores['quantity'],3)."</td>
-                            <td align='right'>".$objEMP->formataMoedaSufixo($valores['unit_price'],3)."</td>
-                            <td align='right'>".$objEMP->formataMoedaSufixo($valores['amount'])."</td>
-                        </tr> ";
-                     }  
-    $HTML .=     "  </tbody>
-                </table>
-                </div> ";
+    $Loja=$arrLoja[$i];
+    $Lote=$arrLote[$i];
+    $Tipo=$arrTipo[$i];
     
-}
-if ($Tipo==1)
-{ 
-    $RetornoConsumos   = $objEMP->ConsultaLotesDestino($Loja, $Lote);
+    $Retorno   = $objEMP->ConsultaLote($Loja, $Lote);
 
-    if($RetornoConsumos)
-    {    
-        // apresenta campos do Lote do Destino
-        foreach($RetornoConsumos as $campos=>$valores)
-        {
-           $HTML      .= "
-                            <BR>
-                            <BR>
-                            <div class='clear'></div>
-                            <div class='clear'></div>
-                            <div class='grid_2'>
-                              <H2><label class='label'>LOTE $Lote CONSUMIDO EM : </label></H2>
-                            </div>
-                           ";
+    $HTML      .=   " 
+                    <div class='grid_2'>
+                   ";
+    // apresenta campos do Header do Lote
+    foreach($Retorno as $campos=>$valores)
+    { 
+      $HTML     .= "<label class='label'>Loja:  ".$valores['store_key']."  -  Lote:  ".$valores['lote_numero']."";
+      $HTML     .= "  -  Data:  ".$objEMP->formataDataHoraView($valores['start_time'])." - Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."";
+      $HTML     .= "  -  Tipo: ".$objEMP->RetornaStringTipo($valores['tipo_codigo'])."</label>";
 
-            $HTML      .=   " 
-                            <div class='clear'></div>
-                            <div class='grid_2'>
-                           ";
-            
-            $HTML     .=   "<label class='label'>Lote:  ".$valores['lote_numero']." - ".$objEMP->RetornaStringTipo($valores['tipo_codigo'])."</label>";
-            $HTML     .=   "<label class='label'>Data:  ".$objEMP->formataDataHoraView($valores['start_time'])."</label>";
-            $HTML     .=   "<label class='label'>Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."</label>";
-            $HTML     .= "</div>";
+
+      // armazena Status da Aprovação
+      // utilizado para Producoes reprovadas/rejeitadas
+      $StatusAprovacao = $valores['aprovacao_status_id'];
+    }
+
+    $HTML     .=   "
+                     </div>
+                    <div class='clear'></div>
+                   "; 
+
+    // verifica qual será o tipo de retorno
+    if (($Tipo==2)&&($StatusAprovacao<>7)&&$StatusAprovacao<>8)
+    {  // 2 = Producoes, chama procedure do Emporium;
+        $HTML .= detalhesProducao($Loja, $Lote);
+
+    }
+    else
+    {
+        $RetornoDetalhes = $objEMP->ConsultaDetalhesLoteLoja($Loja,$Lote);
+        $HTML   .= "
+                    <div class='conteudo_10'>
+                    <table id='tDetalhes' class='tablesorter'>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>PLU</th>
+                                <th>Descricao</th>
+                                <th>Qtde</th>
+                                <th>Valor Unit.</th>
+                                <th>Valor Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+                         foreach($RetornoDetalhes as $campos=>$valores)
+                         {
+        $HTML .=           "<tr>
+                                <td>".$valores['sequence']."</td>
+                                <td>".$valores['plu_id']  ."</td>
+                                <td>".$valores['desc_plu']."</td>
+                                <td align='right'>".$objEMP->formataNumero($valores['quantity'],3)."</td>
+                                <td align='right'>".$objEMP->formataMoedaSufixo($valores['unit_price'],3)."</td>
+                                <td align='right'>".$objEMP->formataMoedaSufixo($valores['amount'])."</td>
+                            </tr> ";
+                         }  
+        $HTML .=     "  </tbody>
+                    </table>
+                    </div> ";
+
+    }
+    if ($Tipo==1)
+    { 
+        $RetornoConsumos   = $objEMP->ConsultaLotesDestino($Loja, $Lote);
+
+        if($RetornoConsumos)
+        {    
+            // apresenta campos do Lote do Destino
+            foreach($RetornoConsumos as $campos=>$valores)
+            {
+               $HTML      .= "
+                                <BR>
+                                <BR>
+                                <div class='clear'></div>
+                                <div class='clear'></div>
+                                <div class='grid_2'>
+                                  <H2><label class='label'>LOTE $Lote CONSUMIDO EM : </label></H2>
+                                </div>
+                               ";
+
+                $HTML      .=   " 
+                                <div class='clear'></div>
+                                <div class='grid_2'>
+                               ";
+
+                $HTML     .=   "<label class='label'>Lote:  ".$valores['lote_numero']." - ".$objEMP->RetornaStringTipo($valores['tipo_codigo'])."</label>";
+                $HTML     .=   "<label class='label'>Data:  ".$objEMP->formataDataHoraView($valores['start_time'])."</label>";
+                $HTML     .=   "<label class='label'>Valor: ".$objEMP->formataMoedaSufixo($valores['amount'])."</label>";
+                $HTML     .= "</div>";
+                $HTML     .=   "
+                                <div class='clear'>
+                                </div>
+                               "; 
+
+                $HTML     .= detalhesProducao($valores['store_key'],$valores['lote_numero']);  
+
+            }
+
             $HTML     .=   "
-                            <div class='clear'>
+                            <div class='clear10'>
                             </div>
                            "; 
-
-            $HTML     .= detalhesProducao($valores['store_key'],$valores['lote_numero']);  
-
         }
-
-        $HTML     .=   "
-                        <div class='clear'>
-                        </div>
-                       "; 
-    }
+   }
+    $HTML     .=   "
+                    <div class='grid_16'>
+                       <label class='label'>".str_pad('_',120,'_')."</label>"
+                    
+                   ."</div>
+                    <div class='clear10'>
+                    </div>
+                    <div class='clear10'>
+                    </div>
+                    <div class='clear10'>
+                    </div>
+                   "; 
+   
 }
 echo $HTML ; 
 ?>

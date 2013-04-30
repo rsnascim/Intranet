@@ -225,13 +225,20 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 <?php if(($valores['status_consumo_id']!=0)&&($valores['status_consumo_id']!=2))
                     { ?>
                          onmouseover ="show_tooltip_alert('<?php echo $valores['status_consumo_descricao'] ;?>'
-                                                         ,'<?php echo "<B>Em: </B>".$objEMP->formataDataHoraView($valores['consumo_data'])
-                                                                                  ."<BR>"
-                                                                                  ."<B>Operador: </B>".$objEMP->retornaDadosOperador($valores['consumo_agent_key']);
-                                                                           ;?>');tooltip.pnotify_display();" 
+                                                         ,'<?php $Box = '' ;
+                                                                 if(!empty($valores['consumo_data']))
+                                                                 {
+                                                                    $Box .= "<B>Em: </B>".$objEMP->formataDataHoraView($valores['consumo_data'])
+                                                                                  ."<BR>";
+                                                                 }
+                                                                 if(!empty($valores['consumo_agent_key']))
+                                                                 {
+                                                                    $Box .= "<B>Operador: </B>".$objEMP->retornaDadosOperador($valores['consumo_agent_key']);
+                                                                 }   
+                                                                 echo $Box ;?>');tooltip.pnotify_display();" 
                          onmousemove ="tooltip.css({'top': event.clientY+12, 'left': event.clientX+12});"
                          onmouseout  ="tooltip.pnotify_remove();" 
-               <?php }?>
+                <?php }?>
                 ><?php echo $valores['status_consumo_id'].'-'.$valores['status_consumo_descricao']; ?></td>
                 <td
                 <?php if($valores['status_aprovacao_id']!=1)
@@ -264,7 +271,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                     <ul class="lista-de-acoes">                                        
                         <li><a href="#" title="Detalhes"  class="<?php echo $valores['status_aprovacao_id']==1?'DetalhesAprovar':'Detalhes';?>">     <span class='ui-icon ui-icon-search'>  </span></a></li>                                    
                         <?php // verifica se está no Status de Aprovação e apresenta os botoes
-                              if($valores['status_aprovacao_id']==1)
+                              if($valores['status_aprovacao_id']==999)
                               { ?>
                                 <li><a href="#" title="Aprovar"   class="Aprovar" >     <span class='ui-icon ui-icon-check' >  </span></a></li>
                                 <li><a href="#" title="Reprovar"  class="Reprovar" >    <span class='ui-icon ui-icon-cancel'>  </span></a></li>
@@ -283,12 +290,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
     <div class="clear10"></div>
     
     <div class="grid_3">
-        <input type="button" class="botao-padrao" value="Aprovar Selecionados" id="aprovarSelecionados"/>
+        <input type="button" class="botao-padrao" value="Visualizar Selecionados" id="visualizarSelecionados"/>
     </div>
     
-    <div class="grid_3">
-        <input type="button" class="botao-padrao" value="Reprovar Selecionados" id="reprovarSelecionados"/>
-    </div>
-    
-</div>
-                        
+</div>   
