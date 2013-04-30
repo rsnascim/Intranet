@@ -6,7 +6,7 @@
 /**************************************************************************/
   
 /* Habilitar de 0 para 1 para exibir erros do PHP                 */
-ini_set("display_errors",0);    
+ini_set("display_errors",0);      
  
 /* Inicializa characters com UTF-8 */
 ini_set('default_charset','ISO-8859-1');
@@ -64,9 +64,5 @@ require_once(CONEXOES);
 
 //abre sessões
 session_start();
+?>
 
-<<<<<<< HEAD
-?>
-=======
-?>
->>>>>>> f2e2d4db269f4d77f09f2c7d0a61920b44d765c0
