@@ -163,16 +163,17 @@ $(function(){
                                         , sortMultiSortKey: 'ctrlKey' // seleÃ§Ã£o de mais de uma coluna para ordenacao
                                         , headers: {
                                                         100:{sorter: false}   
-                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 0: {sorter:"brazilDate"}   
                                                       , 1: {sorter:"brazilNumber"}   
-                                                      , 2: {sorter:"text"}   
+                                                      , 2: {sorter:"brazilNumber"}   
                                                       , 3: {sorter:"text"}   
+                                                      , 4: {sorter:"text"}   
                                                       
                                                       
-                                                      , 4: {sorter:"brazilNumber"}   
-                                                      , 5: {sorter:"brazilCurrency"} // moeda
-                                                      , 6: {sorter:"brazilCurrency"}
+                                                      , 5: {sorter:"brazilNumber"}   
+                                                      , 6: {sorter:"brazilCurrency"} // moeda
                                                       , 7: {sorter:"brazilCurrency"}
+                                                      
                                                   }
                                         });
 
@@ -258,16 +259,17 @@ $(function(){
                                         , sortMultiSortKey: 'ctrlKey' // seleÃ§Ã£o de mais de uma coluna para ordenacao
                                         , headers: {
                                                         100:{sorter: false}   
-                                                      , 0: {sorter:"brazilNumber"}   
+                                                      , 0: {sorter:"brazilDate"}   
                                                       , 1: {sorter:"brazilNumber"}   
-                                                      , 2: {sorter:"text"}   
+                                                      , 2: {sorter:"brazilNumber"}   
                                                       , 3: {sorter:"text"}   
+                                                      , 4: {sorter:"text"}   
                                                       
                                                       
-                                                      , 4: {sorter:"brazilNumber"}   
-                                                      , 5: {sorter:"brazilCurrency"} // moeda
-                                                      , 6: {sorter:"brazilCurrency"}
+                                                      , 5: {sorter:"brazilNumber"}   
+                                                      , 6: {sorter:"brazilCurrency"} // moeda
                                                       , 7: {sorter:"brazilCurrency"}
+                                                      
                                                   }
                                         });
 
@@ -337,7 +339,7 @@ $(function(){
         }
     });
     
-    $('#aprovarSelecionados').live("click", function(){       
+    $('#visualizarSelecionados').live("click", function(){       
         var $this           = $(".dados").find(".selecionaItem");
         var Lote            = new Array();
         var Loja            = new Array();
@@ -434,55 +436,6 @@ $(function(){
 
                                 $(this).dialog("close");
                             }
-
-                    }
-
-
-            });
-        }else
-            show_stack_bottomleft(true, 'Erro!', 'Nao foi selecionado nenhum lote!');      
-  });
-  
-    $('#reprovarSelecionados').live("click", function(){       
-        var $this           = $(".dados").find(".selecionaItem");
-        var Lote            = new Array();
-        var Loja            = new Array();
-        var Tipo            = new Array();
-        var QtdeReg         = 0;  
-        $("#dialog-detalhes").html("Aguarde Carregando...");
-
-        $(".selecionaItem:checked").each(function(){
-             // verifica se a linha esta oculta usando o FILTRO DINAMICO
-            if($(this).parents('tr').css('display') != 'none')
-            {
-                Lote.push($(this).parents('tr').find('.txtLote').text());
-                Loja.push($(this).parents('tr').find('.txtLoja').text());
-                Tipo.push($(this).parents('tr').find('.txtTipo').text());
-                QtdeReg=QtdeReg+1;
-            }
-
-        });
-        
-        if($this.is(':checked'))
-        {
-            $.get("?router=T0119/js.ConsultaDetalhesVarios",{arrLote:Lote, arrLoja:Loja, arrTipo:Tipo},function(retorno){
-              $("#dialog-detalhes").html(retorno);
-            });
-
-            $("#dialog-detalhes").dialog        
-            ({
-                    resizable: true,
-                    height:650,
-                    draggable: true,
-                    width:850,
-                    modal: true,
-                    title:"IGNORAR selecionados ",
-                    buttons:
-                    {
-                            Fechar: function()
-                            {
-                                $(this).dialog("close");
-                            }
                             ,
                             'IGNORAR Todos': function() 
                             {
@@ -538,6 +491,55 @@ $(function(){
                                     }else
                                         show_stack_bottomleft(true, 'Erro!', 'Nao foi selecionado nenhum lote!');                 
 
+                                $(this).dialog("close");
+                            }
+
+                    }
+
+
+            });
+        }else
+            show_stack_bottomleft(true, 'Erro!', 'Nao foi selecionado nenhum lote!');      
+  });
+  
+    $('#reprovarSelecionados').live("click", function(){       
+        var $this           = $(".dados").find(".selecionaItem");
+        var Lote            = new Array();
+        var Loja            = new Array();
+        var Tipo            = new Array();
+        var QtdeReg         = 0;  
+        $("#dialog-detalhes").html("Aguarde Carregando...");
+
+        $(".selecionaItem:checked").each(function(){
+             // verifica se a linha esta oculta usando o FILTRO DINAMICO
+            if($(this).parents('tr').css('display') != 'none')
+            {
+                Lote.push($(this).parents('tr').find('.txtLote').text());
+                Loja.push($(this).parents('tr').find('.txtLoja').text());
+                Tipo.push($(this).parents('tr').find('.txtTipo').text());
+                QtdeReg=QtdeReg+1;
+            }
+
+        });
+        
+        if($this.is(':checked'))
+        {
+            $.get("?router=T0119/js.ConsultaDetalhesVarios",{arrLote:Lote, arrLoja:Loja, arrTipo:Tipo},function(retorno){
+              $("#dialog-detalhes").html(retorno);
+            });
+
+            $("#dialog-detalhes").dialog        
+            ({
+                    resizable: true,
+                    height:650,
+                    draggable: true,
+                    width:850,
+                    modal: true,
+                    title:"IGNORAR selecionados ",
+                    buttons:
+                    {
+                            Fechar: function()
+                            {
                                 $(this).dialog("close");
                             }
 
