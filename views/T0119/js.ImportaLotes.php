@@ -164,11 +164,9 @@ function atualizaCanceladosIntranet(){
 
 echo '****Inicio Execucao*****';
 date_default_timezone_set('UTC');
-// print_r($_SERVER);
-echo $_SERVER['HOSTNAME'];
-
 print ("\n");
 echo date('d/m/Y H:i:s');
+print ("\n");
 echo 'Inserindo na Intranet...';
 print ("\n");
 insereIntranet();
@@ -177,6 +175,7 @@ print ("\n");
 atualizaCanceladosIntranet();
 print ("\n");
 echo date('d/m/Y H:i:s');
+print ("\n");
 echo '****Fim Execucao****';
 print ("\n");
 
