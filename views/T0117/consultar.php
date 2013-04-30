@@ -139,20 +139,20 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                 <label class="label">Descrição * </label>
                 <textarea name="T113_descricao"   placeholder="Falta o Texto!"          class="validate[required] textarea-table" cols="122" rows="4" readonly><?php echo $vlrRM["DescricaoRM"]; ?></textarea>            
             </div>        
-
+            <br><br>
             <div class="clear"></div>
 
-            <div style="position: absolute; top: 350px; left: 170px;">
+            <div style="margin-top: 15px; position: absolute; top: 350px; left: 170px;">
                 <label class="label">Qual a necessidade de mudança? *</label>
                 <textarea style="width: 485px" name="T113_motivo"      placeholder="Falta o Texto!"       class="validate[required] textarea-table" cols="50" rows="4" readonly><?php echo $vlrRM["MotivoRM"]; ?></textarea>            
             </div>
 
-            <div style="position: absolute; top: 350px; left: 680px;">
+            <div style=" margin-top: 15px; position: absolute; top: 350px; left: 680px;">
                 <label class="label">Qual o impacto para o negocio se não houver a mudança? *</label>
                 <textarea style="width: 485px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoRM"]; ?></textarea>            
             </div>
             
-            <div style="position: absolute; top: 450px; left: 170px;">
+            <div style=" margin-top: 15px; position: absolute; top: 450px; left: 170px;">
                 <label class="label">Qual impacto durante a ocorrência? (Para o negócio)*</label>
                 <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoOcorrencia"]; ?></textarea>            
             </div>  

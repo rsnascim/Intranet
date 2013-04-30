@@ -25,6 +25,34 @@ echo "";
     </ul>
 </div>
 
+<div id="dialog-upload" title="Upload" style="display:none">
+	<p    class="validateTips">Selecione um tipo e um arquivo para carregar no sistema!</p>
+        <span class="form-input">
+	<form action="?router=T0117/js.upload" method="post" id="form-upload"  enctype="multipart/form-data">
+	<fieldset>
+                <label class="label">Tipo de Arquivo*</label>
+                <select                 name="T056_codigo"  id="tp_codigo" class="form-input-select">
+                <?php 
+                    $TArq   =   $obj->selecionaTipoArquivo();
+                    foreach($TArq as $campos=>$valores){?>
+                    <option value="<?php echo $valores['COD']?>"><?php echo ($valores['NOM'])?></option>
+                <?php }?>
+                </select>
+                <label class="label">Escolha o Arquivo*</label>
+                <input type="file"      name="P0117_arquivo"      id="arquivo" class="form-input-text"   />
+                <input type="hidden"    name="T055_nome"            value=""                             />
+                <input type="hidden"    name="T055_desc"            value=""                             />
+                <input type="hidden"    name="T055_dt_upload"       value=""                             />
+                <input type="hidden"    name="T004_login"           value="<?php echo $user?>"           />
+                <input type="hidden"    name="T057_codigo"          value=""                             />
+                <input type="hidden"    name="T059_codigo"          value=""                             />
+                <input type="hidden"    name="T113_codigo"          value=""      id="codArqRm"             />
+                <!-- Tipo Processo (Approval/Aprovação-->
+        </fieldset>
+	</form>
+        </span>
+</div>
+
 <!-- Divs com filtros -->
 <div class="div-primaria div-filtro">
     <form action="" method="post">
@@ -65,6 +93,7 @@ echo "";
                         <th width="40%">Título      </th>
                         <th>Solicitante </th>
                         <th>Status      </th>
+                        <th>Arquivos    </th>
                         <th>Ações       </th>
                     </tr>
                 </thead>
@@ -77,6 +106,25 @@ echo "";
                         <td><?php echo $valores['TituloRM'];?></td>
                         <td><?php echo $valores['SolicitanteNome']." - ".$valores['SolicitanteLogin'];?></td>
                         <td><?php $obj->nomeStatus($valores['StatusRM']);?></td>
+                        <td><table class='list-iten-arquivos'>
+                                <?php $Arq = $obj->selecionaArquivos($valores['CodigoRM']);
+                                        $AD = "\"";
+                            foreach($Arq  as  $campos=>$valores2)
+                            {
+                                 if( $cont%2 == 0)
+                                        $cor = "line_color";
+                                 else
+                                        $cor = "";
+                                 $cont++;
+                                   
+                                 $lnkArq = $obj->preencheZero("E", 4, $valores2['CAT'])."/".$arquivo=$obj->preencheZero("E", 4, $valores2['ARQ']).".".$valores2['EXT'];
+                                 ?>
+                                <tr class="<?php echo $cor;?>">
+                                <?php echo "<td><a target='_blank' href=".$AD.CAMINHO_ARQUIVOS."CAT".$lnkArq.$AD.">".$valores2['NOM']."</a></td>";
+                                      echo "<td><a href=".$AD."javascript:excluir('T0117','T0117/home&cod=".$valores['CodigoRM']."&path=".$lnkArq."','T113_T055','T055_codigo','".$valores2['ARQ']."')".$AD." title='Excluir' class='excluir'></a></td>";?>
+                                </tr> 
+                                <?php }?>
+                            </table></td>
                         <td class="acoes">
                             <span class="lista_acoes">
                                 <ul>

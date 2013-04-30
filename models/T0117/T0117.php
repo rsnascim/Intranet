@@ -228,7 +228,11 @@ class models_T0117 extends models
                     </li>
                     <li class='ui-state-default ui-corner-all' title='Alterar'>
                                         <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil alterar'></a> 
+                    </li>
+                    <li class='ui-state-default ui-corner-all' title='Alterar'>
+                                        <a href='javascript:upload(".$codRM.")' class='ui-icon ui-icon-pin-s Anexar'></a> 
                     </li>";
+                    
         } elseif(($perfil == 59)&& ($status == 2)){
             
               echo " 
@@ -337,6 +341,47 @@ class models_T0117 extends models
         
     }
     
+     public function selecionaExtensao($extensao)
+    {
+       return $this->query("SELECT T1.T057_codigo   COD
+                                  , T1.T057_nome    NOM
+                                  , T1.T057_desc    DES
+                               FROM T057_extensao   T1
+                              WHERE T1.T057_nome = '$extensao'");
+    }
+    
+        public function selecionaTipoArquivo()
+    {
+        return $this->query("SELECT DISTINCT T.T056_codigo   AS COD
+                                  , T.T056_nome              AS NOM
+                               FROM T056_categoria_arquivo   AS T
+                               JOIN T055_arquivos T2 ON ( T2.T056_codigo = T.T056_codigo)
+                              WHERE T2.T061_codigo IS NOT NULL
+                                AND T.T056_codigo <> 19");
+    }
+    
+     public function selecionaArquivos($rm)
+    {
+         
+         $sql  =            "SELECT T5.T056_nome                    NOM
+                                  , T5.T056_codigo                  CAT
+                                  , T3.T055_codigo                  ARQ
+                                  , T5.T056_desc                    DES
+                                  , T4.T057_nome                    EXT
+                               FROM T113_T055                       T1
+                                  , T113_requisicao_mudanca         T2
+                                  , T055_arquivos                   T3
+                                  , T057_extensao                   T4
+                                  , T056_categoria_arquivo          T5
+                              WHERE T1.T113_codigo =   T2.T113_codigo
+                                AND T1.T055_codigo =   T3.T055_codigo
+                                AND T3.T056_codigo =   T5.T056_codigo
+                                AND T3.T057_codigo =   T4.T057_codigo
+                                AND T1.T113_codigo =   $rm";
+         
+       //  echo $sql;
+        return $this->query($sql);
+   }
 
      
 }
