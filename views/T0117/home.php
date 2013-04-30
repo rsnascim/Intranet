@@ -95,7 +95,7 @@ echo "";
                         <th>Status      </th>
                         <th>Arquivos    </th>
                         <th>Ações       </th>
-                    </tr>
+                    </tr> 
                 </thead>
                 <tbody class="campos">
                     <?php foreach($dados    as  $campos =>  $valores){
