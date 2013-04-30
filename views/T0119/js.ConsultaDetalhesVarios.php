@@ -252,8 +252,9 @@ for($i=0;$i<$qtd;$i++)
    }
     $HTML     .=   "
                     <div class='grid_16'>
-                       <HR></HR>
-                    </div>
+                       <label class='label'>".str_pad('_',120,'_')."</label>"
+                    
+                   ."</div>
                     <div class='clear10'>
                     </div>
                     <div class='clear10'>

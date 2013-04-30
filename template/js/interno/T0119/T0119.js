@@ -33,14 +33,14 @@ $(function(){
     $("#dialog-aprovar").dialog
     ({
             resizable: false,
-            height:200,
+            height:300,
             draggable: false,
-            width:300,
+            width:400,
             modal: true,
-            title:"Confirma APROVAÃ‡ÃƒO do Lote ? ",
+            title:"Deseja CONFIRMAR o Lote ? ",
             buttons:
             {
-                    Aprovar: function() 
+                    Confirmar: function() 
                     {
                         arrLote.push(Lote);
                         arrLoja.push(Loja);
@@ -51,7 +51,7 @@ $(function(){
                                 //$($thisAprovar).remove();
                                 Obj.parents("tr").remove();
                             }else{
-                              show_stack_bottomleft(true,"Erro","Lote NÃ£o Aprovado");
+                              show_stack_bottomleft(true,"Erro","Lote Não Confirmado");
                             }
 
                         });
@@ -68,7 +68,7 @@ $(function(){
                         }
                     }
                     ,
-                    Nao: function()
+                    Não: function()
                     {
                         $(this).dialog("close");
                     }
@@ -94,14 +94,14 @@ $(function(){
     $("#dialog-aprovar").dialog
     ({
             resizable: false,
-            height:200,
+            height:300,
             draggable: false,
-            width:300,
+            width:400,
             modal: true,
-            title:"Confirma REPROVAÇÃO do Lote ? ",
+            title:"Deseja IGNORAR o Lote ? ",
             buttons:
             {
-                    Reprovar: function() 
+                    Ignorar: function() 
                     {
                         arrLote.push(Lote);
                         arrLoja.push(Loja);
@@ -112,7 +112,7 @@ $(function(){
                                 //$($thisAprovar).remove();
                                 Obj.parents("tr").remove();
                             }else{
-                              show_stack_bottomleft(true,"Erro","Lote NÃ£o Reprovado");
+                              show_stack_bottomleft(true,"Erro","Lote Não Reprovado");
                             }
 
                         });
@@ -129,7 +129,7 @@ $(function(){
                         }                        
                     }
                     ,
-                    Nao: function()
+                    Não: function()
                     {
                         $(this).dialog("close");
                     }
@@ -194,25 +194,25 @@ $(function(){
                             $(this).dialog("close");
                         }
                         ,
-                        Aprovar: function() 
+                        Confirmar: function() 
                         {
                             aprovarLote(Lote, Loja, Tipo,Obj);
                             $(this).dialog("close");
                         }
                         ,
-                        Reprovar: function() 
+                        Ignorar: function() 
                         {
                            reprovarLote(Lote, Loja, Tipo,Obj);
                             $(this).dialog("close");
                         }
                         ,
-                        'Aprovar e Proximo':function()
+                        'Confirmar e Próximo':function()
                         {
                             
                             aprovarLote(Lote, Loja, Tipo,Obj,'PRX');
                         }
                         ,
-                        'Reprovar e Proximo':function()
+                        'Ignorar e Próximo':function()
                         {
                             
                             reprovarLote(Lote, Loja, Tipo,Obj,'PRX');
@@ -370,7 +370,7 @@ $(function(){
                     draggable: true,
                     width:850,
                     modal: true,
-                    title:"CONFIRMAÇÃO em Lote ",
+                    title:"CONFIRMAR selecionados",
                     buttons:
                     {
                             Fechar: function()
@@ -385,8 +385,8 @@ $(function(){
                                     if(QtdeReg>0)
                                     {   
                                         $("#dialog-aprovar").html("<div class='grid_2'>"+
-                                                                    "<label class='label'>Aprova CONFIRMAÇÃO de todos os lotes selecionados ? </label>"+
-                                                                    "<label class='label'>Foram selecionados "+QtdeReg+" Lotes </label>"+
+                                                                    "<label class='label'>Deseja CONFIRMAR todos os "+QtdeReg+" lotes selecionados ? </label>"+
+                                                                    "<label class='label'>Ao Confirmar tais lotes serão integrados no RMS</label>"+
                                                                     "<label class='label'>Essa AÇÃO NÃO pode ser desfeita </label>"+
                                                                    "</div>"
                                                                   );
@@ -398,7 +398,7 @@ $(function(){
                                                 draggable: true,
                                                 width:300,
                                                 modal: true,
-                                                title:"Aprova CONFIRMACAO? ",
+                                                title:"Deseja CONFIRMAR ? ",
                                                 buttons:
                                                 {
                                                         Sim: function()
@@ -476,7 +476,7 @@ $(function(){
                     draggable: true,
                     width:850,
                     modal: true,
-                    title:"IGNORAR em Lote ",
+                    title:"IGNORAR selecionados ",
                     buttons:
                     {
                             Fechar: function()
@@ -491,8 +491,8 @@ $(function(){
                                     if(QtdeReg>0)
                                     {   
                                         $("#dialog-aprovar").html("<div class='grid_2'>"+
-                                                                    "<label class='label'>Confirmar IGNORAR de todos os lotes selecionados ? </label>"+
-                                                                    "<label class='label'>Foram selecionados "+QtdeReg+" Lotes </label>"+
+                                                                    "<label class='label'>Deseja IGNORAR todos os "+QtdeReg+" lotes selecionados ? </label>"+
+                                                                    "<label class='label'>Ao Ignorar tais lotes não serão integrados no RMS</label>"+
                                                                     "<label class='label'>Essa AÇÃO NÃO pode ser desfeita </label>"+
                                                                    "</div>"
                                                                   );
@@ -504,7 +504,7 @@ $(function(){
                                                 draggable: true,
                                                 width:300,
                                                 modal: true,
-                                                title:"Confirma  IGNORAR ? ",
+                                                title:"Deseja  IGNORAR ? ",
                                                 buttons:
                                                 {
                                                         Sim: function()

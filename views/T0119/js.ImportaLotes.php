@@ -5,7 +5,14 @@ function conectaIntranet()
     try
     {
             ob_start();
-            return $db = new PDO('mysql:host=10.2.1.41;dbname=Satelite', 'root', '');
+            if( ($_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') )
+            {
+                $HostNameIntranet='10.2.1.41';
+            }else
+            {
+                $HostNameIntranet='10.2.1.141';
+            }
+            return $db = new PDO('mysql:host='.$HostNameIntranet.';dbname=Satelite', 'root', '');
 
     }catch (Exception $e) {
             $db->rollBack();
@@ -18,7 +25,15 @@ function conectaEmporium()
     try
     {
             ob_start();
-            return $db = new PDO('mysql:host=10.2.1.10;dbname=emporium', 'root', 'emporium');
+            if( ($_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') )
+            {
+                $HostNameEmporium='10.2.1.10';
+            }else
+            {
+                $HostNameEmporium='10.2.1.110';
+            }
+            
+            return $db = new PDO('mysql:host='.$HostNameEmporium.';dbname=emporium', 'root', 'emporium');
 
     }catch (Exception $e) {
             $db->rollBack();
@@ -146,12 +161,19 @@ function atualizaCanceladosIntranet(){
   }
   
 }
-echo 'Inicio Execucao';
-echo '<BR>';
+echo '****Inicio Execucao*****';
+print ("\n");
+echo date('d/m/Y H:i:s');
+echo 'Inserindo na Intranet...';
+print ("\n");
 insereIntranet();
+echo 'Atualizando Cancelados...';
+print ("\n");
 atualizaCanceladosIntranet();
-echo 'Fim Execucao';
-echo '<BR>';
+print ("\n");
+echo date('d/m/Y H:i:s');
+echo '****Fim Execucao****';
+print ("\n");
 
 // 
 

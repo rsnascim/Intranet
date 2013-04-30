@@ -271,7 +271,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                     <ul class="lista-de-acoes">                                        
                         <li><a href="#" title="Detalhes"  class="<?php echo $valores['status_aprovacao_id']==1?'DetalhesAprovar':'Detalhes';?>">     <span class='ui-icon ui-icon-search'>  </span></a></li>                                    
                         <?php // verifica se está no Status de Aprovação e apresenta os botoes
-                              if($valores['status_aprovacao_id']==1)
+                              if($valores['status_aprovacao_id']==999)
                               { ?>
                                 <li><a href="#" title="Aprovar"   class="Aprovar" >     <span class='ui-icon ui-icon-check' >  </span></a></li>
                                 <li><a href="#" title="Reprovar"  class="Reprovar" >    <span class='ui-icon ui-icon-cancel'>  </span></a></li>
