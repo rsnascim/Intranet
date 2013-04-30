@@ -65,4 +65,8 @@ require_once(CONEXOES);
 //abre sessões
 session_start();
 
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> f2e2d4db269f4d77f09f2c7d0a61920b44d765c0
