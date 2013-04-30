@@ -42,35 +42,87 @@ $(function(){
             {
                     Confirmar: function() 
                     {
+                        var re=0;
                         arrLote.push(Lote);
                         arrLoja.push(Loja);
                         arrTipo.push(Tipo);
                         $.get("?router=T0119/js.AprovarReprovar",{arrLote:arrLote,arrLoja:arrLoja, arrTipo:arrTipo, Acao:2},function(retorno){
-                            if(retorno==1){
-                                show_stack_bottomleft(false," ","Lote Aprovado com sucesso");
+                            if(retorno==1)
+                            {
+                                
                                 //$($thisAprovar).remove();
-                                Obj.parents("tr").remove();
-                            }else{
+                                //Obj.parents("tr").remove();
+                                Obj.parents("tr").css('display','none');
+                                show_stack_bottomleft(false," ","Lote Confirmado com sucesso");
+                                if(Next=="PRX")
+                                {
+                                    var display='none';
+                                    var ObjNext=Obj; 
+
+                                    while(display=='none')
+                                    {
+                                            ObjNext=ObjNext.parents("tr").next('tr').children(".txtLote");
+                                            display=ObjNext.parents('tr').css('display');
+                                    }
+
+                                    Obj=ObjNext;           
+                                    var LoteNext=Obj.parents("tr").children(".txtLote").text();
+                                    var LojaNext=Obj.parents("tr").children(".txtLoja").text();
+                                    var TipoNext=Obj.parents("tr"). children(".txtTipo").text();
+                                    if(LoteNext!="")
+                                    {
+                                       detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
+                                    }
+                                    else
+                                    {
+                                            alert('Não há próximo lote para Confirmação');
+                                            $('#dialog-detalhes').dialog("close");
+                                    }
+
+                               }                                
+                            }else
+                            {
                               show_stack_bottomleft(true,"Erro","Lote Não Confirmado");
                             }
 
                         });
 
                         $(this).dialog("close");
-                        if(Next=="PRX")
-                        {
-                            var ObjNext=Obj.parents("tr").next('tr').children(".txtLote");
-                            var LoteNext=Obj.parents("tr").next('tr').children(".txtLote").text();
-                            var LojaNext=Obj.parents("tr").next('tr').children(".txtLoja").text();
-                            var TipoNext=Obj.parents("tr").next('tr').children(".txtTipo").text();
-                            detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
-                                
-                        }
+                       
                     }
                     ,
                     Não: function()
                     {
                         $(this).dialog("close");
+                        if(Next=="PRX")
+                        {
+                            
+                            var display='none';
+                            var ObjNext=Obj; 
+                            var Qtde=0;
+                            
+                            while(display=='none')
+                            {
+                                    ObjNext=ObjNext.parents("tr").next('tr').children(".txtLote");
+                                    display=ObjNext.parents('tr').css('display');
+                                    Qtde=Qtde+1;
+                            }
+                            
+                            Obj=ObjNext;           
+                            var LoteNext=Obj.parents("tr").children(".txtLote").text();
+                            var LojaNext=Obj.parents("tr").children(".txtLoja").text();
+                            var TipoNext=Obj.parents("tr"). children(".txtTipo").text();
+                            if(LoteNext!="")
+                            {
+                               detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
+                            }
+                            else
+                            {
+                                    alert('Não há próximo lote para Confirmação');
+                                    $('#dialog-detalhes').dialog("close");
+                            }
+
+                       }
                     }
             }
     });
@@ -103,35 +155,87 @@ $(function(){
             {
                     Ignorar: function() 
                     {
+                        var re=0;
                         arrLote.push(Lote);
                         arrLoja.push(Loja);
                         arrTipo.push(Tipo);
                         $.get("?router=T0119/js.AprovarReprovar",{arrLote:arrLote,arrLoja:arrLoja, arrTipo:arrTipo, Acao:7},function(retorno){
-                            if(retorno==1){
-                                show_stack_bottomleft(false," ","Lote Reprovado com sucesso");
+                            if(retorno==1)
+                            {
+                                
                                 //$($thisAprovar).remove();
-                                Obj.parents("tr").remove();
-                            }else{
-                              show_stack_bottomleft(true,"Erro","Lote Não Reprovado");
+                                //Obj.parents("tr").remove();
+                                Obj.parents("tr").css('display','none');
+                                show_stack_bottomleft(false," ","Lote Ignorado com sucesso");
+                                if(Next=="PRX")
+                                {
+                                    var display='none';
+                                    var ObjNext=Obj; 
+
+                                    while(display=='none')
+                                    {
+                                            ObjNext=ObjNext.parents("tr").next('tr').children(".txtLote");
+                                            display=ObjNext.parents('tr').css('display');
+                                    }
+
+                                    Obj=ObjNext;           
+                                    var LoteNext=Obj.parents("tr").children(".txtLote").text();
+                                    var LojaNext=Obj.parents("tr").children(".txtLoja").text();
+                                    var TipoNext=Obj.parents("tr"). children(".txtTipo").text();
+                                    if(LoteNext!="")
+                                    {
+                                       detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
+                                    }
+                                    else
+                                    {
+                                            alert('Não há mais lotes para Ignorar');
+                                            $('#dialog-detalhes').dialog("close");
+                                    }
+
+                               }                                
+                            }else
+                            {
+                              show_stack_bottomleft(true,"Erro","Lote Não Ignorado");
                             }
 
                         });
 
                         $(this).dialog("close");
-                        if(Next=="PRX")
-                        {
-                            var ObjNext=Obj.parents("tr").next('tr').children(".txtLote");
-                            var LoteNext=Obj.parents("tr").next('tr').children(".txtLote").text();
-                            var LojaNext=Obj.parents("tr").next('tr').children(".txtLoja").text();
-                            var TipoNext=Obj.parents("tr").next('tr').children(".txtTipo").text();
-                            detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
-                                
-                        }                        
+                       
                     }
                     ,
                     Não: function()
                     {
                         $(this).dialog("close");
+                        if(Next=="PRX")
+                        {
+                            
+                            var display='none';
+                            var ObjNext=Obj; 
+                            var Qtde=0;
+                            
+                            while(display=='none')
+                            {
+                                    ObjNext=ObjNext.parents("tr").next('tr').children(".txtLote");
+                                    display=ObjNext.parents('tr').css('display');
+                                    Qtde=Qtde+1;
+                            }
+                            
+                            Obj=ObjNext;           
+                            var LoteNext=Obj.parents("tr").children(".txtLote").text();
+                            var LojaNext=Obj.parents("tr").children(".txtLoja").text();
+                            var TipoNext=Obj.parents("tr"). children(".txtTipo").text();
+                            if(LoteNext!="")
+                            {
+                               detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
+                            }
+                            else
+                            {
+                                    alert('Não há mais lotes para Ignorar');
+                                    $('#dialog-detalhes').dialog("close");
+                            }
+
+                       }
                     }
             }
     });
