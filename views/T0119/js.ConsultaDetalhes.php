@@ -106,6 +106,7 @@ function detalhesProducao($Loja, $Lote)
                 <table id='tDetalhes2' class='tablesorter'>
                     <thead>
                         <tr>
+                            <th>Data/Hora</th>
                             <th>LoteOrigem</th>
                             <th>PLU</th>
                             <th>Descricao</th>
@@ -118,6 +119,7 @@ function detalhesProducao($Loja, $Lote)
                     <tbody>";
                      foreach($ArrayInsumos as $campos=>$valores){
     $HTML .=           "<tr>
+                            <td>".$valores['horamov']."</td>
                             <td>".$valores['iloteori']."</td>
                             <td>".$valores['icditem']  ."</td>
                             <td>".$valores['idsplu']."</td>
