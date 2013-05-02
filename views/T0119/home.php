@@ -102,6 +102,12 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
             <input width="155px" type="text" id="filtroDinamico" value="" name="search">
         </div>
         
+        <div class="grid_4">
+            <label class="label">Tipos</label>
+            <input width="155px" type="text" id="filtroDinamico" value="" name="search">
+        </div>
+        
+        
         <div class="grid_2">
             <label class="label">Data Início</label>
             <input type="text" name="FiltroDataInicio"  class="data validate[custom[date],past[#FiltroDataFim]]"  value="<?php if(!empty($dataI)) echo $dataI;?>"/>               
@@ -149,6 +155,7 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
         <div class="grid_2">
         <label class="label">Qtde Registros</label>
             <select name="FiltroRegistros">
+                <option value="5"  <?php echo $filtroRegistros==5 ?"selected":""?>>5     </option>
                 <option value="50"  <?php echo $filtroRegistros==50 ?"selected":""?>>50     </option>
                 <option value="100" <?php echo $filtroRegistros==100?"selected":""?>>100    </option>
                 <option value=""    <?php echo $filtroRegistros=="" ?"selected":""?>>Todos  </option>
