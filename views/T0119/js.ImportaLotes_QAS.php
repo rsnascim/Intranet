@@ -5,7 +5,7 @@ function conectaIntranet()
     try
     {
             ob_start();
-            if( true ) // ($_SERVER['HOSTNAME']=='oraas041') ) // || $_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') )
+            if( ($_SERVER['HOSTNAME']=='oraas041') ) // || $_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') )
             {
                 $HostNameIntranet='10.2.1.41';
                 echo 'Usando PRD Intranet';
@@ -27,7 +27,7 @@ function conectaEmporium()
     try
     {
             ob_start();
-            if( true ) //($_SERVER['HOSTNAME']=='oraas041') ) // ($_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') )
+            if( ($_SERVER['HOSTNAME']=='oraas041') ) // ($_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') )
             {
                 $HostNameEmporium='10.2.1.10';
                 echo 'Usando PRD Emporium';
@@ -170,6 +170,9 @@ function atualizaCanceladosIntranet(){
 
 echo '****Inicio Execucao*****';
 date_default_timezone_set('UTC');
+print ("\n");
+print_r($_SERVER);
+echo "Servidor: ".$_SERVER['HOSTNAME'];
 print ("\n");
 echo date('d/m/Y H:i:s');
 print ("\n");
