@@ -85,8 +85,23 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             </ul>
             <div class="push_7 grid_5">
                 <label class="label">Requisição de Mudança - <?php echo $vlrRM["CodigoRM"]; ?> </label>
-                
             </div>
+            <?php 
+            $p = 0;
+           foreach($obj->retornaPerfil($user, 59) as $cp59 => $vlr59){
+               $p++;
+           } 
+            if (($statusRM >= 3) && ($p >= 1)) {?>
+            <div class="push_7 grid_3">
+                Status: <select name="T113_status" id="statusRM">
+                    <option value="<?php echo $statusRM?>"><?php $obj->nomeStatus($statusRM);?></option>    
+                    <option value="4">Suspensa</option>
+                    <option value="5">Reprovada</option>
+                    <option value="6">Aprovada</option>
+                    <option value="7">Concluída</option>
+                </select>
+            </div>
+            <?php }?>
         </div>
     </div>
 
@@ -105,28 +120,28 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                 <input type="text" name="T113_titulo"     class="validate[required] form-input-text-table" value="<?php echo $vlrRM["TituloRM"]; ?>"    readonly   />            
             </div>
 
-            <div style="position: absolute; top: 205px; left: 590px;">
+            <div style="position: absolute; top: 217px; left: 590px;">
                 <label class="label">Data Inícial*</label>
                 <input style="width: 65px"type="text"  value="<?php echo $vlrRM["DataInicioRM"]; ?>"  readonly/>            
                 <input style="width: 65px"type="hidden" name="dataHoje"  id="dataHoje" value="<?php echo date("d/m/Y"); ?>" readonly/>            
             </div>
 
-            <div style="position: absolute; top: 205px; left: 665px;">
+            <div style="position: absolute; top: 217px; left: 665px;">
                 <label class="label">Hora*</label>
                 <input style="width: 65px"type="text"  value="<?php echo $vlrRM["HoraInicioRM"]; ?>"  readonly/>      
             </div>
 
-            <div style="position: absolute; top: 205px; left: 750px;">
+            <div style="position: absolute; top: 217px; left: 750px;">
                 <label class="label">Data Final*</label>
                 <input style="width: 65px" value="<?php echo $vlrRM["DataFimRM"]; ?>"  readonly />            
             </div>
 
-            <div style="position: absolute; top: 205px; left: 825px;">
+            <div style="position: absolute; top: 217px; left: 825px;">
                 <label class="label">Hora*</label>
                 <input style="width: 65px" value="<?php echo $vlrRM["HoraFimRM"]; ?>"  readonly />   
             </div>
 
-            <div style="position: absolute; top: 205px; left: 900px;">
+            <div style="position: absolute; top: 217px; left: 900px;">
                 <label class="label">Responsável da Requisição de Mudança*</label>
                 <input style="width: 268px" type="text"
                        value   ="<?php echo $vlrRM["Responsavel"]; ?>"
@@ -142,7 +157,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             <br><br>
             <div class="clear"></div>
 
-            <div style="margin-top: 15px; position: absolute; top: 350px; left: 170px;">
+            <div style="margin-top: 15px; position: absolute; top: 350px; left: 177px;">
                 <label class="label">Qual a necessidade de mudança? *</label>
                 <textarea style="width: 485px" name="T113_motivo"      placeholder="Falta o Texto!"       class="validate[required] textarea-table" cols="50" rows="4" readonly><?php echo $vlrRM["MotivoRM"]; ?></textarea>            
             </div>
@@ -152,7 +167,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                 <textarea style="width: 485px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoRM"]; ?></textarea>            
             </div>
             
-            <div style=" margin-top: 15px; position: absolute; top: 450px; left: 170px;">
+            <div style=" margin-top: 15px; position: absolute; top: 450px; left: 177px;">
                 <label class="label">Qual impacto durante a ocorrência? (Para o negócio)*</label>
                 <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoOcorrencia"]; ?></textarea>            
             </div>  
@@ -171,6 +186,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                             $cmt++;
                         }
                      if ($statusRM == 3) {?>   <li><a href="#tabs-4">Comitê</a></li><?php }?>
+                         <li><a href="#tabs-5">Após Mudança</a></li>
                     </ul>
                     <div id="tabs-1">
                         <span class="form-input">
@@ -230,9 +246,9 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                                     *Clique em cima do Executor para exclui-lo da lista.
                                 </div>                               
 
-                                <div style="position: absolute; top: 30px; left: 515px">
+                                <div style="position: absolute; top: 30px; left: 515px;">
                                     <label class="label">Observação Contingência</label>
-                                    <textarea style="height: 130px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="5" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
+                                    <textarea style="height: 120px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="5" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
                                 </div>                            
 
                             </div>
@@ -321,7 +337,40 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                             
                         </div>
                      </div> <?php } ?>
-                 </div>    <?php }?>   
+                 </div>    <?php }?>  
+                    <div id="tabs-5">
+                        <div style="margin-left: 15px;">
+                            <label class="label">Data Real de Inicio</label>
+                            <input type="text" name="T113_data_real_inicio" id="dataRealInicio" value="" style="width: 65px;"/>
+                        </div>
+                        <div style="position: absolute; top: 33px; left:130px;">
+                            <label class="label">Hora Real Inicio*</label>
+                                <select id="hr_ini" name="hr_ini" class="validate[required]">
+                                    <?php if (!empty($vlrRM["HoraInicioRM"])) { ?>
+                                                        <option><?php echo $vlrRM["HoraInicioRM"]; ?></option>
+                                    <?php } ?>
+                                    <?php $obj->comboHora(); ?>
+                                </select>       
+                        </div>
+                        <div style="position: absolute; top: 33px; left:250px;">
+                            <label class="label">Data Real Final</label>
+                            <input type="text" name="T113_data_real_inicio" id="dataRealFinal" value="" style="width: 65px;"/>
+                        </div>
+                        <div style="position: absolute; top: 33px; left:350px;">
+                            <label class="label">Hora Real Final*</label>
+                                <select id="hr_ini" name="hr_ini" class="validate[required]">
+                                    <?php if (!empty($vlrRM["HoraInicioRM"])) { ?>
+                                                        <option><?php echo $vlrRM["HoraInicioRM"]; ?></option>
+                                    <?php } ?>
+                                    <?php $obj->comboHora(); ?>
+                                </select>       
+                        </div>
+                        <div style="position: relative; top: -45px; left: 500px;">
+                                    <label class="label">Problemas Relacionados</label>
+                                    <textarea style="height: 120px; width: 477px;" name="T113_prob_relacionados"    placeholder="Problemas Relacionados"         class="textarea-table" cols="150" rows="5" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
+                                </div>   
+                    </div>
+                       
 
             </div>   
 

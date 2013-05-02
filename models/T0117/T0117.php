@@ -209,7 +209,7 @@ class models_T0117 extends models
                 echo    "Aprovada";
                 break;
             case 7:
-                echo    "Finalizada";
+                echo    "Concluída";
                 break;
         }
         

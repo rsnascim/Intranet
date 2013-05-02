@@ -203,13 +203,13 @@ if (!empty($_POST))
                 <input type="text" name="T113_titulo"   placeholder="Digite o título da requisição de mudança."    class="validate[required] form-input-text-table" value="<?php echo $vlrRM["TituloRM"]; ?>"       />            
             </div>
 
-            <div style="position: absolute; top: 205px; left: 590px;">
+            <div style="position: absolute; top: 217px; left: 590px;">
                 <label class="label">Data Inícial*</label>
                 <input style="width: 65px"type="text" name="T113_dt_hr_inicio" class="validate[required]   "  id="dateCmp1" value="<?php echo $vlrRM["DataInicioRM"]; ?>"  />            
                 <input style="width: 65px"type="hidden" name="dataHoje"  id="dataHoje" value="<?php echo date("d/m/Y"); ?>" />            
             </div>
 
-            <div style="position: absolute; top: 205px; left: 665px;">
+            <div style="position: absolute; top: 217px; left: 665px;">
                 <label class="label">Hora*</label>
                 <select id="hr_ini" name="hr_ini" class="validate[required]">
     <?php if (!empty($vlrRM["HoraInicioRM"])) { ?>
@@ -219,12 +219,12 @@ if (!empty($_POST))
                 </select>       
             </div>
 
-            <div style="position: absolute; top: 205px; left: 750px;">
+            <div style="position: absolute; top: 217px; left: 750px;">
                 <label class="label">Data Final*</label>
                 <input style="width: 65px" type="text" name="T113_dt_hr_fim"    class="validate[required] " value="<?php echo $vlrRM["DataFimRM"]; ?>"  id="dateCmp2" onBlur="validaData()" />            
             </div>
 
-            <div style="position: absolute; top: 205px; left: 825px;">
+            <div style="position: absolute; top: 217px; left: 825px;">
                 <label class="label">Hora*</label>
                 <select id="hr_fim" name="hr_fim" class="validate[required]">
     <?php if (!empty($vlrRM["HoraFimRM"])) { ?>
@@ -234,7 +234,7 @@ if (!empty($_POST))
                 </select>            
             </div>
 
-            <div style="position: absolute; top: 205px; left: 900px;">
+            <div style="position: absolute; top: 217px; left: 900px;">
                 <label class="label">Responsável da Requisição de Mudança*</label>
                 <input style="width: 268px" type="text" class="buscaUsuario validate[required]"
                        name="T004_responsavel"
@@ -372,7 +372,7 @@ if (!empty($_POST))
 
                                 <div style="position: absolute; top: 30px; left: 515px">
                                     <label class="label">Plano de Contingência</label>
-                                    <textarea style="height: 185px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="10" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
+                                    <textarea style="height: 160px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="10" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
                                 </div>                            
 
                             </div>
