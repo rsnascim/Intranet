@@ -8,6 +8,8 @@ function conectaIntranet()
             if( ($_SERVER['HOSTNAME']=='oraas041') ) // || $_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') )
             {
                 $HostNameIntranet='10.2.1.41';
+                echo 'Usando PRD Intranet';
+                print ("\n");
             }else
             {
                 $HostNameIntranet='10.2.1.141';
@@ -28,6 +30,8 @@ function conectaEmporium()
             if( ($_SERVER['HOSTNAME']=='oraas041') ) // ($_SERVER['SERVER_NAME']=='oraas041' || $_SERVER['SERVER_NAME']=='10.2.1.41' || $_SERVER['SERVER_NAME']=='intranet') )
             {
                 $HostNameEmporium='10.2.1.10';
+                echo 'Usando PRD Emporium';
+                print ("\n");
             }else
             {
                 $HostNameEmporium='10.2.1.110';
@@ -114,11 +118,13 @@ function insereIntranet(){
                                          AND l.lote_numero         = $Lote
                                      ");        
       }else{
-        $atualiza = $dbEMP->exec("UPDATE davo_ccu_lote l
-                           SET l.aprovacao_status_id = 9
-                         WHERE l.store_key           = $Loja
-                           AND l.lote_numero         = $Lote
-                       ");        
+//        $atualiza = $dbEMP->exec("UPDATE davo_ccu_lote l
+//                           SET l.aprovacao_status_id = 9
+//                         WHERE l.store_key           = $Loja
+//                           AND l.lote_numero         = $Lote
+//                       ");    
+        echo "Erro Lote: $Lote Loja: $Loja"  ;
+        $atualiza = $dbEMP->rollBack();
 
       }
                 
@@ -164,6 +170,8 @@ function atualizaCanceladosIntranet(){
 
 echo '****Inicio Execucao*****';
 date_default_timezone_set('UTC');
+print ("\n");
+echo "Servidor: ".$_SERVER['HOSTNAME'];
 print ("\n");
 echo date('d/m/Y H:i:s');
 print ("\n");
