@@ -171,6 +171,7 @@ function atualizaCanceladosIntranet(){
 echo '****Inicio Execucao*****';
 date_default_timezone_set('UTC');
 print ("\n");
+print_r($_SERVER);
 echo "Servidor: ".$_SERVER['HOSTNAME'];
 print ("\n");
 echo date('d/m/Y H:i:s');
