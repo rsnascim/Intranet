@@ -476,7 +476,7 @@ $(function(){
                     draggable: true,
                     width:850,
                     modal: true,
-                    title:"CONFIRMAR selecionados",
+                    title:"Detalhes dos Lotes selecionados",
                     buttons:
                     {
                             Fechar: function()
