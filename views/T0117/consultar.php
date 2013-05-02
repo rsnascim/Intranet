@@ -185,7 +185,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                         foreach ($CM as $cpPerCM => $vlPerCM) {
                             $cmt++;
                         }
-                     if ($statusRM == 3) {?>   <li><a href="#tabs-4">Comitê</a></li><?php }?>
+                     if ($statusRM >= 3) {?>   <li><a href="#tabs-4">Comitê</a></li><?php }?>
                          <li><a href="#tabs-5">Após Mudança</a></li>
                     </ul>
                     <div id="tabs-1">
@@ -285,7 +285,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
 
                     </div>
                     <?php 
-                 if($statusRM == 3){?>
+                 if($statusRM >= 3){?>
                     <div id="tabs-4">
                     <?php if(($cmt   !=  0) && ($statusRM == 3)){
                         $retUser = $obj->retornaDadosUser($user);
@@ -341,33 +341,23 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                     <div id="tabs-5">
                         <div style="margin-left: 15px;">
                             <label class="label">Data Real de Inicio</label>
-                            <input type="text" name="T113_data_real_inicio" id="dataRealInicio" value="" style="width: 65px;"/>
+                            <input type="text" name="T113_data_real_inicio" id="dataRealInicio" value="<?php echo $vlrRM["DataInicioReal"]; ?>" style="width: 65px;" readonly/>
                         </div>
                         <div style="position: absolute; top: 33px; left:130px;">
                             <label class="label">Hora Real Inicio*</label>
-                                <select id="hr_ini" name="hr_ini" class="validate[required]">
-                                    <?php if (!empty($vlrRM["HoraInicioRM"])) { ?>
-                                                        <option><?php echo $vlrRM["HoraInicioRM"]; ?></option>
-                                    <?php } ?>
-                                    <?php $obj->comboHora(); ?>
-                                </select>       
+                               <input type="text" name="T113_data_real_inicio" id="dataRealFinal" value="<?php echo $vlrRM["HoraInicioReal"]; ?>" style="width: 65px;" readonly/>           
                         </div>
                         <div style="position: absolute; top: 33px; left:250px;">
                             <label class="label">Data Real Final</label>
-                            <input type="text" name="T113_data_real_inicio" id="dataRealFinal" value="" style="width: 65px;"/>
+                            <input type="text" name="T113_data_real_inicio" id="dataRealFinal" value="<?php echo $vlrRM["DataFinalReal"]; ?>" style="width: 65px;" readonly/>
                         </div>
                         <div style="position: absolute; top: 33px; left:350px;">
                             <label class="label">Hora Real Final*</label>
-                                <select id="hr_ini" name="hr_ini" class="validate[required]">
-                                    <?php if (!empty($vlrRM["HoraInicioRM"])) { ?>
-                                                        <option><?php echo $vlrRM["HoraInicioRM"]; ?></option>
-                                    <?php } ?>
-                                    <?php $obj->comboHora(); ?>
-                                </select>       
+                             <input type="text" name="T113_data_real_inicio" id="dataRealFinal" value="<?php echo $vlrRM["HoraFinalReal"]; ?>" style="width: 65px;" readonly/>      
                         </div>
                         <div style="position: relative; top: -45px; left: 500px;">
                                     <label class="label">Problemas Relacionados</label>
-                                    <textarea style="height: 120px; width: 477px;" name="T113_prob_relacionados"    placeholder="Problemas Relacionados"         class="textarea-table" cols="150" rows="5" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
+                                    <textarea style="height: 120px; width: 477px;" name="T113_prob_relacionados"    placeholder="Problemas Relacionados"         class="textarea-table" cols="150" rows="5"  readonly><?php echo $vlrRM["ProblemasRelacionados"]; ?></textarea>            
                                 </div>   
                     </div>
                        
