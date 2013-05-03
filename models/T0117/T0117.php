@@ -252,7 +252,7 @@ class models_T0117 extends models
                                         <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil'></a> 
                     </li>";
             
-        } elseif(($perfil == 57 ) && ($status == 3)) {
+        } elseif(($perfil == 59 ) && ($status == 3)) {
         echo "      <li class='ui-state-default ui-corner-all' title='Alterar'>
                                         <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil alterar'></a> 
                     </li>";

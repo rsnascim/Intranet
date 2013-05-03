@@ -374,6 +374,19 @@ function upload(cod)
     });
 }
 
+function excluir(prog, pagina, tabela, campo, arquivo, cod, path){
+    
+  $.get("?router=T0117/js.excluirAnexo", {pagina:pagina,tabela:tabela, valor:arquivo, campo:campo, cod:cod, path:path}, function(dados){
+ //   alert(dados);
+  });
+  
+  
+  
+ $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+  
+}
+
+
 
 
     

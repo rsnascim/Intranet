@@ -76,7 +76,7 @@ if (isset($_FILES["P0117_arquivo"])){
                 $insUpload   =  $objUpload->inserir($tabela, $dados);
                 //echo $insUpload;
                 //Lê página inicial
-              //  header("location:?router=T0117/home");
+                header("location:?router=T0117/home");
             }
             else
             {
