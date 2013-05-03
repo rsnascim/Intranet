@@ -150,10 +150,10 @@ $(function(){
             draggable: false,
             width:400,
             modal: true,
-            title:"Deseja IGNORAR o Lote ? ",
+            title:"Deseja NEGAR o Lote ? ",
             buttons:
             {
-                    Ignorar: function() 
+                    Negar: function() 
                     {
                         var re=0;
                         arrLote.push(Lote);
@@ -166,7 +166,7 @@ $(function(){
                                 //$($thisAprovar).remove();
                                 //Obj.parents("tr").remove();
                                 Obj.parents("tr").css('display','none');
-                                show_stack_bottomleft(false," ","Lote Ignorado com sucesso");
+                                show_stack_bottomleft(false," ","Lote Negado com sucesso");
                                 if(Next=="PRX")
                                 {
                                     var display='none';
@@ -188,14 +188,14 @@ $(function(){
                                     }
                                     else
                                     {
-                                            alert('Não há mais lotes para Ignorar');
+                                            alert('Não há mais lotes para Negar');
                                             $('#dialog-detalhes').dialog("close");
                                     }
 
                                }                                
                             }else
                             {
-                              show_stack_bottomleft(true,"Erro","Lote Não Ignorado");
+                              show_stack_bottomleft(true,"Erro","Lote Não Negado");
                             }
 
                         });
@@ -231,7 +231,7 @@ $(function(){
                             }
                             else
                             {
-                                    alert('Não há mais lotes para Ignorar');
+                                    alert('Não há mais lotes para Negar');
                                     $('#dialog-detalhes').dialog("close");
                             }
 
@@ -305,7 +305,7 @@ $(function(){
                             $(this).dialog("close");
                         }
                         ,
-                        Ignorar: function() 
+                        Negar: function() 
                         {
                            reprovarLote(Lote, Loja, Tipo,Obj);
                             $(this).dialog("close");
@@ -317,7 +317,7 @@ $(function(){
                             aprovarLote(Lote, Loja, Tipo,Obj,'PRX');
                         }
                         ,
-                        'Ignorar e Próximo':function()
+                        'Negar e Próximo':function()
                         {
                             
                             reprovarLote(Lote, Loja, Tipo,Obj,'PRX');
@@ -541,15 +541,15 @@ $(function(){
                                 $(this).dialog("close");
                             }
                             ,
-                            'IGNORAR Todos': function() 
+                            'NEGAR Todos': function() 
                             {
 
                                     // verifica se foi selecionado algum registro
                                     if(QtdeReg>0)
                                     {   
                                         $("#dialog-aprovar").html("<div class='grid_2'>"+
-                                                                    "<label class='label'>Deseja IGNORAR todos os "+QtdeReg+" lotes selecionados ? </label>"+
-                                                                    "<label class='label'>Ao Ignorar tais lotes não serão integrados no RMS</label>"+
+                                                                    "<label class='label'>Deseja NEGAR todos os "+QtdeReg+" lotes selecionados ? </label>"+
+                                                                    "<label class='label'>Ao Negar tais lotes não serão integrados no RMS</label>"+
                                                                     "<label class='label'>Essa AÇÃO NÃO pode ser desfeita </label>"+
                                                                    "</div>"
                                                                   );
@@ -561,7 +561,7 @@ $(function(){
                                                 draggable: true,
                                                 width:300,
                                                 modal: true,
-                                                title:"Deseja  IGNORAR ? ",
+                                                title:"Deseja  NEGAR ? ",
                                                 buttons:
                                                 {
                                                         Sim: function()
@@ -572,13 +572,13 @@ $(function(){
                                                                         $(this).parents('tr').remove();
                                                                     });
 
-                                                                    show_stack_bottomleft(false, '', 'Lote(s) Ignorado(s) com sucesso!'); 
+                                                                    show_stack_bottomleft(false, '', 'Lote(s) Negar(s) com sucesso!'); 
                                                                     $(this).dialog("close");
 
                                                                 }
                                                                 
                                                                 else
-                                                                    show_stack_bottomleft(true, 'Erro!', 'Lote(s) Nao Ignorado(s)'); 
+                                                                    show_stack_bottomleft(true, 'Erro!', 'Lote(s) Nao Negado(s)'); 
                                                             });
                                                             $(this).dialog("close");
                                                         }
@@ -639,7 +639,7 @@ $(function(){
                     draggable: true,
                     width:850,
                     modal: true,
-                    title:"IGNORAR selecionados ",
+                    title:"NEGAR selecionados ",
                     buttons:
                     {
                             Fechar: function()
