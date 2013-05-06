@@ -440,12 +440,10 @@ class models_T0129 extends models
 
     public function selecionaTipoArquivo()
     {
-        return $this->query("SELECT DISTINCT T.T056_codigo   AS COD
-                                  , T.T056_nome              AS NOM
-                               FROM T056_categoria_arquivo   AS T
-                               JOIN T055_arquivos T2 ON ( T2.T056_codigo = T.T056_codigo)
-                              WHERE T2.T061_codigo IS NOT NULL
-                                AND T.T056_codigo <> 19");
+        return $this->query("  SELECT T56.T056_codigo    COD
+                                    , T56.T056_nome      NOM
+                                 FROM T056_categoria_arquivo T56
+                                WHERE T056_codigo NOT IN(3,13,14,15,16,17,18,19,20,21)");
     }
 
     public function listaLojas()
