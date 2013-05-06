@@ -1665,7 +1665,7 @@ class models_T0016 extends models
         if (!empty($Limite))
            $sql .= " LIMIT ".$Limite.";";        
         
-        echo $sql;
+//        echo $sql;
         
         return $this->query($sql);
     }
