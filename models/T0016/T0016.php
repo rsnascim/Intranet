@@ -84,7 +84,7 @@ class models_T0016 extends models
         if (!empty($Limite))
            $sql .= " LIMIT ".$Limite.";";
         
-        //echo $sql;
+//        echo $sql;
         return $this->query($sql);
                
     }
@@ -1664,6 +1664,8 @@ class models_T0016 extends models
         $sql .= " ORDER BY T08.T008_nf_dt_vencto ,  T08.T008_codigo";
         if (!empty($Limite))
            $sql .= " LIMIT ".$Limite.";";        
+        
+        echo $sql;
         
         return $this->query($sql);
     }
