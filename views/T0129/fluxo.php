@@ -3,7 +3,7 @@ $user = $_SESSION['user'];
 //Chama classes
 
 //Classe para APS
-$objAp      =   new models_T0016();
+$objAp      =   new models_T0129('hold');
 
 $cod = $_POST['busca_ap'];
 //echo $nf  = $_POST['busca_nf'];
@@ -20,15 +20,15 @@ $BuscaAP    = $objAp->BuscaAP($cod);
         <span class="ferr-cont-menu">
             <ul>
                 <li class="selecione">Selecione</li>
-                <li><a href="?router=T0016/home">Listar</a></li>
-                <li><a href="?router=T0016/novo">Novo</a></li>
+                <li><a href="?router=T0129/home">Listar</a></li>
+                <li><a href="?router=T0129/novo">Novo</a></li>
                 <?php
                 if (($user == 'jnova') || ($user == 'msasanto') || ($user == 'cmlima') || ($user == 'aribeiro') || ($user == 'gssilva'))
-                 echo "<li><a href='?router=T0016/monitora'>Visualizar Antigas</a></li>";
+                 echo "<li><a href='?router=T0129/monitora'>Visualizar Antigas</a></li>";
 
-                 echo "<li><a href='?router=T0016/painel'>Painel de Aprovações</a></li>";
+                 echo "<li><a href='?router=T0129/painel'>Painel de Aprovações</a></li>";
                 ?>
-                <li><a href="?router=T0016/fluxo" class="active">Fluxo AP</a></li>
+                <li><a href="?router=T0129/fluxo" class="active">Fluxo AP</a></li>
             </ul>
         </span>
     </div>
@@ -71,7 +71,7 @@ $BuscaAP    = $objAp->BuscaAP($cod);
             <span class="form-titulo">
             <p title="<?php echo $title; ?>">AP <?php echo $vlrap['CodigoAP']." - Elaborado por: ".$vlrap['Login']." - ".$vlrap['Nome']." - Data de Elaboração: ".$vlrap['DtElaboracao']; ?></p>
             </span>
-            <a href="?router=T0016/detalhe&cod=<?php echo $vlrap['CodigoAP']; ?>&orig=fluxo">Visualizar AP</a>
+            <a href="?router=T0129/detalhe&cod=<?php echo $vlrap['CodigoAP']; ?>&orig=fluxo">Visualizar AP</a>
     
             <?php
             }

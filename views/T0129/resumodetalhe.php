@@ -2,7 +2,7 @@
 
 $cod    =   $_GET['cod'];
 
-$obj    =   new models_T0016("");
+$obj    =   new models_T0129("hold");
 
 $Resumo = $obj->RetornaResumo($cod);
 
@@ -12,15 +12,15 @@ $Resumo = $obj->RetornaResumo($cod);
         <span class="ferr-cont-menu">
             <ul>
                 <li class="selecione">Selecione</li>
-                <li><a href="?router=T0016/home">Listar</a></li>
-                <li><a href="?router=T0016/novo">Novo</a></li>
+                <li><a href="?router=T0129/home">Listar</a></li>
+                <li><a href="?router=T0129/novo">Novo</a></li>
                 <?php
                 if (($user == 'jnova') || ($user == 'msasanto') || ($user == 'cmlima') || ($user == 'aribeiro') || ($user == 'gssilva'))
-                 echo "<li><a href='?router=T0016/monitora'>Visualizar Antigas</a></li>";
+                 echo "<li><a href='?router=T0129/monitora'>Visualizar Antigas</a></li>";
 
-                 echo "<li><a href='?router=T0016/painel' class='active'>Painel de Aprovações</a></li>";
+                 echo "<li><a href='?router=T0129/painel' class='active'>Painel de Aprovações</a></li>";
                 ?>
-                <li><a href="?router=T0016/fluxo">Fluxo AP</a></li>
+                <li><a href="?router=T0129/fluxo">Fluxo AP</a></li>
             </ul>
         </span>
     </div>

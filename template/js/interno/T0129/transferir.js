@@ -4,8 +4,8 @@
         
         event.preventDefault();           
         
-        var $pagina =   "T0016/home",
-            $prog   =   "T0016",
+        var $pagina =   "T0129/home",
+            $prog   =   "T0129",
             $this   =   $(this),
             $valor  =   $this.parents("tr").find(".ap_codigo").html(),
             $linha  =   $this.parents("tr");

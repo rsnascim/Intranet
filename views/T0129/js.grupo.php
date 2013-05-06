@@ -1,5 +1,5 @@
 <?php
-$objGrupo   =   new models_T0016($conn);
+$objGrupo   =   new models_T0129('hold');
 
 $loja       =   $_GET['loja'];
 $processo   =   $_GET['processo'];

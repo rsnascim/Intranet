@@ -12,7 +12,7 @@ $tabela     = "T008_approval";
 
 
 //Instancia Classe
- $objAP     = new models_T0016();
+ $objAP     = new models_T0129("hold");
  $ap        = $objAP->selecionaAPDF($cod);
  $GrpWkf    = $objAP->selecionaGrupofkw($codfor);
 
@@ -79,25 +79,25 @@ if(!is_null($_POST['T008_codigo']))
     {
         //echo $altera;
         //$msg = "3";
-        //header('location:?router=T0016/home&msg='.$msg);
-        header('location:?router=T0016/home');
+        //header('location:?router=T0129/home&msg='.$msg);
+        header('location:?router=T0129/home');
     }
     else
     {
         //$msg = "4";
-        header('location:?router=T0016/home&msg='.$msg);
+        header('location:?router=T0129/home&msg='.$msg);
     }
 }
 
 ?>
 <!-- Busca CNPJ ou CODIGO RMS  -->
-<script src="template/js/interno/T0016/busca.js"></script>
+<script src="template/js/interno/T0129/busca.js"></script>
 <script>
 $(function(){
 //    $("#loja").live("load",(function(){
         var ap    =   $("#T008_codigo").val();
         var tipo    =   4;
-        $.get("?router=T0016/js.busca&ap="+ap+"&tipo="+tipo, function(campos){
+        $.get("?router=T0129/js.busca&ap="+ap+"&tipo="+tipo, function(campos){
             $("#workflow").html(campos);
         });
 //    }))
@@ -109,16 +109,16 @@ $(function(){
         <span class="ferr-cont-menu">
             <ul>
                 <li class="selecione">Selecione</li>
-                <li><a href="?router=T0016/home" class="active">Listar</a></li>
-                <li><a href="?router=T0016/novo">Novo</a></li>
+                <li><a href="?router=T0129/home" class="active">Listar</a></li>
+                <li><a href="?router=T0129/novo">Novo</a></li>
                 <?php
                 if (($user == 'jnova') || ($user == 'msasanto') || ($user == 'cmlima') || ($user == 'aribeiro') || ($user == 'gssilva'))
-                 echo "<li><a href='?router=T0016/monitora'>Visualizar Antigas</a></li>";
+                 echo "<li><a href='?router=T0129/monitora'>Visualizar Antigas</a></li>";
 
                 if (($user == 'rrocha') || ($user == 'fcolivei') || ($user == 'msasanto') || ($user == 'cmlima') || ($user == 'ralfieri') || ($user == 'rcsilva') || ($user == 'lolive') || ($user == 'ctlima') || ($user == 'mlsilva') || ($user == 'rcsouza'))
-                 echo "<li><a href='?router=T0016/painel'>Painel de Aprovações</a></li>";
+                 echo "<li><a href='?router=T0129/painel'>Painel de Aprovações</a></li>";
                 ?>
-                <li><a href="?router=T0016/fluxo">Fluxo AP</a></li>
+                <li><a href="?router=T0129/fluxo">Fluxo AP</a></li>
             </ul>
         </span>
     </div>

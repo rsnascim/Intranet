@@ -1,7 +1,7 @@
 <?php
 if (!empty($_POST))
 {
-    $objWkf = new models_T0016();
+    $objWkf = new models_T0129('hold');
     
     $tabela = "T008_T060";
     $Etapa  = $objWkf->retornaEtapaGrupo($_POST['Grupo']);

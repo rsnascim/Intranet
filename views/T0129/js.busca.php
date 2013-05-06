@@ -6,10 +6,10 @@ $status             =   $_GET['status'];
 $loja               =   $_GET['loja'];
 //Instancia Classe
 $conn               =   "ora";
-$objBuscaAP         =   new models_T0016($conn);
+$objBuscaAP         =   new models_T0129($conn);
 
  
-//EXECUTADO PELO busca.js do PROGRAMA T0016
+//EXECUTADO PELO busca.js do PROGRAMA T0129
 
 /* =================================== T I P O S ============================= */
 //TIPO 1 = BUSCA DADOS RMS POR CNPJ
@@ -78,8 +78,8 @@ else if ($tipo   ==  3)
     //Completa com zero a esquerda
     $cnpj = str_pad($cnpj, 14, "0", STR_PAD_LEFT);
 
-    $conn               =   "";
-    $objBusca           =   new models_T0016($conn);
+    $conn               =   "hold";
+    $objBusca           =   new models_T0129($conn);
     $Forn               =   $objBusca->selecionaForn($cnpj);
 
     foreach($Forn as $campo=>$valores)
@@ -103,9 +103,9 @@ else if ($tipo   ==  3)
 }
 else if ($tipo == 4)
 {
-    $conn               =   "";
+    $conn               =   "hold";
     $ap                 =   $_GET['ap'];
-    $obj                =   new models_T0016($conn);
+    $obj                =   new models_T0129($conn);
     $Forn               =   $obj->selecionaAPDF($ap);
 
     foreach($Forn as  $campos=>$valores)
@@ -124,8 +124,8 @@ if ($tipo==5)
     $ie         =   $_GET['ie'];
     $im         =   $_GET['im'];
     $raz        =   $_GET['raz'];
-    $conn       =   "";
-    $objGrpDP     =   new models_T0016($conn);
+    $conn       =   "hold";
+    $objGrpDP     =   new models_T0129($conn);
 
     $cnpj   =   $objGrpDP->retiraMascara($cnpj);
     $cnpj   =   $objGrpDP->preencheZero("E", 14, $cnpj);
@@ -168,8 +168,8 @@ if ($tipo == 6)
     $codCPF     =   $_GET['cod_cpf'];
     $rg         =   $_GET['rg'];
     $raz        =   $_GET['raz'];
-    $conn       =   "";
-    $objGrpDP     =   new models_T0016($conn);
+    $conn       =   "hold";
+    $objGrpDP     =   new models_T0129($conn);
 
     $cpf    =   $objGrpDP->retiraMascara($cpf);
     $cpf    =   $objGrpDP->preencheZero("E", 14, $cpf);
@@ -224,8 +224,8 @@ if ($tipo ==9)
     $cnpj = str_replace("-", "", $cnpj);
     //Completa com zero a esquerda
     //$cnpj = str_pad($cnpj, 14, "0", STR_PAD_LEFT);
-    $conn               =   "";
-    $objBusca           =   new models_T0016($conn);
+    $conn               =   "hold";
+    $objBusca           =   new models_T0129($conn);
 
     $APsNF              =   $objBusca->BuscaAPPorNF($cnpj,$nf_num);
 
@@ -239,15 +239,15 @@ if ($tipo == 10)
 {
 
     //Instancia classe
-    $conn   =   "";
-    $objAp  =   new models_T0016($conn);
+    $conn   =   "hold";
+    $objAp  =   new models_T0129($conn);
 
     function CriaTabelaHTML($dados, $status)
     {
 
         $AD = "\"";
-        $conn   =   "";
-        $objAp  =   new models_T0016($conn);
+        $conn   =   "hold";
+        $objAp  =   new models_T0129($conn);
         $i      =   0;
 
         foreach($dados as $campos=>$valores)
@@ -261,7 +261,7 @@ if ($tipo == 10)
                 $CorFonte   =   "";
             
             $cgc = $objAp->FormataCGCxCPF($valores['FornCNPJ']);
-            $ValorBruto     = money_format('%n', $valores['ValorBruto']);
+            $ValorBruto     = $valores['ValorBruto'];
             $html[$i]  = "<tr class='dados'>";
             // Status de Aprovacao
             if($status ==   1)
@@ -336,7 +336,7 @@ if ($tipo == 10)
 
                                  $html[$i] .= "<tr class='".$cor."'>";
                                  $html[$i] .= "<td width='95%' ><a target='_blank' href=".$AD.CAMINHO_ARQUIVOS."CAT".$lnkArq.$AD.">".$valores2['NOM']."</a></td>";
-                                 $html[$i] .= "<td width='5%'  ><a href=".$AD."javascript:excluir('T0016','T0016/home&cod=".$valores['APCodigo']."&path=".$lnkArq."','T008_T055','T055_codigo','".$valores2['ARQ']."')".$AD." title='Excluir' class='excluir'></a></td>";
+                                 $html[$i] .= "<td width='5%'  ><a href=".$AD."javascript:excluir('T0129','T0129/home&cod=".$valores['APCodigo']."&path=".$lnkArq."','T008_T055','T055_codigo','".$valores2['ARQ']."')".$AD." title='Excluir' class='excluir'></a></td>";
                                  $html[$i] .= "</a>";
                                  $html[$i] .= "</td>";
                                  $html[$i] .= "</tr>";
@@ -349,32 +349,32 @@ if ($tipo == 10)
             $html[$i] .= "</td>";
             $html[$i] .= "<td class='acoes'><span class='lista_acoes'><ul>";
             // Detalhes, aparece em todos os status
-            $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Detalhes'><a href='?router=T0016/detalhe&cod=".$valores['APCodigo']."&orig=home'                                      class='ui-icon ui-icon-search'></a></li>";
+            $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Detalhes'><a href='?router=T0129/detalhe&cod=".$valores['APCodigo']."&orig=home'                                      class='ui-icon ui-icon-search'></a></li>";
             // Status de Aprovacao, Digitadas e anteriores
             if ($status == 1)
             {
-                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Cancelar'                   ><a href=".$AD."javascript:cancelar('T0016','T0016/home','T008_approval','1','T008_codigo',".$valores['APCodigo'].",".$valores['CodigoEtapa'].")".$AD."     class='ui-icon ui-icon-cancel'                                  ></a></li>";
+                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Cancelar'                   ><a href=".$AD."javascript:cancelar('T0129','T0129/home','T008_approval','1','T008_codigo',".$valores['APCodigo'].",".$valores['CodigoEtapa'].")".$AD."     class='ui-icon ui-icon-cancel'                                  ></a></li>";
             }
             
             if(($status == 1) || ($status == 2) || ($status == 3))
             {
-                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Alterar' ><a href=".$AD."?router=T0016/altera&cod=".$valores['APCodigo']."&codfor=".$valores['FornCodigo'].$AD." class='ui-icon ui-icon-pencil'></a></li>";
+                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Alterar' ><a href=".$AD."?router=T0129/altera&cod=".$valores['APCodigo']."&codfor=".$valores['FornCodigo'].$AD." class='ui-icon ui-icon-pencil'></a></li>";
                 $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Anexar'  ><a href=".$AD."javascript:upload(".$valores['APCodigo'].")".$AD."                             class='ui-icon ui-icon-pin-s' ></a></li>";
             }
             // Status de Aprovacao
             if($status ==   1)
             {
-                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Aprovar'                    ><a href=".$AD."javascript:aprovar('T0016','T0016/home','T008_T060','1','T008_codigo',".$valores['APCodigo'].",".$valores['CodigoEtapa'].",".$valores['TpNota'].")".$AD."          class='ui-icon ui-icon-check'                                   ></a></li>";                
-                //$html[$i] .= "<li class='ui-state-default ui-corner-all' title='Voltar Aprovação'           ><a href=".$AD."?router=T0016/ultimas&FornCodigo=".$valores['FornCodigo'].$AD."                                                                             class='ui-icon ui-icon-arrowreturnthick-1-w'    target='_blank' ></a></li>";                
+                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Aprovar'                    ><a href=".$AD."javascript:aprovar('T0129','T0129/home','T008_T060','1','T008_codigo',".$valores['APCodigo'].",".$valores['CodigoEtapa'].",".$valores['TpNota'].")".$AD."          class='ui-icon ui-icon-check'                                   ></a></li>";                
+                //$html[$i] .= "<li class='ui-state-default ui-corner-all' title='Voltar Aprovação'           ><a href=".$AD."?router=T0129/ultimas&FornCodigo=".$valores['FornCodigo'].$AD."                                                                             class='ui-icon ui-icon-arrowreturnthick-1-w'    target='_blank' ></a></li>";                
                 $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Transferir Fluxo'              ><a href='#' class='ui-icon ui-icon-transferthick-e-w transferirAP'                       ></a></li>";                                
             }            
             // Status de Aprovacao, Digitadas e posteriores
             if(($status == 1) || ($status == 2) || ($status==4))
             {
-                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Imprimir'  ><a href=".$AD."?router=T0016/js.pdf&cod=".$valores['APCodigo'].$AD."                           class='ui-icon ui-icon-print'                target='_blank' ></a></li>";
+                $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Imprimir'  ><a href=".$AD."?router=T0129/js.pdf&cod=".$valores['APCodigo'].$AD."                           class='ui-icon ui-icon-print'                target='_blank' ></a></li>";
             }
             
-            $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Últimas APs Fornecedor'  ><a href=".$AD."?router=T0016/ultimas&FornCodigo=".$valores['FornCodigo']."&Loja=".$valores['CodigoLoja'].$AD."                           class='ui-icon ui-icon-note'                target='_blank' ></a></li>";                
+            $html[$i] .= "<li class='ui-state-default ui-corner-all' title='Últimas APs Fornecedor'  ><a href=".$AD."?router=T0129/ultimas&FornCodigo=".$valores['FornCodigo']."&Loja=".$valores['CodigoLoja'].$AD."                           class='ui-icon ui-icon-note'                target='_blank' ></a></li>";                
             $html[$i] .= "</ul>";
             $html[$i] .= "</span>";
             $html[$i] .= "</td>";

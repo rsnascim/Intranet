@@ -13,7 +13,7 @@ var $user;
 
 function select()
 {
- $objAP = new models_T0016();
+ $objAP = new models_T0129('hold');
  $this->cod = $_GET["cod"];
  $ap = $objAP->selecionaAPDF($this->cod);
  return $ap;
@@ -22,7 +22,7 @@ function select()
 function selectUser()
 {
  $this->user  = $_SESSION['user'];
- $objAP = new models_T0016();
+ $objAP = new models_T0129('hold');
  $nuser = $objAP->selecionaUser($this->user);
  return $nuser;
 }
@@ -158,7 +158,7 @@ foreach($dados as $campos=>$valores)
 
 //FORMATAR DADOS
 
-$objAP = new models_T0016();
+$objAP = new models_T0129('hold');
 $cgc =  $objAP->FormataCGCxCPF($valores['P0016_T026_CGC']);
 
 $dt_emissao        = $valores['P0016_T008_DTE'];

@@ -5,13 +5,13 @@
  * Descrição: Programa para transferir (autorizacao de pagamentos), com objetivo de quando a 
  *            AP estiver com o fluxo errado, a pessoa pode enviar a outro fluxo
  * Entradas:  Código AP 
- * Origens:   T0016/home, template/js/interno/T0016/transferir.js
+ * Origens:   T0129/home, template/js/interno/T0129/transferir.js
            
 **************************************************************************
 */
 
-// Instancia objeto de conexão com as models da T0016
-$obj       =   new models_T0016();
+// Instancia objeto de conexão com as models da T0129
+$obj       =   new models_T0129('hold');
 
 // Variáveis do programa
 $pagina    =   $_GET['pagina'];         // Página de retorno 

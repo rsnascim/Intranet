@@ -3,7 +3,7 @@ $user = $_SESSION['user'];
 //Chama classes
 
 //Classe para APS
-$objAp      =   new models_T0016();
+$objAp      =   new models_T0129('hold');
 $Ap         =   $objAp->selecionaAPMon();
 $cod        =   $_POST['T008_codigo'];
 if (!is_null($cod))
@@ -11,15 +11,15 @@ if (!is_null($cod))
     $tabela     =   "T008_approval";
     $delim      =   "T008_codigo = ".$cod;
     $objAp->altera($tabela, $_POST, $delim);
-    header("location:?router=T0016/monitora");
+    header("location:?router=T0129/monitora");
 }
 ?>
 <!-- Caixa de Upload-->
-<script src="template/js/interno/T0016/status.js"></script>
+<script src="template/js/interno/T0129/status.js"></script>
 <div id="dialog-confirm" title="Status" style="display:none">
 	<p class="validateTips">Selecione para alterar o status!</p>
         <span class="form-input">
-	<form action="?router=T0016/monitora" method="post" id="form-status"  enctype="form-data">
+	<form action="?router=T0129/monitora" method="post" id="form-status"  enctype="form-data">
 	<fieldset>
                 <label class="label">Status</label>
                 <select                 name="T008_status"  id="tp_codigo" class="form-input-select">
@@ -93,15 +93,15 @@ if (!is_null($cod))
         <span class="ferr-cont-menu">
             <ul>
                 <li class="selecione">Selecione</li>
-                <li><a href="?router=T0016/home">Listar</a></li>
-                <li><a href="?router=T0016/novo">Novo</a></li>
+                <li><a href="?router=T0129/home">Listar</a></li>
+                <li><a href="?router=T0129/novo">Novo</a></li>
                 <?php
                 if (($user == 'jnova') || ($user == 'msasanto') || ($user == 'cmlima') || ($user == 'aribeiro') || ($user == 'gssilva'))
-                 echo "<li><a href='?router=T0016/monitora' class='active'>Visualizar Antigas</a></li>";
+                 echo "<li><a href='?router=T0129/monitora' class='active'>Visualizar Antigas</a></li>";
 
-                 echo "<li><a href='?router=T0016/painel'>Painel de Aprovações</a></li>";
+                 echo "<li><a href='?router=T0129/painel'>Painel de Aprovações</a></li>";
                 ?>
-                <li><a href="?router=T0016/fluxo">Fluxo AP</a></li>
+                <li><a href="?router=T0129/fluxo">Fluxo AP</a></li>
             </ul>
         </span>
     </div>
@@ -294,7 +294,7 @@ if (!is_null($cod))
                                             ?>
                                             <tr class="<?php echo $cor; ?>">
                                                 <td width="95%" ><a target="_blank" href="<?php echo CAMINHO_ARQUIVOS."CAT"?><?php echo $valores2['CAT']=$objAp->preencheZero("E", 4, $valores2['CAT'])."/".$valores2['ARQ']=$objAp->preencheZero("E", 6, $valores2['ARQ']).".".$valores2['EXT']?>"><?php echo $valores2['NOM'];?></a></td>
-                                                <td width="5%"  ><a href="javascript:excluir('T0016','T0016/monitora','T008_T055','T055_codigo',<?php echo ($valores2['CAT']);?>,'',0,1)" title="Excluir" class="excluir"></a></td>
+                                                <td width="5%"  ><a href="javascript:excluir('T0129','T0129/monitora','T008_T055','T055_codigo',<?php echo ($valores2['CAT']);?>,'',0,1)" title="Excluir" class="excluir"></a></td>
                                             </tr>
                                         <?php }?>
                                         </thead>
@@ -303,7 +303,7 @@ if (!is_null($cod))
                                 <td class="acoes">
                                     <span class="lista_acoes">
                                         <ul>
-                                            <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0016/pdf&cod=<?php echo ($valores['COD']);?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
+                                            <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0129/pdf&cod=<?php echo ($valores['COD']);?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
   
                                             <li class="ui-state-default ui-corner-all" title="Alterar Status"><a href="javascript:status(<?php echo ($valores['COD']);?>)" class="ui-icon ui-icon-refresh" ></a></li>
                                         </ul>

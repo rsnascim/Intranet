@@ -15,7 +15,7 @@ $FornCodigo   = $_GET['FornCodigo'];
 $Loja         = $_GET['Loja'];
 //Chama classes
 //Classe para APS
-$objUltimasAps        =  new models_T0016($conn);
+$objUltimasAps        =  new models_T0129('hold');
 
 // retorna quantidade maxima do parametro
 $UltimasAps = $objUltimasAps->RetornaParametroQtdeMaxAps();
@@ -91,7 +91,7 @@ $Fornecedor = $objUltimasAps->RetornaDetalhesFornecedor($FornCodigo);
                                 $ValorBruto     = money_format('%n', $valores['ValorBruto']);
                                 ?>
                                 <tr class="dados">
-                                        <td><a href='?router=T0016/detalhe&cod=<?php echo $valores['APCodigo'];?>&orig=ultimas&FornCodigo=<?php echo $FornCodigo ?>' target="_blank"><?php echo $valores['APCodigo'];?></a></td>
+                                        <td><a href='?router=T0129/detalhe&cod=<?php echo $valores['APCodigo'];?>&orig=ultimas&FornCodigo=<?php echo $FornCodigo ?>' target="_blank"><?php echo $valores['APCodigo'];?></a></td>
                                         <td><?php echo $valores['NFNumero']."<br/>".$valores['NFSerie'];?></td>
                                         <td><?php echo $valores['Login'];?></td>
                                         <td><?php echo $valores['CodigoLoja']." - ".$valores['NomeLoja']; ?></td>
@@ -109,7 +109,7 @@ $Fornecedor = $objUltimasAps->RetornaDetalhesFornecedor($FornCodigo);
                                                 ?>
                                                 <tr class="<?php echo $cor; ?>">
                                                     <td width="95%" ><a href="<?php echo CAMINHO_ARQUIVOS."CAT".$valores2['CAT']=$objUltimasAps->preencheZero("E", 4, $valores2['CAT'])."/".$arquivo=$objUltimasAps->preencheZero("E", 4, $valores2['ARQ']).".".$valores2['EXT']?>"><?php echo $valores2['NOM'];?></a></td>
-                                                    <td width="5%"  ><a href="javascript:excluir('T0016','T0016/home&cod=<?php echo $valores['APCodigo']; ?>&path=<?php echo $valores2['CAT']=$objUltimasAps->preencheZero("E", 4, $valores2['CAT'])?>','T008_T055','T055_codigo','<?php echo $valores2['ARQ']?>')" title="Excluir" class="excluir"></a></td>
+                                                    <td width="5%"  ><a href="javascript:excluir('T0129','T0129/home&cod=<?php echo $valores['APCodigo']; ?>&path=<?php echo $valores2['CAT']=$objUltimasAps->preencheZero("E", 4, $valores2['CAT'])?>','T008_T055','T055_codigo','<?php echo $valores2['ARQ']?>')" title="Excluir" class="excluir"></a></td>
                                                 </tr>
                                             <?php }?>
                                                 <!-- Caixa Dialogo Excluir -->

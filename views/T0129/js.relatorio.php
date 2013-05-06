@@ -16,7 +16,7 @@ var $data_final;
 
 function select()
 {
- $obj                 = new models_T0016();
+ $obj                 = new models_T0129('hold');
  $this->codFornecedor = $obj->retornaCodigoFornecedorAutoComplete($_POST["fornecedor"]);
  $this->data_inicial  = $_POST["dt_inicial"];    
  $this->data_final    = $_POST["dt_final"];    
@@ -131,7 +131,7 @@ foreach($dados as $campos=>$valores)
 
 //FORMATAR DADOS
 
-$obj           = new models_T0016();
+$obj           = new models_T0129('hold');
 
 $valor_bruto   = money_format('%n', $valores['ValorBruto']);
 $descricao     = substr(utf8_decode($valores['Descricao']),0,105); 

@@ -6,7 +6,7 @@ $(function(){
     $("#cnpj_for").bind("change",function(){
         var cnpj    =   $("#cnpj_for").val();
         var tipo    =   1;
-        $.getJSON("?router=T0016/js.busca&cnpj="+cnpj+"&tipo="+tipo, function(dados){
+        $.getJSON("?router=T0129/js.busca&cnpj="+cnpj+"&tipo="+tipo, function(dados){
             $("#nf_num").focus();
             $.each(dados, function(i, item){
                 if (i    ==  "RAZ"){
@@ -25,7 +25,7 @@ $(function(){
             var raz     =   $("#raz_social").val();
             
             var tipo    =   5;
-            $.get("?router=T0016/js.busca&cnpj="+cnpj+"&cod_cnpj="+cod_cnpj+"&ie="+ie+"&im="+im+"&raz="+raz+"&tipo="+tipo, function(dados){
+            $.get("?router=T0129/js.busca&cnpj="+cnpj+"&cod_cnpj="+cod_cnpj+"&ie="+ie+"&im="+im+"&raz="+raz+"&tipo="+tipo, function(dados){
                 $("#CodForn").val(dados);
                 $("#CodFornWkf").val(dados);
             });
@@ -39,7 +39,7 @@ $(function(){
     $("#rms_codigo").live("change",function(){
         var cod     =   $("#rms_codigo").val();
         var tipo    =   2;
-        $.getJSON("?router=T0016/js.busca&cod="+cod+"&tipo="+tipo, function(dados){
+        $.getJSON("?router=T0129/js.busca&cod="+cod+"&tipo="+tipo, function(dados){
             $("#nf_num").focus();
             $.each(dados, function(i, item){
                 if (i    ==  "RAZ"){
@@ -57,7 +57,7 @@ $(function(){
             var im      =   $("#im").val();
             var raz     =   $("#raz_social").val();
             var tipo    =   5;
-            $.get("?router=T0016/js.busca&cnpj="+cnpj+"&cod_cnpj="+cod+"&ie="+ie+"&im="+im+"&raz="+raz+"&tipo="+tipo, function(dados){
+            $.get("?router=T0129/js.busca&cnpj="+cnpj+"&cod_cnpj="+cod+"&ie="+ie+"&im="+im+"&raz="+raz+"&tipo="+tipo, function(dados){
                 $("#CodForn").val(dados);
                 $("#CodFornWkf").val(dados);
             });
@@ -71,7 +71,7 @@ $(function(){
     $("#cpf_for").bind("change",function(){
         var cpf    =   $("#cpf_for").val();
         var tipo    =   1;
-        $.getJSON("?router=T0016/js.busca&cnpj="+cpf+"&tipo="+tipo, function(dados){
+        $.getJSON("?router=T0129/js.busca&cnpj="+cpf+"&tipo="+tipo, function(dados){
             $("#nf_num").focus();
             $.each(dados, function(i, item){
                 if (i    ==  "RAZ"){
@@ -86,7 +86,7 @@ $(function(){
             var rg      =   $("#cpf_rg").val();
             var raz     =   $("#cpf_raz_social").val();
             var tipo    =   6;
-            $.get("?router=T0016/js.busca&cpf="+cpf+"&cod_cpf="+cod_cpf+"&rg="+rg+"&raz="+raz+"&tipo="+tipo, function(dados){
+            $.get("?router=T0129/js.busca&cpf="+cpf+"&cod_cpf="+cod_cpf+"&rg="+rg+"&raz="+raz+"&tipo="+tipo, function(dados){
                 $("#CodForn").val(dados);
                 $("#CodFornWkf").val(dados);
             });
@@ -100,7 +100,7 @@ $(function(){
     $("#cpf_rms_codigo").live("change",function(){
         var cod     =   $("#cpf_rms_codigo").val();
         var tipo    =   2;
-        $.getJSON("?router=T0016/js.busca&cod="+cod+"&tipo="+tipo, function(dados){
+        $.getJSON("?router=T0129/js.busca&cod="+cod+"&tipo="+tipo, function(dados){
             $("#nf_num").focus();
             $.each(dados, function(i, item){
                 if (i    ==  "RAZ"){
@@ -115,7 +115,7 @@ $(function(){
             var rg      =   $("#cpf_rg").val();
             var raz     =   $("#cpf_raz_social").val();
             var tipo    =   6;
-            $.get("?router=T0016/js.busca&cpf="+cpf+"&cod_cpf="+cod+"&rg="+rg+"&raz="+raz+"&tipo="+tipo, function(dados){
+            $.get("?router=T0129/js.busca&cpf="+cpf+"&cod_cpf="+cod+"&rg="+rg+"&raz="+raz+"&tipo="+tipo, function(dados){
                 $("#CodForn").val(dados);
                 $("#CodFornWkf").val(dados);
             });
@@ -133,7 +133,7 @@ function incluiGrupoWorkflow()
 
             var loja    =   $("#loja").val();
             var tipo    =   3;
-            $.get("?router=T0016/js.busca&cnpj="+forn1+"&loja="+loja+"&tipo="+tipo, function(campos){
+            $.get("?router=T0129/js.busca&cnpj="+forn1+"&loja="+loja+"&tipo="+tipo, function(campos){
                 if (campos ==0)
                 {
                     $( "#dialog-grp" ).dialog( "open" );
@@ -155,7 +155,7 @@ function incluiGrupoWorkflow()
                                         else
                                             forn    =   $("#cnpj_for").val();
 
-                                        $.get("?router=T0016/js.grupo&loja="+loja+"&processo="+processo+"&grupo="+grupo+"&forn="+forn, function(dados){
+                                        $.get("?router=T0129/js.grupo&loja="+loja+"&processo="+processo+"&grupo="+grupo+"&forn="+forn, function(dados){
                                                     var forn2;
                                                     if ($("#cnpj_for").val()=="")
                                                         forn2    =   $("#cpf_for").val();
@@ -164,7 +164,7 @@ function incluiGrupoWorkflow()
 
                                                     var loja    =   $("#loja").val();
                                                     var tipo    =   3;
-                                                    $.get("?router=T0016/js.busca&cnpj="+forn2+"&loja="+loja+"&tipo="+tipo, function(campos){
+                                                    $.get("?router=T0129/js.busca&cnpj="+forn2+"&loja="+loja+"&tipo="+tipo, function(campos){
                                                         $("#workflow").html(campos);
                                                     })
                                         })
@@ -212,7 +212,7 @@ $(function(){
         var tipo    =   9;
         var textoCabecalho = "Atenção!\nExiste uma outra AP para essa NF/Série\n" ;
 
-       $.getJSON("?router=T0016/js.busca&cnpj="+cnpj+"&nf_num="+nf_num+"&tipo="+tipo, function(dados){
+       $.getJSON("?router=T0129/js.busca&cnpj="+cnpj+"&nf_num="+nf_num+"&tipo="+tipo, function(dados){
             $.each(dados, function(index, value){
                 
                alert(textoCabecalho + "\n AP: "    + value["APCodigo"]
@@ -237,7 +237,7 @@ $(function(){
 
             var loja    =   $("#loja").val();
             var tipo    =   3;
-            $.get("?router=T0016/js.busca&cnpj="+forn1+"&loja="+loja+"&tipo="+tipo, function(campos){
+            $.get("?router=T0129/js.busca&cnpj="+forn1+"&loja="+loja+"&tipo="+tipo, function(campos){
                     $( "#dialog-grp" ).dialog( "open" );
                     $( "#dialog-grp" ).dialog({
                             autoOpen: true,
@@ -257,7 +257,7 @@ $(function(){
                                         else
                                             forn    =   $("#cnpj_for").val();
 
-                                        $.get("?router=T0016/js.grupo&loja="+loja+"&processo="+processo+"&grupo="+grupo+"&forn="+forn, function(dados){
+                                        $.get("?router=T0129/js.grupo&loja="+loja+"&processo="+processo+"&grupo="+grupo+"&forn="+forn, function(dados){
                                                     var forn2;
                                                     if ($("#cnpj_for").val()=="")
                                                         forn2    =   $("#cpf_for").val();
@@ -266,7 +266,7 @@ $(function(){
 
                                                     var loja    =   $("#loja").val();
                                                     var tipo    =   3;
-                                                    $.get("?router=T0016/js.busca&cnpj="+forn2+"&loja="+loja+"&tipo="+tipo, function(campos){
+                                                    $.get("?router=T0129/js.busca&cnpj="+forn2+"&loja="+loja+"&tipo="+tipo, function(campos){
                                                         $("#workflow").html(campos);
                                                     })
                                         })

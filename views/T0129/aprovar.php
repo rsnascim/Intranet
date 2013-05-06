@@ -18,7 +18,7 @@ $user        =  $_SESSION['user']           ;
 $status      =  $_GET['status']             ;
 
 //INSTANCIA CLASSE
-$objAprova   =   new models_T0016($conn);
+$objAprova   =   new models_T0129("hold");
 
 $Aps    = split(',',$codAP);
 $Etapas = split(',',$etapa);

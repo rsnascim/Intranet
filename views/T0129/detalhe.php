@@ -10,7 +10,7 @@ if ($origem == "ultimas")
 
 $tabela     = "T008_approval";
 //Instancia Classe
- $objAP     = new models_T0016();
+ $objAP     = new models_T0129('hold');
  $ap        = $objAP->selecionaAPDF($cod);
  $GrpWkf    = $objAP->selecionaGrupofkw($codfor);
 
@@ -23,22 +23,22 @@ $user       =   $_SESSION['user'];
 
 ?>
 <!-- Busca CNPJ ou CODIGO RMS  -->
-<script src="template/js/interno/T0016/busca.js"></script>
+<script src="template/js/interno/T0129/busca.js"></script>
 
 <div id="ferramenta">
     <div id="ferr-conteudo">
         <span class="ferr-cont-menu">
             <ul>
                 <li class="selecione">Selecione</li>
-                <li><a href="?router=T0016/home" class="active">Listar</a></li>
-                <li><a href="?router=T0016/novo">Novo</a></li>
+                <li><a href="?router=T0129/home" class="active">Listar</a></li>
+                <li><a href="?router=T0129/novo">Novo</a></li>
                 <?php
                 if (($user == 'jnova') || ($user == 'msasanto') || ($user == 'cmlima') || ($user == 'aribeiro') || ($user == 'gssilva'))
-                 echo "<li><a href='?router=T0016/monitora'>Visualizar Antigas</a></li>";
+                 echo "<li><a href='?router=T0129/monitora'>Visualizar Antigas</a></li>";
 
-                 echo "<li><a href='?router=T0016/painel'>Painel de Aprovações</a></li>";
+                 echo "<li><a href='?router=T0129/painel'>Painel de Aprovações</a></li>";
                 ?>
-                <li><a href="?router=T0016/fluxo">Fluxo AP</a></li>
+                <li><a href="?router=T0129/fluxo">Fluxo AP</a></li>
             </ul>
         </span>
     </div>
@@ -216,7 +216,7 @@ $valor_liquido     = money_format('%n', $valores['P0016_T008_VAL']);
     </div>
     <?php }?>
         <div class="form-inpu-botoes">
-            <p><a href="?router=T0016/<?php echo $origem; ?>" id="voltar">Voltar</a></p>
+            <p><a href="?router=T0129/<?php echo $origem; ?>" id="voltar">Voltar</a></p>
         </div>
 </div>
 

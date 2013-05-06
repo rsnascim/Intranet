@@ -27,7 +27,7 @@ function cancelar(prog,pagina,tabela,status,campo,valor,etapa)
                         var filtro  =   $("#aps").val();
                         var itens   =   "";
                         $("#carregando").html("Carregando...");
-                        $.getJSON("?router=T0016/busca&tipo="+tipo+"&filtro="+filtro, function(dados){
+                        $.getJSON("?router=T0129/busca&tipo="+tipo+"&filtro="+filtro, function(dados){
                             if (dados == null)
                                 {
                                     $(".dados").remove();

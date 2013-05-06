@@ -41,7 +41,7 @@ function aprovar(prog,pagina,tabela,status,campo,valor,etapa,tpnota)
                                                             } 
                                 })
                             $("#carregando").html("Carregando...");
-                            $.getJSON("?router=T0016/js.busca&tipo="+tipo+"&status="+filtro, function(dados){
+                            $.getJSON("?router=T0129/js.busca&tipo="+tipo+"&status="+filtro, function(dados){
                                 if (dados == null)
                                     {
                                         $(".dados").remove();
@@ -62,7 +62,7 @@ function aprovar(prog,pagina,tabela,status,campo,valor,etapa,tpnota)
 
                             })                            
                         }                        
-                        $.get("?router=T0016/js.vencimento",{codigoAp:document.valor, evento:1}, function(dados){ //evento 1 verifica vencimento
+                        $.get("?router=T0129/js.vencimento",{codigoAp:document.valor, evento:1}, function(dados){ //evento 1 verifica vencimento
                             if (dados == 1)
                                 {
                                     $("#dialog-transmissao").dialog("close");
@@ -78,7 +78,7 @@ function aprovar(prog,pagina,tabela,status,campo,valor,etapa,tpnota)
                                                 "Alterar e Salvar": function()
                                                 {
                                                     var dataVencimento  =   $("#DataVencto").val();
-                                                    $.get("?router=T0016/js.vencimento",{codigoAp:document.valor, dataVencimento:dataVencimento, evento:2},function(dados){ //evento 2 atualiza tabela
+                                                    $.get("?router=T0129/js.vencimento",{codigoAp:document.valor, dataVencimento:dataVencimento, evento:2},function(dados){ //evento 2 atualiza tabela
                                                         if ( dados == 1 )
                                                             {
                                                                 aprovacao();

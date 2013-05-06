@@ -1,12 +1,12 @@
 <?php
-$obj            =   new models_T0016()          ;
+$obj            =   new models_T0129('hold')          ;
 $evento         =   $_REQUEST['evento']         ;
 $codigoAp       =   $_REQUEST['codigoAp']       ;
 $dataVencimento =   $_REQUEST['dataVencimento'] ;
 
 function VerificaVencimento($codigoAp)
 {
-    $obj        =   new models_T0016()                  ;
+    $obj        =   new models_T0129('hold')                  ;
     $Vencimento =   $obj->retornaVencimento($codigoAp)  ;
     foreach($Vencimento as   $campos=>$valores)
     {

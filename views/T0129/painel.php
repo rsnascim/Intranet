@@ -11,7 +11,7 @@ $user         = $_SESSION['user'];
 $tipo         = $_REQUEST['tipo'];
 //Chama classes
 //Classe para APS
-$objAp        =  new models_T0016($conn);
+$objAp        =  new models_T0129('hold');
 
 //procura se há mais de um grupo de workflow associado ao usuário
   $dadoGrupoWF = $objAp->GruposWorkflowUsuario($user);
@@ -118,16 +118,16 @@ switch ($tipo)
 }
 ?>
 <!-- Caixa Dialogo Transmitir -->
-<script src="template/js/interno/T0016/aprovar.js"></script>
+<script src="template/js/interno/T0129/aprovar.js"></script>
 <div id="dialog-transmissao" title="Mensagem!" style="display:none">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja aprovar esta AP?</p>
 </div>
 <!-- Caixa de Upload-->
-<script src="template/js/interno/T0016/upload.js"></script>
+<script src="template/js/interno/T0129/upload.js"></script>
 <div id="dialog-upload" title="Upload" style="display:none">
 	<p    class="validateTips">Selecione um tipo e um arquivo para carregar no sistema!</p>
         <span class="form-input">
-	<form action="?router=T0016/upload" method="post" id="form-upload"  enctype="multipart/form-data">
+	<form action="?router=T0129/upload" method="post" id="form-upload"  enctype="multipart/form-data">
 	<fieldset>
                 <label class="label">Tipo de Arquivo*</label>
                 <select                 name="T056_codigo"  id="tp_codigo" class="form-input-select">
@@ -157,15 +157,15 @@ switch ($tipo)
         <span class="ferr-cont-menu">
             <ul>
                 <li class="selecione">Selecione</li>
-                <li><a href="?router=T0016/home">Listar</a></li>
-                <li><a href="?router=T0016/novo">Novo</a></li>
+                <li><a href="?router=T0129/home">Listar</a></li>
+                <li><a href="?router=T0129/novo">Novo</a></li>
                 <?php
                 if (($user == 'jnova') || ($user == 'msasanto') || ($user == 'cmlima') || ($user == 'aribeiro') || ($user == 'gssilva'))
-                 echo "<li><a href='?router=T0016/monitora'>Visualizar Antigas</a></li>";
+                 echo "<li><a href='?router=T0129/monitora'>Visualizar Antigas</a></li>";
 
-                echo "<li><a href='?router=T0016/painel' class='active'>Painel de Aprovações</a></li>";
+                echo "<li><a href='?router=T0129/painel' class='active'>Painel de Aprovações</a></li>";
                 ?>
-                <li><a href="?router=T0016/fluxo">Fluxo AP</a></li>
+                <li><a href="?router=T0129/fluxo">Fluxo AP</a></li>
             </ul>
         </span>
     </div>
@@ -177,7 +177,7 @@ switch ($tipo)
         <li><a href="#tabs-4">Resumo por Grupo</a></li>
     </ul>
     <div id="tabs-1">
-        <form action="?router=T0016/painel" method="post">
+        <form action="?router=T0129/painel" method="post">
         <table class="form-inpu-tab">
             <thead>
                 <tr>
@@ -280,7 +280,7 @@ switch ($tipo)
                                                 ?>
                                                 <tr class="<?php echo $cor; ?>">
                                                     <td width="95%" ><a target="_blank" href="<?php echo CAMINHO_ARQUIVOS."CAT".$valores2['CAT']=$objAp->preencheZero("E", 4, $valores2['CAT'])."/".$arquivo=$objAp->preencheZero("E", 4, $valores2['ARQ']).".".$valores2['EXT']?>"><?php echo $valores2['NOM'];?></a></td>
-                                                    <td width="5%"  ><a href="javascript:excluir('T0016','T0016/home&cod=<?php echo $valores['APCodigo']; ?>&path=<?php echo $valores2['CAT']=$objAp->preencheZero("E", 4, $valores2['CAT'])?>','T008_T055','T055_codigo','<?php echo $valores2['ARQ']?>')" title="Excluir" class="excluir"></a></td>
+                                                    <td width="5%"  ><a href="javascript:excluir('T0129','T0129/home&cod=<?php echo $valores['APCodigo']; ?>&path=<?php echo $valores2['CAT']=$objAp->preencheZero("E", 4, $valores2['CAT'])?>','T008_T055','T055_codigo','<?php echo $valores2['ARQ']?>')" title="Excluir" class="excluir"></a></td>
                                                 </tr>
                                             <?php }?>
                                                 <!-- Caixa Dialogo Excluir -->
@@ -292,18 +292,18 @@ switch ($tipo)
                                         <td class="acoes">
                                             <span class="lista_acoes">
                                             <ul>
-                                                <li class="ui-state-default ui-corner-all" title="Detalhes"  ><a href="?router=T0016/detalhe&cod=<?php echo $valores['APCodigo']?>"                                         class="ui-icon ui-icon-search"               ></a></li>
-                                                <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0016/js.pdf&cod=<?php echo $valores['APCodigo']?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
+                                                <li class="ui-state-default ui-corner-all" title="Detalhes"  ><a href="?router=T0129/detalhe&cod=<?php echo $valores['APCodigo']?>"                                         class="ui-icon ui-icon-search"               ></a></li>
+                                                <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0129/js.pdf&cod=<?php echo $valores['APCodigo']?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
                                                 <?php if($tipo <> 4){?>
-                                                <li class="ui-state-default ui-corner-all" title="Alterar"   ><a href="?router=T0016/altera&cod=<?php echo $valores['APCodigo']?>&codfor=<?php echo $valores['FornCodigo']?>"   class="ui-icon ui-icon-pencil"               ></a></li>
+                                                <li class="ui-state-default ui-corner-all" title="Alterar"   ><a href="?router=T0129/altera&cod=<?php echo $valores['APCodigo']?>&codfor=<?php echo $valores['FornCodigo']?>"   class="ui-icon ui-icon-pencil"               ></a></li>
                                                 <li class="ui-state-default ui-corner-all" title="Anexar"    ><a href="javascript:upload(<?php echo $valores['APCodigo']?>)"                                                class="ui-icon ui-icon-arrowreturnthick-1-n" ></a></li>
-                                                <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0016/js.pdf&cod=<?php echo $valores['APCodigo']?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
+                                                <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0129/js.pdf&cod=<?php echo $valores['APCodigo']?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
                                                 <?php }
                                                 if(($tipo == 1) || ($tipo == 2)){?>
-                                                <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0016/js.pdf&cod=<?php echo $valores['APCodigo']?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
+                                                <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0129/js.pdf&cod=<?php echo $valores['APCodigo']?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
                                                 <?php }
                                                       if($tipo ==   1){?>
-                                                <li class="ui-state-default ui-corner-all" title="Aprovar"   ><a href="javascript:aprovar('T0016','T0016/home','T008_T060','1','T008_codigo',<?php echo $valores['APCodigo'];?>,<?php echo $valores['CodigoEtapa'];?>)"   class="ui-icon ui-icon-check"         ></a></li>
+                                                <li class="ui-state-default ui-corner-all" title="Aprovar"   ><a href="javascript:aprovar('T0129','T0129/home','T008_T060','1','T008_codigo',<?php echo $valores['APCodigo'];?>,<?php echo $valores['CodigoEtapa'];?>)"   class="ui-icon ui-icon-check"         ></a></li>
                                                 <?php }?>
                                             </ul>
                                             </span>
@@ -370,7 +370,7 @@ switch ($tipo)
     <div id="tabs-4">
         <div id="conteudo">
             <span class="lista_itens">
-<!--                <h1><a href="?router=T0016/resumodetalhe">Link</a></h1>-->
+<!--                <h1><a href="?router=T0129/resumodetalhe">Link</a></h1>-->
                 <table class="ui-widget ui-widget-content" style="width:100%">
                     <thead>
                         <tr class="ui-widget-header ">
@@ -393,8 +393,8 @@ switch ($tipo)
                             <td>
                                 <span class="lista_acoes">
                                     <ul>
-                                        <li class="ui-state-default ui-corner-all" title="Detalhes"  ><a href="?router=T0016/resumodetalhe&cod=<?php echo $valores['Grupo']?>"                                         class="ui-icon ui-icon-search"               ></a></li>
-                                        <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0016/js.pdf&cod=<?php echo $valores['APCodigo']?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
+                                        <li class="ui-state-default ui-corner-all" title="Detalhes"  ><a href="?router=T0129/resumodetalhe&cod=<?php echo $valores['Grupo']?>"                                         class="ui-icon ui-icon-search"               ></a></li>
+                                        <li class="ui-state-default ui-corner-all" title="Imprimir"  ><a href="?router=T0129/js.pdf&cod=<?php echo $valores['APCodigo']?>"                                             class="ui-icon ui-icon-print"                target="_blank" ></a></li>
                                     </ul>
                                 </span>
                             </td>

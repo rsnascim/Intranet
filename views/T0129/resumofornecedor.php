@@ -14,7 +14,7 @@ $tipo         = $_REQUEST['tipo'];
 
 //Chama classes
 //Classe para APS
-$obj   =  new models_T0016($conn);
+$obj   =  new models_T0129('hold');
 
 
 ?>
@@ -24,23 +24,23 @@ $obj   =  new models_T0016($conn);
         <span class="ferr-cont-menu">
             <ul>
                 <li class="selecione">Selecione</li>
-                <li><a href="?router=T0016/home" class="active">Listar</a></li>
-                <li><a href="?router=T0016/novo">Novo</a></li>
+                <li><a href="?router=T0129/home" class="active">Listar</a></li>
+                <li><a href="?router=T0129/novo">Novo</a></li>
                 <?php
                 if (($user == 'jnova') || ($user == 'msasanto') || ($user == 'cmlima') || ($user == 'aribeiro') || ($user == 'gssilva'))
-                 echo "<li><a href='?router=T0016/monitora'>Visualizar Antigas</a></li>";
+                 echo "<li><a href='?router=T0129/monitora'>Visualizar Antigas</a></li>";
 
                 if (($user == 'rrocha') || ($user == 'fcolivei') || ($user == 'msasanto') || ($user == 'ralfieri') || ($user == 'rcsilva') || ($user == 'lolive') || ($user == 'ctlima') || ($user == 'mlsilva') || ($user == 'rcsouza'))
-                 echo "<li><a href='?router=T0016/painel'>Painel de Aprovações</a></li>";
+                 echo "<li><a href='?router=T0129/painel'>Painel de Aprovações</a></li>";
                 ?>
-                <li><a href="?router=T0016/fluxo">Fluxo AP</a></li>
+                <li><a href="?router=T0129/fluxo">Fluxo AP</a></li>
             </ul>
         </span>
     </div>
 </div>
 
-<!--<form action="?router=T0016/js.relatorio" method="post" target="_blank">-->
-<form action="?router=T0016/resumofornecedor" method="post">
+<!--<form action="?router=T0129/js.relatorio" method="post" target="_blank">-->
+<form action="?router=T0129/resumofornecedor" method="post">
     <div  id="formulario" class="formulario">
         <span class="form-input">
             <table>

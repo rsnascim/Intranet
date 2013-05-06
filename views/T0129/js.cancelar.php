@@ -10,7 +10,7 @@ $user       =   $_SESSION['user'];
 $status     =   $_GET['status'];
 
 //INSTANCIA CLASSE
-$objCancela   =   new models_T0016($conn);
+$objCancela   =   new models_T0129('hold');
 
 $campos = array("T008_status" => "4");
 $delim = "T008_codigo = ". $codAP;

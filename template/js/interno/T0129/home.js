@@ -64,7 +64,7 @@ function Filtrar(){
             {
                 
             $("#carregando").html("Aguarde Carregando...");
-            $.getJSON("?router=T0016/js.busca&tipo="+tipo+"&FilRegistros="+FilRegistros+"&status="+Status+"&FilAp="+FilAp+"&FilNf="+FilNf+"&FilCNPJ="+FilCNPJ+"&FilFornecedor="+FilFornecedor+"&FilVencimentoInicial="+FilVencimentoInicial+"&FilVencimentoFinal="+FilVencimentoFinal+"&FilValorInicial="+FilValorInicial+"&FilValorFinal="+FilValorFinal, function(dados){
+            $.getJSON("?router=T0129/js.busca&tipo="+tipo+"&FilRegistros="+FilRegistros+"&status="+Status+"&FilAp="+FilAp+"&FilNf="+FilNf+"&FilCNPJ="+FilCNPJ+"&FilFornecedor="+FilFornecedor+"&FilVencimentoInicial="+FilVencimentoInicial+"&FilVencimentoFinal="+FilVencimentoFinal+"&FilValorInicial="+FilValorInicial+"&FilValorFinal="+FilValorFinal, function(dados){
                 if (dados == null)
                     {
                         $(".dados").remove();
@@ -117,13 +117,13 @@ $(function(){
                                                                             Etapa.push(AP_e_Etapa[1]);
                                                                             TpNota.push(AP_e_Etapa[2]);
                                                                         });
-                    $.get("?router=T0016/js.vencimento",{codigoAp:AP, evento:1}, function(dados){
+                    $.get("?router=T0129/js.vencimento",{codigoAp:AP, evento:1}, function(dados){
                         if ( dados == 1)
                             {
                                  show_stack_bottomleft(true, 'Erro!', 'Existem uma ou mais APs sem data de vencimento!'); 
                             }else
                                 {
-                                    aprovar('T0016','T0016/home','T008_T060','1','T008_codigo',AP,Etapa,TpNota);
+                                    aprovar('T0129','T0129/home','T008_T060','1','T008_codigo',AP,Etapa,TpNota);
                                 }
                     })
                                                                         

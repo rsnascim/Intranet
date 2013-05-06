@@ -5,15 +5,15 @@ if (isset($_FILES["P0016_arquivo"])){
 
 //DECLARAÇÕES E PARAMETROS
 
-    //Instancia Classe models_T0016
-    $objUpload  =   new models_T0016($conn);
+    //Instancia Classe models_T0129
+    $objUpload  =   new models_T0129('hold');
  
 //Utilizados
     $ap         =   $_POST['T008_codigo'];
     $arquivo    =   $_FILES["P0016_arquivo"];
     $tmp        =   $arquivo["tmp_name"];
     $nome       =   $arquivo["name"];
-    $diretorio  =   CAMINHO_ARQUIVOS."CAT";
+    $diretorio  =   CAMINHO_ARQUIVOS_HOLD."CAT";
         //Extrai a extensão arquivo
         $extensao['extensao'] = explode('.' , $arquivo["name"]);
     $extensao = $extensao['extensao'][1];
@@ -69,7 +69,7 @@ if (isset($_FILES["P0016_arquivo"])){
                 $insUpload   =  $objUpload->inserir($tabela, $dados);
                 //echo $insUpload;
                 //Lê página inicial
-                header("location:?router=T0016/home");
+                header("location:?router=T0129/home");
             }
             else
             {

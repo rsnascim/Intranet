@@ -17,7 +17,7 @@ else
 }
 
 //EXCLUI DA TABELA T008_T055
-$objExcluir     =   new models_T0016();
+$objExcluir     =   new models_T0129('hold');
 $Excluir        =   $objExcluir->excluir($tabela, $delim);
 
 if ($Excluir)
