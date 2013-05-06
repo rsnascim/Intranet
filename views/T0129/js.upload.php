@@ -39,7 +39,7 @@ if (isset($_FILES["P0016_arquivo"])){
         $copiar     =   move_uploaded_file($tmp, $diretorio .$categoria. "/" . $nome);
         if(!$copiar)
         {
-            echo "nao copiou o arquivo!!";
+            echo "nao copiou o arquivo!! $diretorio$categoria/$nome";
             echo "arquivo nome: $arquivo";
             exit (0);
         }
