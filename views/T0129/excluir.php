@@ -28,7 +28,7 @@ if ($Excluir)
  if ($Excluir2)
  {
     //header('location:?router='.$pagina.'&msg=10');
-    $fn = CAMINHO_ARQUIVOS.'CAT'.$path;
+    $fn = CAMINHO_ARQUIVOS_HOLD.'CAT'.$path;
     // Excluindo arquivo
     $ret = unlink($fn);
     if ($ret)

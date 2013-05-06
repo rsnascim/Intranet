@@ -279,7 +279,7 @@ switch ($tipo)
                                                  $cont++;
                                                 ?>
                                                 <tr class="<?php echo $cor; ?>">
-                                                    <td width="95%" ><a target="_blank" href="<?php echo CAMINHO_ARQUIVOS."CAT".$valores2['CAT']=$objAp->preencheZero("E", 4, $valores2['CAT'])."/".$arquivo=$objAp->preencheZero("E", 4, $valores2['ARQ']).".".$valores2['EXT']?>"><?php echo $valores2['NOM'];?></a></td>
+                                                    <td width="95%" ><a target="_blank" href="<?php echo CAMINHO_ARQUIVOS_HOLD."CAT".$valores2['CAT']=$objAp->preencheZero("E", 4, $valores2['CAT'])."/".$arquivo=$objAp->preencheZero("E", 4, $valores2['ARQ']).".".$valores2['EXT']?>"><?php echo $valores2['NOM'];?></a></td>
                                                     <td width="5%"  ><a href="javascript:excluir('T0129','T0129/home&cod=<?php echo $valores['APCodigo']; ?>&path=<?php echo $valores2['CAT']=$objAp->preencheZero("E", 4, $valores2['CAT'])?>','T008_T055','T055_codigo','<?php echo $valores2['ARQ']?>')" title="Excluir" class="excluir"></a></td>
                                                 </tr>
                                             <?php }?>

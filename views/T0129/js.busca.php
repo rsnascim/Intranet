@@ -335,7 +335,7 @@ if ($tipo == 10)
                                  //$lnkBotao = $lnkArq;
 
                                  $html[$i] .= "<tr class='".$cor."'>";
-                                 $html[$i] .= "<td width='95%' ><a target='_blank' href=".$AD.CAMINHO_ARQUIVOS."CAT".$lnkArq.$AD.">".$valores2['NOM']."</a></td>";
+                                 $html[$i] .= "<td width='95%' ><a target='_blank' href=".$AD.CAMINHO_ARQUIVOS_HOLD."CAT".$lnkArq.$AD.">".$valores2['NOM']."</a></td>";
                                  $html[$i] .= "<td width='5%'  ><a href=".$AD."javascript:excluir('T0129','T0129/home&cod=".$valores['APCodigo']."&path=".$lnkArq."','T008_T055','T055_codigo','".$valores2['ARQ']."')".$AD." title='Excluir' class='excluir'></a></td>";
                                  $html[$i] .= "</a>";
                                  $html[$i] .= "</td>";
