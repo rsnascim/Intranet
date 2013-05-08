@@ -1,19 +1,19 @@
 <?php
 //print_r($_POST);
 //print_r($_FILES);
-if (isset($_FILES["P0117_arquivo"])){
+if (isset($_FILES["P0016_arquivo"])){
 
 //DECLARAÇÕES E PARAMETROS
 
-    //Instancia Classe models_T0117
-    $objUpload  =   new models_T0117();
+    //Instancia Classe models_T0129
+    $objUpload  =   new models_T0129('hold');
  
 //Utilizados
-    $rm         =   $_POST['T113_codigo'];
-    $arquivo    =   $_FILES["P0117_arquivo"];
+    $ap         =   $_POST['T008_codigo'];
+    $arquivo    =   $_FILES["P0016_arquivo"];
     $tmp        =   $arquivo["tmp_name"];
     $nome       =   $arquivo["name"];
-    $diretorio  =   CAMINHO_ARQUIVOS."CAT";
+    $diretorio  =   CAMINHO_ARQUIVOS_HOLD."CAT";
         //Extrai a extensão arquivo
         $extensao['extensao'] = explode('.' , $arquivo["name"]);
     $extensao = $extensao['extensao'][1];
@@ -32,7 +32,7 @@ if (isset($_FILES["P0117_arquivo"])){
     }
 
     $_POST['T057_codigo']   =   $codExt;
-    
+
     if($i==1)
     {
         //copia arquivo para diretóio files
@@ -41,46 +41,39 @@ if (isset($_FILES["P0117_arquivo"])){
         {
             echo "nao copiou o arquivo!!";
             echo "arquivo nome: $arquivo";
-            echo $tmp, $diretorio .$categoria. "/" . $nome;
             exit (0);
         }
         else
         {
-
             //Limpa variaveis array
-            unset($_POST['T113_codigo']);
+            unset($_POST['T059_codigo']);
+            unset($_POST['T008_codigo']);
             //Atribui nome INTERNO (ex.: 0001.pdf)
             $_POST['T055_dt_upload']    =   $data;
             //inseri T055_arquivo
             $tabela      =  "T055_arquivos";
-            $_POST['T055_nome']         =   "[Automatico] - P0117/Requisição de Mudança";
-            $_POST['T055_desc']         =   "[Automatico] - P0117/Requisição de Mudança";
-            $arrayArq   = array( 'T055_nome'        =>  $_POST["T055_nome"]
-                                ,'T055_desc'        =>  $_POST["T055_desc"]
-                                ,'T055_dt_upload'   =>  $_POST["T055_dt_upload"]
-                                ,'T004_login'       =>  $_POST["T004_login"]
-                                ,'T057_codigo'      =>  $_POST["T057_codigo"]
-                                ,'T056_codigo'      =>  $_POST["T056_codigo"]);
-            $insUpload   =  $objUpload->inserir($tabela, $arrayArq);
+            $_POST['T055_nome']         =   "[Automatico] - P0016/Aprovação de Pagamento";
+            $_POST['T055_desc']         =   "[Automatico] - P0016/Aprovação de Pagamento";
+            $insUpload   =  $objUpload->inserir($tabela, $_POST);
             $codArq      =  $objUpload->lastInsertId();
             //Renomeia arquivo
             $nomeInt    =   $objUpload->preencheZero("E", 4, $codArq).".".strtolower($extensao);
-            
+
             if (rename($diretorio.$categoria."/".$nome,$diretorio.$categoria."/".$nomeInt))
             {
-                //Inseri T113_T055
-                $tabela      =  "T113_T055";
-                $dados       = array('T113_codigo' => $rm
+                //Inseri T008_T055
+                $tabela      =  "T008_T055";
+                $dados       = array('T008_codigo' => $ap
                                    , 'T055_codigo' => $codArq);
 
                 $insUpload   =  $objUpload->inserir($tabela, $dados);
                 //echo $insUpload;
                 //Lê página inicial
-                header("location:?router=T0117/home");
+                header("location:?router=T0129/home");
             }
             else
             {
-                echo "teste";
+                echo "<script>alert('Erro!')</script>";
             }
         }
     }

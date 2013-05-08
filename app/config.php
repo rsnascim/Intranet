@@ -40,6 +40,8 @@ define("CAMINHO_FISICO", dirname(getcwd()));
 
 /* Caminho para Gravação de Arquivos Físicos no S.O.   */
 define("CAMINHO_ARQUIVOS", "/Dados/files/");
+/* Caminho para Gravação de Arquivos Físicos no S.O.   */
+define("CAMINHO_ARQUIVOS_HOLD", "/DadosHold/files/");
 //define("CAMINHO_ARQUIVOS", "C:/xampp/htdocs/Intranet/Dados/files/");
 
 /* Caminho arquivo de conexão com os BDs (MySQL, SQL Server, Oracle)*/

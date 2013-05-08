@@ -121,7 +121,10 @@ echo "";
                                  ?>
                                 <tr class="<?php echo $cor;?>">
                                 <?php echo "<td><a target='_blank' href=".$AD.CAMINHO_ARQUIVOS."CAT".$lnkArq.$AD.">".$valores2['NOM']."</a></td>";
-                                      echo "<td><a href=".$AD."javascript:excluir('T0117','T0117/home&cod=".$valores['CodigoRM']."&path=".$lnkArq."','T113_T055','T055_codigo','".$valores2['ARQ']."')".$AD." title='Excluir' class='excluir'></a></td>";?>
+                                    if(($valores["SolicitanteLogin"] == $_SESSION["user"]) && ($valores["StatusRM"] == 1 )){
+                                      echo "<td><a href=".$AD."javascript:excluir('T0117','T0117/home&cod=".$valores['CodigoRM']."&path=".$lnkArq."','T113_T055','T055_codigo','".$valores2['ARQ']."','".$valores["CodigoRM"]."','".$lnkArq."')".$AD." title='Excluir' class='excluir'></a></td>";
+                                    }?>
+                                    
                                 </tr> 
                                 <?php }?>
                             </table></td>
