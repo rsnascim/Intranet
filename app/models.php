@@ -614,8 +614,8 @@ class models extends PDO
                 $sql_aux .= $nomes." = ".$this->formataValor($tabela,$nomes,$valores). ",";
             }
             $sql_aux = substr($sql_aux, 0, (strlen($sql_aux)-1));
-//            echo  $sql.$sql_aux. " WHERE ".$delimitador;
-//            echo "<br/>";
+            //echo  $sql.$sql_aux. " WHERE ".$delimitador;
+            //echo "<br/>";
             return  $sql.$sql_aux. " WHERE ".$delimitador;
         }
     }
@@ -644,6 +644,10 @@ class models extends PDO
             || $this->verificaTipo($tabela,$campo) == "BLOB")
         {
             $valor  = str_replace("'", "`", $valor);
+            
+            if(empty($valor))
+                return "null";
+            
             return "'".$valor."'";
         }
         elseif($this->verificaTipo($tabela,$campo) == "DATE")
@@ -668,6 +672,9 @@ class models extends PDO
         }
         elseif($this->verificaTipo($tabela,$campo) == "LONG")
         {
+            if(empty($valor))
+                return "null";
+            
             $valor  = str_replace("R$", "", $valor);
             $valor  = trim($valor);
             $valor  = str_replace(".","",$valor);
@@ -675,7 +682,10 @@ class models extends PDO
             return $valor;
         }
         else
-        {                       
+        {          
+            if(empty($valor))
+                return "null";
+            
             $valor  = str_replace("R$", "", $valor);
             $valor  = trim($valor);
             if (strstr($valor, ','))
