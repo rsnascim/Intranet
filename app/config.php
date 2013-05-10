@@ -7,7 +7,7 @@
   
 /* Habilitar de 0 para 1 para exibir erros do PHP                 */
 ini_set("display_errors",0);    
- 
+  
 /* Inicializa characters com UTF-8 */
 ini_set('default_charset','ISO-8859-1');
 
