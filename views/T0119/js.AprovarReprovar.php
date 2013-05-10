@@ -101,7 +101,7 @@ for($i=0;$i<$qtd;$i++)
                    $Tabela    = "T116_ccu_lote";
                    $Delim     = "T116_lote=".$valoresO['lote_numero_origem']." AND T006_codigo=$LojaCD";
 
-                   $Retorno   = $obj->altera($Tabela, $arrStatus, $Delim) ;
+                   $RetornoOrg   = $obj->altera($Tabela, $arrStatus, $Delim) ;
 
             }            
             
@@ -112,7 +112,7 @@ for($i=0;$i<$qtd;$i++)
                 $arrUpdateCon = array(   "consumo_status_id"     => 0
                                         ,"consumo_data"          => "NULL"
                                         ,"consumo_agent_key"     => "NULL"
-                                        ,"aprovacao_agent_key"   => NULL
+                                        ,"aprovacao_agent_key"   => "NULL"
                                        );
 
                 $Tabela     = "davo_ccu_lote";
