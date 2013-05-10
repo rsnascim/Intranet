@@ -685,8 +685,6 @@ class models extends PDO
         }
         elseif($this->verificaTipo($tabela,$campo) == "LONG")
         {
-            if(empty($valor))
-                return "null";
             
             $valor  = str_replace("R$", "", $valor);
             $valor  = trim($valor);
@@ -696,8 +694,6 @@ class models extends PDO
         }
         else
         {         
-            if(empty($valor))
-                return "null";
             
             $valor  = str_replace("R$", "", $valor);
             $valor  = trim($valor);

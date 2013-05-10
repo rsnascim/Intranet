@@ -60,31 +60,35 @@ for($i=0;$i<$qtd;$i++)
          
             if($Acao==2)
             {
-                $AcaoRetirada=3;
-                $DataHoraRetirada=$DataHora;
-                $userRetirada=$user;
+                // monta UPDATE da Origem para aprovado
+                $arrUpdateApr = array(   "aprovacao_status_id"   => 3
+                                        ,"aprovacao_data"        => $DataHora
+                                        ,"aprovacao_usuario"     => $user
+                                     );        
+                
+                $arrStatus = array("T116_aprovacao_status_id" =>3
+                                  ,"T116_aprovacao_data"      =>$DataHora
+                                  ,"T004_login"               =>$user
+                                  );                   
             }else
             {
-                $AcaoRetirada=1;
-                $DataHoraRetirada=NULL;
-                $userRetirada=NULL;                
+                // monta UPDATE da Origem para disponivel novamente
+                $arrUpdateApr = array(   "aprovacao_status_id"   => 1
+                                        ,"aprovacao_data"        => "NULL"
+                                        ,"aprovacao_usuario"     => NULL
+                                     );                                
+                
+                $arrStatus = array("T116_aprovacao_status_id" => 1
+                                  ,"T116_aprovacao_data"      => "NULL"
+                                  ,"T004_login"               => NULL
+                                  );                 
             }
             
             
-            
-            // verifica se e aprovacao
-            // retira "Pr�-aprovacao", se existir e nao houver integracao
-            $arrUpdateApr = array(   "aprovacao_status_id"   => $AcaoRetirada
-                                    ,"aprovacao_data"        => $DataHoraRetirada
-                                    ,"aprovacao_usuario"     => $userRetirada
-                                   );
-
             $Tabela     = "davo_ccu_lote";
 
             $Delim     = "lote_numero=".$valoresO['lote_numero_origem']." AND store_key=".$valoresO['store_key_origem'].
                          "  AND aprovacao_status_id=6  AND integracao_status_id <> 2  ";
-
-
 
             $RetornoOrg   = $objEMP->altera($Tabela, $arrUpdateApr, $Delim) ;              
 
@@ -93,11 +97,6 @@ for($i=0;$i<$qtd;$i++)
                   //Atualiza na Intranet
                    $DigLoja   = $obj->calculaDigitoMod11($valoresO['store_key_origem'],1,100);
                    $LojaCD    = $valoresO['store_key_origem'].$DigLoja; // loja Com Digito
-
-                   $arrStatus = array("T116_aprovacao_status_id" =>$AcaoRetirada
-                                     ,"T116_aprovacao_data"      =>$DataHoraRetirada
-                                     ,"T004_login"               =>$userRetirada
-                                     );
 
                    $Tabela    = "T116_ccu_lote";
                    $Delim     = "T116_lote=".$valoresO['lote_numero_origem']." AND T006_codigo=$LojaCD";
@@ -110,9 +109,9 @@ for($i=0;$i<$qtd;$i++)
             if($Acao==7)
             {
                 // "libera" lote para consumo novamente
-                $arrUpdateCon = array(   "consumo_status_id"   => 0
-                                        ,"consumo_data"        => NULL
-                                        ,"consumo_agent_key"   => NULL
+                $arrUpdateCon = array(   "consumo_status_id"     => 0
+                                        ,"consumo_data"          => "NULL"
+                                        ,"consumo_agent_key"     => "NULL"
                                         ,"aprovacao_agent_key"   => NULL
                                        );
 
