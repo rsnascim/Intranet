@@ -363,9 +363,11 @@ class models_T0026 extends models
                             , T1516.T006_codigo_destino                             DespesaDestino
                             , T06B.T006_nome                                        DestinoNome                            
                             , T1516.T015_T016_km                                    DespesaKm
-                         FROM T015_T016 T1516
+                            , date_format(T16.T016_dt_inicio, '%d/%m/%Y')           DespesaData
+                            FROM T015_T016 T1516
                          JOIN T006_loja T06A ON T1516.T006_codigo_origem = T06A.T006_codigo
                          JOIN T006_loja T06B ON T1516.T006_codigo_destino = T06B.T006_codigo
+                         JOIN T016_despesa T16 ON T16.T016_codigo   =   T1516.T016_codigo
                         WHERE T1516.T016_codigo  = $DespesaCodigo";
         
         return $this->query($sql);
