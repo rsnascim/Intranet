@@ -657,9 +657,6 @@ class models extends PDO
             || $this->verificaTipo($tabela,$campo) == "TIME"
             || $this->verificaTipo($tabela,$campo) == "BLOB")
         {
-            if(empty($valor))
-                return "null";
-            
             $valor  = str_replace("'", "`", $valor);
             return "'".$valor."'";
         }
@@ -685,7 +682,6 @@ class models extends PDO
         }
         elseif($this->verificaTipo($tabela,$campo) == "LONG")
         {
-            
             $valor  = str_replace("R$", "", $valor);
             $valor  = trim($valor);
             $valor  = str_replace(".","",$valor);
@@ -693,8 +689,7 @@ class models extends PDO
             return $valor;
         }
         else
-        {         
-            
+        {                       
             $valor  = str_replace("R$", "", $valor);
             $valor  = trim($valor);
             if (strstr($valor, ','))

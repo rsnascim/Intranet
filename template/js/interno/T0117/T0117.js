@@ -324,15 +324,6 @@ $(function(){
         
      });
      
-     $("#statusRM").change(function(){
-        
-        var status  =   $("#statusRM").val();
-        var codRM   =   $("#codRM").val();   
-        
-        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
-         
-     });
-     
      
      
 });
@@ -346,47 +337,6 @@ $(function(){
        $(".linha_"+cod).remove(); 
     });
 }
-
-
-function upload(cod)
-{
-    document.cod   =   cod;
-    $("#dialog-upload").dialog
-    ({
-        resizable: false,
-        height:250,
-        width:330,
-        modal: true,
-        draggable: false,
-        buttons:
-        {
-                "Upload": function()
-                {
-                    $("#form-upload").append("<input type='hidden' name='T113_codigo' value='"+cod+"'</input>");
-                    $("#form-upload").submit();
-                } 
-                ,
-                Cancelar: function()
-                {
-                    $(this).dialog("close");
-                }
-        }
-    });
-}
-
-function excluir(prog, pagina, tabela, campo, arquivo, cod, path){
-    
-  $.get("?router=T0117/js.excluirAnexo", {pagina:pagina,tabela:tabela, valor:arquivo, campo:campo, cod:cod, path:path}, function(dados){
- //   alert(dados);
-  });
-  
-  
-  
- $(".conteudo_16").load("?router=T0117/home .conteudo_16");
-  
-}
-
-
 
 
     

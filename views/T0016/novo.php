@@ -258,7 +258,7 @@ $GrpsUser=  $objWkf->listaWF();
         </span>
         <table>
             <tr>
-                <td><label class="label">Grupo de Workflow</label></td>
+                <td><label class="label">Grupo de Workflow</label></td>                
             </tr>
             <tr>
                 <td class="acoes" style="width:500px;">
@@ -274,6 +274,14 @@ $GrpsUser=  $objWkf->listaWF();
                                     value ="Adicionar Grupos"/>
                     </span>
                 </td>
+            </tr>
+            <tr>
+                <td><label class="label">Categoria Fornecedor</label></td>
+            </tr>
+            <tr>
+                <td class="acoes" style="width:500px;">
+                    <select name="T120_codigo" id="categoriaFornecedor" class="form-input-text-table" style="width:350px;"></select>
+                </td>                
             </tr>
         </table>
         <span class="form-titulo">

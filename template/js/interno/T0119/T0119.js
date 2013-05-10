@@ -42,87 +42,35 @@ $(function(){
             {
                     Confirmar: function() 
                     {
-                        var re=0;
                         arrLote.push(Lote);
                         arrLoja.push(Loja);
                         arrTipo.push(Tipo);
                         $.get("?router=T0119/js.AprovarReprovar",{arrLote:arrLote,arrLoja:arrLoja, arrTipo:arrTipo, Acao:2},function(retorno){
-                            if(retorno==1)
-                            {
-                                
+                            if(retorno==1){
+                                show_stack_bottomleft(false," ","Lote Aprovado com sucesso");
                                 //$($thisAprovar).remove();
-                                //Obj.parents("tr").remove();
-                                Obj.parents("tr").css('display','none');
-                                show_stack_bottomleft(false," ","Lote Confirmado com sucesso");
-                                if(Next=="PRX")
-                                {
-                                    var display='none';
-                                    var ObjNext=Obj; 
-
-                                    while(display=='none')
-                                    {
-                                            ObjNext=ObjNext.parents("tr").next('tr').children(".txtLote");
-                                            display=ObjNext.parents('tr').css('display');
-                                    }
-
-                                    Obj=ObjNext;           
-                                    var LoteNext=Obj.parents("tr").children(".txtLote").text();
-                                    var LojaNext=Obj.parents("tr").children(".txtLoja").text();
-                                    var TipoNext=Obj.parents("tr"). children(".txtTipo").text();
-                                    if(LoteNext!="")
-                                    {
-                                       detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
-                                    }
-                                    else
-                                    {
-                                            alert('Não há próximo lote para Confirmação');
-                                            $('#dialog-detalhes').dialog("close");
-                                    }
-
-                               }                                
-                            }else
-                            {
+                                Obj.parents("tr").remove();
+                            }else{
                               show_stack_bottomleft(true,"Erro","Lote Não Confirmado");
                             }
 
                         });
 
                         $(this).dialog("close");
-                       
+                        if(Next=="PRX")
+                        {
+                            var ObjNext=Obj.parents("tr").next('tr').children(".txtLote");
+                            var LoteNext=Obj.parents("tr").next('tr').children(".txtLote").text();
+                            var LojaNext=Obj.parents("tr").next('tr').children(".txtLoja").text();
+                            var TipoNext=Obj.parents("tr").next('tr').children(".txtTipo").text();
+                            detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
+                                
+                        }
                     }
                     ,
                     Não: function()
                     {
                         $(this).dialog("close");
-                        if(Next=="PRX")
-                        {
-                            
-                            var display='none';
-                            var ObjNext=Obj; 
-                            var Qtde=0;
-                            
-                            while(display=='none')
-                            {
-                                    ObjNext=ObjNext.parents("tr").next('tr').children(".txtLote");
-                                    display=ObjNext.parents('tr').css('display');
-                                    Qtde=Qtde+1;
-                            }
-                            
-                            Obj=ObjNext;           
-                            var LoteNext=Obj.parents("tr").children(".txtLote").text();
-                            var LojaNext=Obj.parents("tr").children(".txtLoja").text();
-                            var TipoNext=Obj.parents("tr"). children(".txtTipo").text();
-                            if(LoteNext!="")
-                            {
-                               detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
-                            }
-                            else
-                            {
-                                    alert('Não há próximo lote para Confirmação');
-                                    $('#dialog-detalhes').dialog("close");
-                            }
-
-                       }
                     }
             }
     });
@@ -150,92 +98,40 @@ $(function(){
             draggable: false,
             width:400,
             modal: true,
-            title:"Deseja NEGAR o Lote ? ",
+            title:"Deseja IGNORAR o Lote ? ",
             buttons:
             {
-                    Negar: function() 
+                    Ignorar: function() 
                     {
-                        var re=0;
                         arrLote.push(Lote);
                         arrLoja.push(Loja);
                         arrTipo.push(Tipo);
                         $.get("?router=T0119/js.AprovarReprovar",{arrLote:arrLote,arrLoja:arrLoja, arrTipo:arrTipo, Acao:7},function(retorno){
-                            if(retorno==1)
-                            {
-                                
+                            if(retorno==1){
+                                show_stack_bottomleft(false," ","Lote Reprovado com sucesso");
                                 //$($thisAprovar).remove();
-                                //Obj.parents("tr").remove();
-                                Obj.parents("tr").css('display','none');
-                                show_stack_bottomleft(false," ","Lote Negado com sucesso");
-                                if(Next=="PRX")
-                                {
-                                    var display='none';
-                                    var ObjNext=Obj; 
-
-                                    while(display=='none')
-                                    {
-                                            ObjNext=ObjNext.parents("tr").next('tr').children(".txtLote");
-                                            display=ObjNext.parents('tr').css('display');
-                                    }
-
-                                    Obj=ObjNext;           
-                                    var LoteNext=Obj.parents("tr").children(".txtLote").text();
-                                    var LojaNext=Obj.parents("tr").children(".txtLoja").text();
-                                    var TipoNext=Obj.parents("tr"). children(".txtTipo").text();
-                                    if(LoteNext!="")
-                                    {
-                                       detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
-                                    }
-                                    else
-                                    {
-                                            alert('Não há mais lotes para Negar');
-                                            $('#dialog-detalhes').dialog("close");
-                                    }
-
-                               }                                
-                            }else
-                            {
-                              show_stack_bottomleft(true,"Erro","Lote Não Negado");
+                                Obj.parents("tr").remove();
+                            }else{
+                              show_stack_bottomleft(true,"Erro","Lote Não Reprovado");
                             }
 
                         });
 
                         $(this).dialog("close");
-                       
+                        if(Next=="PRX")
+                        {
+                            var ObjNext=Obj.parents("tr").next('tr').children(".txtLote");
+                            var LoteNext=Obj.parents("tr").next('tr').children(".txtLote").text();
+                            var LojaNext=Obj.parents("tr").next('tr').children(".txtLoja").text();
+                            var TipoNext=Obj.parents("tr").next('tr').children(".txtTipo").text();
+                            detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
+                                
+                        }                        
                     }
                     ,
                     Não: function()
                     {
                         $(this).dialog("close");
-                        if(Next=="PRX")
-                        {
-                            
-                            var display='none';
-                            var ObjNext=Obj; 
-                            var Qtde=0;
-                            
-                            while(display=='none')
-                            {
-                                    ObjNext=ObjNext.parents("tr").next('tr').children(".txtLote");
-                                    display=ObjNext.parents('tr').css('display');
-                                    Qtde=Qtde+1;
-                            }
-                            
-                            Obj=ObjNext;           
-                            var LoteNext=Obj.parents("tr").children(".txtLote").text();
-                            var LojaNext=Obj.parents("tr").children(".txtLoja").text();
-                            var TipoNext=Obj.parents("tr"). children(".txtTipo").text();
-                            if(LoteNext!="")
-                            {
-                               detalhesAprovar(LoteNext,LojaNext,TipoNext,ObjNext);
-                            }
-                            else
-                            {
-                                    alert('Não há mais lotes para Negar');
-                                    $('#dialog-detalhes').dialog("close");
-                            }
-
-                       }
                     }
             }
     });
@@ -305,7 +201,7 @@ $(function(){
                             $(this).dialog("close");
                         }
                         ,
-                        Negar: function() 
+                        Ignorar: function() 
                         {
                            reprovarLote(Lote, Loja, Tipo,Obj);
                             $(this).dialog("close");
@@ -317,7 +213,7 @@ $(function(){
                             aprovarLote(Lote, Loja, Tipo,Obj,'PRX');
                         }
                         ,
-                        'Negar e Próximo':function()
+                        'Ignorar e Próximo':function()
                         {
                             
                             reprovarLote(Lote, Loja, Tipo,Obj,'PRX');
@@ -476,7 +372,7 @@ $(function(){
                     draggable: true,
                     width:850,
                     modal: true,
-                    title:"Detalhes dos Lotes selecionados",
+                    title:"CONFIRMAR selecionados",
                     buttons:
                     {
                             Fechar: function()
@@ -541,15 +437,15 @@ $(function(){
                                 $(this).dialog("close");
                             }
                             ,
-                            'NEGAR Todos': function() 
+                            'IGNORAR Todos': function() 
                             {
 
                                     // verifica se foi selecionado algum registro
                                     if(QtdeReg>0)
                                     {   
                                         $("#dialog-aprovar").html("<div class='grid_2'>"+
-                                                                    "<label class='label'>Deseja NEGAR todos os "+QtdeReg+" lotes selecionados ? </label>"+
-                                                                    "<label class='label'>Ao Negar tais lotes não serão integrados no RMS</label>"+
+                                                                    "<label class='label'>Deseja IGNORAR todos os "+QtdeReg+" lotes selecionados ? </label>"+
+                                                                    "<label class='label'>Ao Ignorar tais lotes não serão integrados no RMS</label>"+
                                                                     "<label class='label'>Essa AÇÃO NÃO pode ser desfeita </label>"+
                                                                    "</div>"
                                                                   );
@@ -561,7 +457,7 @@ $(function(){
                                                 draggable: true,
                                                 width:300,
                                                 modal: true,
-                                                title:"Deseja  NEGAR ? ",
+                                                title:"Deseja  IGNORAR ? ",
                                                 buttons:
                                                 {
                                                         Sim: function()
@@ -572,13 +468,13 @@ $(function(){
                                                                         $(this).parents('tr').remove();
                                                                     });
 
-                                                                    show_stack_bottomleft(false, '', 'Lote(s) Negar(s) com sucesso!'); 
+                                                                    show_stack_bottomleft(false, '', 'Lote(s) Ignorado(s) com sucesso!'); 
                                                                     $(this).dialog("close");
 
                                                                 }
                                                                 
                                                                 else
-                                                                    show_stack_bottomleft(true, 'Erro!', 'Lote(s) Nao Negado(s)'); 
+                                                                    show_stack_bottomleft(true, 'Erro!', 'Lote(s) Nao Ignorado(s)'); 
                                                             });
                                                             $(this).dialog("close");
                                                         }
@@ -639,7 +535,7 @@ $(function(){
                     draggable: true,
                     width:850,
                     modal: true,
-                    title:"NEGAR selecionados ",
+                    title:"IGNORAR selecionados ",
                     buttons:
                     {
                             Fechar: function()

@@ -158,29 +158,21 @@ class PDF extends FPDF
 
         // CNPJ CAIXAS DE ASSINATURA
         $this->SetFont("arial","B",7);
-        $this->Cell(40,20,"",1,0,"L");
-        $this->Cell(40,20,"",1,0,"L");
-        $this->Cell(36,20,"",1,0,"L");
-        $this->Cell(36,20,"",1,0,"L");
-        $this->Cell(36,20,"",1,1,"L");
-
+        $this->Cell(63,20,"",1,0,"L");
+        $this->Cell(63,20,"",1,0,"L");
+        $this->Cell(64,20,"",1,1,"L");
 
         // DATA DA APROVAÇÃO
         $this->SetFont("arial","",6);
-        $this->Cell(40,5,utf8_decode("Elaborado por: ".$UsuarioNome),"LR",0,"L");
-        $this->Cell(40,5,utf8_decode("Pré-Aprovado por: ")          ,"LR",0,"L");
-        $this->Cell(36,5,utf8_decode("Aprovado  por: ")             ,"LR",0,"L");
-        $this->Cell(36,5,utf8_decode("Aprovado  por: ")             ,"LR",0,"L");
-        $this->Cell(36,5,utf8_decode("Aprovado  por: ")             ,"LR",1,"L");
-
+        $this->Cell(63,5,utf8_decode("Elaborado por: ".$UsuarioNome),"LR",0,"L");
+        $this->Cell(63,5,utf8_decode("Pré-Aprovado por: ")          ,"LR",0,"L");
+        $this->Cell(64,5,utf8_decode("Aprovado  por: ")             ,"LR",1,"L");
 
         // DATA DA APROVAÇÃO
         $this->SetFont("arial","",6);
-        $this->Cell(40,5,utf8_decode("Em: ".$data_atual),"BLR",0,"L");
-        $this->Cell(40,5,utf8_decode("Em: ")            ,"BLR",0,"L");
-        $this->Cell(36,5,utf8_decode("Em: ")            ,"BLR",0,"L");
-        $this->Cell(36,5,utf8_decode("Em: ")            ,"BLR",0,"L");
-        $this->Cell(36,5,utf8_decode("Em: ")            ,"BLR",1,"L");
+        $this->Cell(63,5,utf8_decode("Em: ".$data_atual),"BLR",0,"L");
+        $this->Cell(63,5,utf8_decode("Em: ")            ,"BLR",0,"L");
+        $this->Cell(64,5,utf8_decode("Em: ")            ,"BLR",1,"L");
 
     }
 
@@ -231,9 +223,9 @@ class PDF extends FPDF
 
         $this->SetFont('arial', 'B', 8);              
         $this->Cell(82  ,5,utf8_decode("ORIGEM..........................................................................................")  ,0   ,0,"L",true);
-        $this->Cell(14  ,5,utf8_decode("HORA.....")                                                                                         ,0   ,0,"L",true);
-        $this->Cell(72  ,5,utf8_decode("DESTINO......................................................................................")     ,0   ,0,"L",true);
-        $this->Cell(14  ,5,utf8_decode("HORA....")                                                                                          ,0   ,0,"L",true);
+        $this->Cell(12  ,5,utf8_decode("HORA.....")                                                                                         ,0   ,0,"L",true);
+        $this->Cell(76  ,5,utf8_decode("DESTINO......................................................................................")     ,0   ,0,"L",true);
+        $this->Cell(12  ,5,utf8_decode("HORA....")                                                                                          ,0   ,0,"L",true);
         $this->Cell(8   ,5,utf8_decode("KM....")                                                                                            ,0   ,1,"L",true);           
         
         $QtdeKm =   0;              
@@ -253,9 +245,9 @@ class PDF extends FPDF
 
             $this->SetFont('arial', '', 7);        
             $this->Cell(82 ,5,utf8_decode($valores['DespesaDescOrigem'])    ,"B"   ,0,"L",true);
-            $this->Cell(14 ,5,utf8_decode($valores['DespesaSaida'])         ,"B"   ,0,"L",true);
-            $this->Cell(72 ,5,utf8_decode($valores['DespesaDescDestino'])   ,"B"   ,0,"L",true);
-            $this->Cell(14 ,5,utf8_decode($valores['DespesaChegada'])       ,"B"   ,0,"L",true);
+            $this->Cell(12 ,5,utf8_decode($valores['DespesaSaida'])         ,"B"   ,0,"L",true);
+            $this->Cell(76 ,5,utf8_decode($valores['DespesaDescDestino'])   ,"B"   ,0,"L",true);
+            $this->Cell(12 ,5,utf8_decode($valores['DespesaChegada'])       ,"B"   ,0,"L",true);
             $this->Cell(8  ,5,utf8_decode($valores['DespesaKm'])            ,"B"   ,1,"L",true);  
 
             $this->Ln(1); 

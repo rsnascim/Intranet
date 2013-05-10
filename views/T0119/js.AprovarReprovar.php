@@ -49,108 +49,54 @@ for($i=0;$i<$qtd;$i++)
     }
     
     
-    // verifica se ï¿½ uma producao e ï¿½ uma Reprovacao, somente se houve sucesso no update
-    if(($Retorno)&&($arrTipo[$i]==2)) // &&($Acao==7))
+    // verifica se é uma producao e é uma Reprovacao, somente se houve sucesso no update
+    if(($Retorno)&&($arrTipo[$i]==2)&&($Acao==7))
     {
         // recupera lotes consumidos pelo Destino
         $RetornoOrigens = $objEMP->ConsultaLotesOrigem($arrLoja[$i], $arrLote[$i]);
         
         foreach($RetornoOrigens as $camposO=>$valoresO)
         {
-         
-            if($Acao==2)
-            {
-                // monta UPDATE da Origem para aprovado
-                $arrUpdateApr = array(   "aprovacao_status_id"   => 3
-                                        ,"aprovacao_data"        => $DataHora
-                                        ,"aprovacao_usuario"     => $user
-                                     );        
-                
-                $arrStatus = array("T116_aprovacao_status_id" =>3
-                                  ,"T116_aprovacao_data"      =>$DataHora
-                                  ,"T004_login"               =>$user
-                                  );                   
-            }else
-            {
-                // monta UPDATE da Origem para disponivel novamente
-                $arrUpdateApr = array(   "aprovacao_status_id"   => 1
-                                        ,"aprovacao_data"        => "NULL"
-                                        ,"aprovacao_usuario"     => NULL
-                                     );                                
-                
-                $arrStatus = array("T116_aprovacao_status_id" => 1
-                                  ,"T116_aprovacao_data"      => "NULL"
-                                  ,"T004_login"               => NULL
-                                  );                 
-            }
-            
-            
+            // retira "Pré-aprovacao", se existir e nao houver integracao
+            $arrUpdateApr = array(   "aprovacao_status_id"   => 1
+                                    ,"aprovacao_data"        => 'NULL'
+                                    ,"aprovacao_usuario"     => 'NULL'
+                                    ,"aprovacao_agent_key"   => 'NULL'
+                                   );
+
             $Tabela     = "davo_ccu_lote";
 
             $Delim     = "lote_numero=".$valoresO['lote_numero_origem']." AND store_key=".$valoresO['store_key_origem'].
-                         "  AND aprovacao_status_id=6  AND integracao_status_id <> 2  ";
-
-            $RetornoOrg   = $objEMP->altera($Tabela, $arrUpdateApr, $Delim) ;              
-
-            if($RetornoOrg)
-            {
-                  //Atualiza na Intranet
-                   $DigLoja   = $obj->calculaDigitoMod11($valoresO['store_key_origem'],1,100);
-                   $LojaCD    = $valoresO['store_key_origem'].$DigLoja; // loja Com Digito
-
-                   $Tabela    = "T116_ccu_lote";
-                   $Delim     = "T116_lote=".$valoresO['lote_numero_origem']." AND T006_codigo=$LojaCD";
-
-                   $RetornoOrg   = $obj->altera($Tabela, $arrStatus, $Delim) ;
-
-            }            
+                         "  AND aprovacao_status_id=6 AND integracao_status_id <> 2 ";
             
-            // verifica se Ã© cancelamento
-            if($Acao==7)
+            
+            
+            $Retorno   = $objEMP->altera($Tabela, $arrUpdateApr, $Delim) ;              
+            
+            
+            // "libera" lote para consumo novamente
+            $arrUpdateCon = array(   "consumo_status_id"   => 0
+                                    ,"consumo_data"        => 'NULL'
+                                    ,"consumo_agent_key"   => 'NULL'
+                                   );
+
+            $Tabela     = "davo_ccu_lote";
+
+            $Delim     = "lote_numero=".$valoresO['lote_numero_origem']." AND store_key=".$valoresO['store_key_origem'];
+            
+            $Retorno   = $objEMP->altera($Tabela, $arrUpdateCon, $Delim) ;  
+
+            // Atualizacao foi feita com sucesso, apaga o consumo
+            if($Retorno)
             {
-                // "libera" lote para consumo novamente
-                $arrUpdateCon = array(   "consumo_status_id"     => 0
-                                        ,"consumo_data"          => "NULL"
-                                        ,"consumo_agent_key"     => "NULL"
-                                        ,"aprovacao_agent_key"   => "NULL"
-                                       );
+                $Tabela     = "davo_ccu_lote_consumo";
 
-                $Tabela     = "davo_ccu_lote";
-
-                $Delim     = "lote_numero=".$valoresO['lote_numero_origem']." AND store_key=".$valoresO['store_key_origem'];
-
-                $Retorno   = $objEMP->altera($Tabela, $arrUpdateCon, $Delim) ;  
-
-                // Atualizacao foi feita com sucesso, apaga o consumo
-                if($Retorno)
-                {
-                    $Tabela     = "davo_ccu_lote_consumo";
-
-                    $Delim     = "lote_numero_origem=".$valoresO['lote_numero_origem']." AND store_key_origem=".$valoresO['store_key_origem'];
-
-                    $Retorno   = $objEMP->excluir($Tabela, $Delim) ;            
-
-                }
-
-//                if($Retorno)
-//                {
-//                  //Atualiza na Intranet
-//                   $DigLoja   = $obj->calculaDigitoMod11($valoresO['store_key_origem'],1,100);
-//                   $LojaCD    = $valoresO['store_key_origem'].$DigLoja; // loja Com Digito
-//
-//                   $arrStatus = array("T116_aprovacao_status_id" =>1
-//                                     ,"T116_aprovacao_data"      =>NULL
-//                                     ,"T004_login"               =>NULL
-//                                     );
-//
-//                   $Tabela    = "T116_ccu_lote";
-//                   $Delim     = "T116_lote=".$valoresO['lote_numero_origem']." AND T006_codigo=$LojaCD";
-//
-//                   $Retorno   = $obj->altera($Tabela, $arrStatus, $Delim) ;
-//
-//                }                   
-              
+                $Delim     = "lote_numero_origem=".$valoresO['lote_numero_origem']." AND store_key_origem=".$valoresO['store_key_origem'];
+                
+                $Retorno   = $objEMP->excluir($Tabela, $Delim) ;            
+                
             }
+     
         }
     }
     
