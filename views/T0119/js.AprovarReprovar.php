@@ -49,54 +49,109 @@ for($i=0;$i<$qtd;$i++)
     }
     
     
-    // verifica se é uma producao e é uma Reprovacao, somente se houve sucesso no update
-    if(($Retorno)&&($arrTipo[$i]==2)&&($Acao==7))
+    // verifica se ï¿½ uma producao e ï¿½ uma Reprovacao, somente se houve sucesso no update
+    if(($Retorno)&&($arrTipo[$i]==2)) // &&($Acao==7))
     {
         // recupera lotes consumidos pelo Destino
         $RetornoOrigens = $objEMP->ConsultaLotesOrigem($arrLoja[$i], $arrLote[$i]);
         
         foreach($RetornoOrigens as $camposO=>$valoresO)
         {
-            // retira "Pré-aprovacao", se existir e nao houver integracao
-            $arrUpdateApr = array(   "aprovacao_status_id"   => 1
-                                    ,"aprovacao_data"        => 'NULL'
-                                    ,"aprovacao_usuario"     => 'NULL'
-                                    ,"aprovacao_agent_key"   => 'NULL'
+         
+            if($Acao==2)
+            {
+                $AcaoRetirada=3;
+                $DataHoraRetirada=$DataHora;
+                $userRetirada=$user;
+            }else
+            {
+                $AcaoRetirada=1;
+                $DataHoraRetirada=NULL;
+                $userRetirada=NULL;                
+            }
+            
+            
+            
+            // verifica se e aprovacao
+            // retira "Prï¿½-aprovacao", se existir e nao houver integracao
+            $arrUpdateApr = array(   "aprovacao_status_id"   => $AcaoRetirada
+                                    ,"aprovacao_data"        => $DataHoraRetirada
+                                    ,"aprovacao_usuario"     => $userRetirada
                                    );
 
             $Tabela     = "davo_ccu_lote";
 
             $Delim     = "lote_numero=".$valoresO['lote_numero_origem']." AND store_key=".$valoresO['store_key_origem'].
-                         "  AND aprovacao_status_id=6 AND integracao_status_id <> 2 ";
-            
-            
-            
-            $Retorno   = $objEMP->altera($Tabela, $arrUpdateApr, $Delim) ;              
-            
-            
-            // "libera" lote para consumo novamente
-            $arrUpdateCon = array(   "consumo_status_id"   => 0
-                                    ,"consumo_data"        => 'NULL'
-                                    ,"consumo_agent_key"   => 'NULL'
-                                   );
+                         "  AND aprovacao_status_id=6  AND integracao_status_id <> 2  ";
 
-            $Tabela     = "davo_ccu_lote";
 
-            $Delim     = "lote_numero=".$valoresO['lote_numero_origem']." AND store_key=".$valoresO['store_key_origem'];
-            
-            $Retorno   = $objEMP->altera($Tabela, $arrUpdateCon, $Delim) ;  
 
-            // Atualizacao foi feita com sucesso, apaga o consumo
-            if($Retorno)
+            $RetornoOrg   = $objEMP->altera($Tabela, $arrUpdateApr, $Delim) ;              
+
+            if($RetornoOrg)
             {
-                $Tabela     = "davo_ccu_lote_consumo";
+                  //Atualiza na Intranet
+                   $DigLoja   = $obj->calculaDigitoMod11($valoresO['store_key_origem'],1,100);
+                   $LojaCD    = $valoresO['store_key_origem'].$DigLoja; // loja Com Digito
 
-                $Delim     = "lote_numero_origem=".$valoresO['lote_numero_origem']." AND store_key_origem=".$valoresO['store_key_origem'];
-                
-                $Retorno   = $objEMP->excluir($Tabela, $Delim) ;            
-                
+                   $arrStatus = array("T116_aprovacao_status_id" =>$AcaoRetirada
+                                     ,"T116_aprovacao_data"      =>$DataHoraRetirada
+                                     ,"T004_login"               =>$userRetirada
+                                     );
+
+                   $Tabela    = "T116_ccu_lote";
+                   $Delim     = "T116_lote=".$valoresO['lote_numero_origem']." AND T006_codigo=$LojaCD";
+
+                   $Retorno   = $obj->altera($Tabela, $arrStatus, $Delim) ;
+
+            }            
+            
+            // verifica se Ã© cancelamento
+            if($Acao==7)
+            {
+                // "libera" lote para consumo novamente
+                $arrUpdateCon = array(   "consumo_status_id"   => 0
+                                        ,"consumo_data"        => NULL
+                                        ,"consumo_agent_key"   => NULL
+                                        ,"aprovacao_agent_key"   => NULL
+                                       );
+
+                $Tabela     = "davo_ccu_lote";
+
+                $Delim     = "lote_numero=".$valoresO['lote_numero_origem']." AND store_key=".$valoresO['store_key_origem'];
+
+                $Retorno   = $objEMP->altera($Tabela, $arrUpdateCon, $Delim) ;  
+
+                // Atualizacao foi feita com sucesso, apaga o consumo
+                if($Retorno)
+                {
+                    $Tabela     = "davo_ccu_lote_consumo";
+
+                    $Delim     = "lote_numero_origem=".$valoresO['lote_numero_origem']." AND store_key_origem=".$valoresO['store_key_origem'];
+
+                    $Retorno   = $objEMP->excluir($Tabela, $Delim) ;            
+
+                }
+
+//                if($Retorno)
+//                {
+//                  //Atualiza na Intranet
+//                   $DigLoja   = $obj->calculaDigitoMod11($valoresO['store_key_origem'],1,100);
+//                   $LojaCD    = $valoresO['store_key_origem'].$DigLoja; // loja Com Digito
+//
+//                   $arrStatus = array("T116_aprovacao_status_id" =>1
+//                                     ,"T116_aprovacao_data"      =>NULL
+//                                     ,"T004_login"               =>NULL
+//                                     );
+//
+//                   $Tabela    = "T116_ccu_lote";
+//                   $Delim     = "T116_lote=".$valoresO['lote_numero_origem']." AND T006_codigo=$LojaCD";
+//
+//                   $Retorno   = $obj->altera($Tabela, $arrStatus, $Delim) ;
+//
+//                }                   
+              
             }
-     
         }
     }
     
