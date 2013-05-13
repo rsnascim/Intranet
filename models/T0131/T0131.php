@@ -49,6 +49,8 @@ class models_T0131 extends models
         if(!empty($nomeCategoria))
             $sql  .=  " AND T120.T120_nome   LIKE  '%$nomeCategoria%'";
         
+      //  echo $sql;
+        
         return $this->query($sql);
         
     }

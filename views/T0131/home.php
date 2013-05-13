@@ -13,9 +13,9 @@
 $obj    =   new models_T0131();
 if(!empty($_POST)){
     
-    $codigoCategoria    =   $_POST[''];
-    $codigoFornecedor   =   split("-",$_POST['']);
-    $nomeCategoria      =   $_POST[''];
+    $codigoCategoria    =   $_POST['T120_codigo'];
+    $codigoFornecedor   =   split("-",$_POST['T026_codigo']);
+    $nomeCategoria      =   $_POST['T120_nome'];
     
     $codigoFornecedor   =   (int)$codigoFornecedor[0];
     
@@ -23,8 +23,7 @@ if(!empty($_POST)){
         $dados  =   $obj->retornaDados($codigoCategoria, $codigoFornecedor, $nomeCategoria);
     
     
-}else
-    $dados  =   $obj->retornaDados();
+}
 
 
 ?>
@@ -40,6 +39,7 @@ if(!empty($_POST)){
     
 </div>
 <div class="conteudo_16">
+    <form action="" method="POST" class="validaFormulario">
     <div class="grid_1">
         <label class="label">Código</label>
         <input type="text" name="T120_codigo"/>
@@ -58,6 +58,8 @@ if(!empty($_POST)){
     <div class="grid_2">
         <input type="submit" value="Filtrar" class="botao-padrao" >
     </div>
+        
+        </form>
     
     <div class="clear10"></div>
     
