@@ -11,7 +11,6 @@
 
 //Instancia Classe
 $obj    =   new models_T0131();
-
 if(!empty($_POST)){
     
     $codigoCategoria    =   $_POST[''];
@@ -20,7 +19,8 @@ if(!empty($_POST)){
     
     $codigoFornecedor   =   (int)$codigoFornecedor[0];
     
-    $dados  =   $obj->retornaDados($codigoCategoria, $codigoFornecedor, $nomeCategoria);
+    
+        $dados  =   $obj->retornaDados($codigoCategoria, $codigoFornecedor, $nomeCategoria);
     
     
 }else
@@ -36,7 +36,9 @@ if(!empty($_POST)){
         <li><a href="<?php echo ROUTER."novo";?>"    class="botao-padrao"><span class="ui-icon ui-icon-plus"  ></span>Novo</a></li>
     </ul>
 </div>
-
+<div id="dialog-mensagem-categoria">
+    
+</div>
 <div class="conteudo_16">
     <div class="grid_1">
         <label class="label">Código</label>
@@ -59,6 +61,7 @@ if(!empty($_POST)){
     
     <div class="clear10"></div>
     
+    <div  class="tabCategoria">
     <table id="tPrincipal" class="tablesorter">
         <thead>
             <tr>
@@ -72,14 +75,14 @@ if(!empty($_POST)){
         <tbody>
         <?php   foreach($dados as $campos=>$valores){?>            
             <tr class="dados">                
-                <td><?php echo $valores['CodigoCategoria'];?></td>
+                <td class="codigoCategoria"><?php echo $valores['CodigoCategoria'];?></td>
                 <td><?php echo $valores['NomeCategoria'];?></td>                
                 <td><?php echo $obj->preencheZero("E", 3, $valores['CodigoFornecedor'])." - ".$valores['RazaoFornecedor'];?></td>
                 <td><?php echo $valores['DescricaoCategoria'];?></td>                
                 <td>                                    
                     <ul class="lista-de-acoes">                                        
-                        <li><a href="#" title="Editar"  class="">     <span class='ui-icon ui-icon-pencil'>  </span></a></li>                                    
-                        <li><a href="#" title="Excluir"  class="">     <span class='ui-icon ui-icon-closethick'>  </span></a></li>                                    
+                        <li><a href="<?php echo "?router=T0131/editar&cod=".$valores['CodigoCategoria']?>" title="Editar"  class="">    <span class='ui-icon ui-icon-pencil'>  </span></a></li>                                    
+                        <li><a href="#" title="Excluir"  class="exclui">     <span class='ui-icon ui-icon-closethick'>  </span></a></li>                                    
                     </ul>
                 </td>
             </tr>
@@ -87,5 +90,5 @@ if(!empty($_POST)){
         </tbody>
         
     </table>    
-    
+    </div>
 </div>

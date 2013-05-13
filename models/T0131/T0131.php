@@ -68,7 +68,34 @@ class models_T0131 extends models
         
         return $this->query($sql);
     }
+    
+    
+      public function altera($tabela,$campos,$delim)
+    {
+       $conn = "";
+       
+       $altera = $this->exec($this->atualiza($tabela, $campos, $delim));
+       
+       if($altera)
+            $this->alerts('false', 'Alerta!', 'Alterado com Sucesso!');
+       else
+            $this->alerts('true', 'Erro!', 'Não foi possível Alterar!');          
+       
+       return $altera;
+    }
 
+
+        public function excluir($tabela, $delim)
+    {
+        $exclui =  $this->exec($this->exclui($tabela, $delim));
+        
+        if($exclui)
+            $this->alerts('false', 'Alerta!', 'Excluído com Sucesso!');
+        else
+            $this->alerts('true', 'Erro!', 'Não foi possível Excluir!');         
+        
+        return $exclui;
+    }
     
     
 }

@@ -280,7 +280,9 @@ $GrpsUser=  $objWkf->listaWF();
             </tr>
             <tr>
                 <td class="acoes" style="width:500px;">
+                    <div id="comboCategoria">
                     <select name="T120_codigo" id="categoriaFornecedor" class="form-input-text-table" style="width:350px;"></select>
+                     </div>
                 </td>                
             </tr>
         </table>

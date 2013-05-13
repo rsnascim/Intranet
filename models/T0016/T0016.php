@@ -1670,6 +1670,30 @@ class models_T0016 extends models
         return $this->query($sql);
     }
     
+    
+    public function listaCategoriaFornecedor($forn, $codRms) {
+        
+        $sql    =   "SELECT T120.T120_desc      CategoriaDescricao,
+                            T120.T120_codigo    Codigo
+                        FROM    T120_fornecedor_categoria T120
+                             JOIN
+                                T026_fornecedor T26
+                             ON T120.T026_codigo = T26.T026_codigo
+                       WHERE 1=1";
+        
+        if($forn != ""){
+        $sql    .=        " AND T26.T026_rms_cgc_cpf = ".$forn;}
+        
+        if ($codRms != "")
+        {
+            $sql .=  " AND T26.T026_rms_codigo    =   ".$codRms;
+        }        
+       // echo $sql;
+          return $this->query($sql);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+    }
+    
+   
+    
 }
 ?>
 
