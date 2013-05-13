@@ -30,6 +30,7 @@ if (!is_null($_POST['T026_rms_cgc_cpf'])
     unset ($_POST['cpf_T026_rms_insc_est_ident']);
     unset ($_POST['cpf_T026_rms_razao_social']);
     unset ($_POST['T026_rms_digito']);
+    unset ($_POST['T120_codigo']);
 
     //VALIDANDO CAMPOS VAZIOS
     if ($_POST['T008_nf_numero'] == "")
@@ -38,6 +39,8 @@ if (!is_null($_POST['T026_rms_cgc_cpf'])
         $_POST['T026_nf_serie'] = "0";
     if ($_POST['T008_ft_numero' == ""])
         $_POST['T008_ft_numero'] = "0";
+    if ($_POST['T120_codigo']   ==  "")
+        $_POST['T120_codigo'] = "null";
 
     $insere = $objWkf->inserir($tabela, $_POST);
 

@@ -16,7 +16,7 @@ $fornecedor =   $objWkf->listaCategoriaFornecedor($forn, $codRms);
 
 
 <select id="categoriaFornecedor" class="form-input-text-table" style="width:350px;" name="T120_codigo">
-    <option value="0">Selecione...</option>
+    <option value=" ">Selecione...</option>
     <?php foreach ($fornecedor as $cpsForn => $vlrForn) {
      ?>
         
