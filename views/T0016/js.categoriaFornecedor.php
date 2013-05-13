@@ -20,7 +20,7 @@ $fornecedor =   $objWkf->listaCategoriaFornecedor($forn, $codRms);
     <?php foreach ($fornecedor as $cpsForn => $vlrForn) {
      ?>
         
-    <option value="<?php echo $vlrForn["Codigo"]?>"><?php echo $vlrForn["CategoriaDescricao"];?></option>
+    <option value="<?php echo $vlrForn["Codigo"]?>"><?php echo $vlrForn["Nome"];?></option>
         
     <?php } ?>
 </select>

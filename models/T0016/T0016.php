@@ -1674,6 +1674,7 @@ class models_T0016 extends models
     public function listaCategoriaFornecedor($forn, $codRms) {
         
         $sql    =   "SELECT T120.T120_desc      CategoriaDescricao,
+                            T120.T120_nome      Nome,
                             T120.T120_codigo    Codigo
                         FROM    T120_fornecedor_categoria T120
                              JOIN
