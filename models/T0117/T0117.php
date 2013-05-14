@@ -245,7 +245,7 @@ class models_T0117 extends models
                                         <a href='#' class='ui-icon ui-icon-check concluir'></a> 
                    </li>
                     <li class='ui-state-default ui-corner-all' title='Excluir'>
-                                       <a href='#' onclick='excluirLinha(".$codRM.")' class='ui-icon ui-icon-closethick excluir'></a> 
+                                       <a href='#'  class='ui-icon ui-icon-closethick excluir'></a> 
                     </li>
                     <li class='ui-state-default ui-corner-all' title='Alterar'>
                                         <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil alterar'></a> 
@@ -261,8 +261,8 @@ class models_T0117 extends models
                     <li class='ui-state-default ui-corner-all' title='Revisar'>
                                         <a href='#' class='ui-icon ui-icon-check revisar'></a> 
                    </li>
-                    <li class='ui-state-default ui-corner-all' title='Excluir'>
-                                       <a href='#' onclick='excluirLinha(".$codRM.")' class='ui-icon ui-icon-closethick' excluir></a> 
+                    <li class='ui-state-default ui-corner-all' title='Excluir' >
+                                       <a href='#'  class='ui-icon ui-icon-closethick excluir'></a> 
                     </li>
                     <li class='ui-state-default ui-corner-all' title='Alterar'>
                                         <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil'></a> 
@@ -334,6 +334,43 @@ class models_T0117 extends models
         
         $html   =   $valEmail["Nome"].'<br>';
         $html   .=   'Há uma Requisição de Mundança onde você foi incluído como executor '.$rmTipo.'<br>';
+        $html   .=   'Requisição Nº '. $codRM;
+    
+        $headers  = "From: $from\r\n"; 
+        $headers .= "Content-type: text/html\r\n"; 
+        $headers .= "Cc: web@davo.com.br";
+    
+       
+        
+        mail($to, $subject, $html, $headers); 
+            
+        }
+        
+    }
+    
+    
+     public function enviaEmailGM($codRM){
+$sql    =   "SELECT T04.T004_login      Login
+                  , T04.T004_email      Email
+                  , T04.T004_nome       Nome
+                FROM    T004_T009 T0409
+                     JOIN
+                        T004_usuario T04
+                     ON T0409.T004_login = T04.T004_login
+            WHERE T009_codigo = 59 ";       
+
+        
+        $emailUser  =   $this->query($sql);
+        
+      
+        foreach ($emailUser as $cpsEmail => $valEmail) {
+          
+        $to         = $valEmail["Email"]; 
+        $from       = "web@davo.com.br"; 
+        $subject    = "[Intranet] - Aviso de RM aos Gestores";
+        
+        $html   =   $valEmail["Nome"].'<br>';
+        $html   .=   'Há uma Requisição de Mundança para revisão<br>';
         $html   .=   'Requisição Nº '. $codRM;
     
         $headers  = "From: $from\r\n"; 

@@ -305,12 +305,35 @@ $(function(){
          var status    =   3;
          var $this  = $(this);
          var codRM    =   $this.parents("tr.linha").find(".codRM").text();
-     
-        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
-             $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação mudará o status da RM para revisada. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
+                        $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
         });
+                
+            } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
+         
         
-        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
      });
      
          $(".concluir").click(function(){
@@ -325,18 +348,93 @@ $(function(){
      });
      
      
+     $(".excluir").live("click",function(){
+         
+         var status    =   3;
+         var $this  = $(this);
+         var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação excluirá a RM. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.get("?router=T0117/js.excluir", {codRM:codRM});
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                
+            } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
+         
+        
+     });
+     
+     
+     
+      $(".concluir").live("click",function(){
+         
+         var status    =   3;
+         var $this  = $(this);
+         var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação mudará o status da RM para elaborada e enviará para Gestão de Mudança. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(dados){
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+        });
+                
+            } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
+         
+        
+     });
+     
+
+     
+     
+     
      
 });
 
 
 
-    function excluirLinha(cod){
-        
-   $.get("?router=T0117/js.excluir", {codRM:cod},
-    function(){
-       $(".linha_"+cod).remove(); 
-    });
-}
+//    function excluirLinha(cod){
+//        
+//   $.get("?router=T0117/js.excluir", {codRM:cod},
+//    function(){
+//       $(".linha_"+cod).remove(); 
+//    });
+//}
 
 
     
