@@ -99,7 +99,7 @@ class models_T0117 extends models
                                  OR EXISTS
                                        (SELECT *
                                           FROM T004_T009 T0409
-                                         WHERE T0409.T004_login = '$user' AND T009_codigo = '59'));
+                                         WHERE T0409.T004_login = '$user' AND T009_codigo = '59'))
                         ";
         
         if(!empty($titulo))
