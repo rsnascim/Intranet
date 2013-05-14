@@ -1693,7 +1693,7 @@ class models_T0016 extends models
           return $this->query($sql);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
     }
     
-    public function selecionaCategoria($ap) {
+    public function selecionaCategoriaDesp($ap) {
         
         $sql = "SELECT  T08.T120_codigo Codigo, T120.T120_nome Nome
                   FROM  T120_fornecedor_categoria T120
