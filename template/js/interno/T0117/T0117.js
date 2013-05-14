@@ -322,6 +322,7 @@ $(function(){
                         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
                         $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
                         $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                        $(this).dialog("close");
         });
                 
             } 
@@ -335,22 +336,11 @@ $(function(){
          
         
      });
-     
-         $(".concluir").click(function(){
-         
-         var status    =   2;
-         var codRM    =   $("#codRM").val();
-        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(dados){
-            
-        });
-       $(".conteudo_16").load("?router=T0117/home .conteudo_16");
-        
-     });
+ 
      
      
      $(".excluir").live("click",function(){
          
-         var status    =   3;
          var $this  = $(this);
          var codRM    =   $this.parents("tr.linha").find(".codRM").text();
          
@@ -369,6 +359,7 @@ $(function(){
                         
                         $.get("?router=T0117/js.excluir", {codRM:codRM});
                         $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                        $(this).dialog("close");
                 
             } 
                     ,
@@ -386,7 +377,7 @@ $(function(){
      
       $(".concluir").live("click",function(){
          
-         var status    =   3;
+         var status    =   2;
          var $this  = $(this);
          var codRM    =   $this.parents("tr.linha").find(".codRM").text();
          
@@ -405,6 +396,7 @@ $(function(){
                         
                         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(dados){
                         $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                        $(this).dialog("close");
         });
                 
             } 
