@@ -10,7 +10,7 @@ if (!empty($_POST))
     $solicitante    =   $_POST['T004_solicitante'];   
     $rm             =   $_POST['T113_codigo'];
         
-    $dados          =   $obj->retornaRM($titulo, $descricao, $solicitante, $rm);
+    $dados          =   $obj->retornaRM($titulo, $descricao, $solicitante, $rm, $_SESSION["user"]);
 }else
 echo "";    
 

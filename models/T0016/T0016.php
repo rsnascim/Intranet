@@ -1693,6 +1693,19 @@ class models_T0016 extends models
           return $this->query($sql);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
     }
     
+    public function selecionaCategoria($ap) {
+        
+        $sql = "SELECT  T08.T120_codigo Codigo, T120.T120_nome Nome
+                  FROM  T120_fornecedor_categoria T120
+                  JOIN
+                        T008_approval T08
+                    ON  T120.T120_codigo = T08.T120_codigo
+                 WHERE  T08.T008_codigo = '$ap'";
+        
+        return $this->query($sql);
+        
+    }
+    
    
     
 }

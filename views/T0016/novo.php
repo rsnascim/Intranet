@@ -279,7 +279,7 @@ $GrpsUser=  $objWkf->listaWF();
                 </td>
             </tr>
             <tr>
-                <td><label class="label">Categoria Fornecedor</label></td>
+                <td><label class="label">Categoria da Despesa</label></td>
             </tr>
             <tr>
                 <td class="acoes" style="width:500px;">

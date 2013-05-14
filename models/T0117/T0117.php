@@ -46,44 +46,60 @@ class models_T0117 extends models
         return $this->query($sql);
     }
     
-    public function retornaRM($titulo, $descricao, $solicitante, $codRM)
+    public function retornaRM($titulo, $descricao, $solicitante, $codRM, $user)
     {        
         
-        $sql    =   "  SELECT T113.T113_codigo                                          CodigoRM
-                            , T113.T004_solicitante                                     SolicitanteLogin
-                            , T04B.T004_nome                                            SolicitanteNome
-                            , DATE_FORMAT(T113.T113_data,    '%d/%m/%Y')                DataRM
-                            , DATE_FORMAT(T113_dt_hr_inicio, '%H:%i')                   HoraInicioRM
-                            , DATE_FORMAT(T113_dt_hr_fim ,   '%H:%i')                   HoraFimRM
-                            , DATE_FORMAT(T113_dt_hr_fim ,   '%d/%m/%Y')                DataFimRM
-                            , DATE_FORMAT(T113_dt_hr_inicio, '%d/%m/%Y')                DataInicioRM
-                            , T113.T004_responsavel                                     ResponsavelLogin
-                            , T04.T004_nome                                             ResponsavelNome
-                            , T113.T113_titulo                                          TituloRM
-                            , T113.T113_descricao                                       DescricaoRM
-                            , T113.T113_dt_hr_inicio                                    DtHrInicioRM
-                            , T113.T113_dt_hr_fim                                       DtHrFimRM
-                            , T113.T113_motivo                                          MotivoRM
-                            , T113.T113_impacto                                         ImpactoRM
-                            , T113.T113_status                                          StatusRM
-                            , T113.T113_tempo_previsto                                  TempoPrevisto
-                            , T113.T113_obs_contingencia                                ObsContingencia
-                            , T113.T004_responsavel                                     Responsavel
-                            , T113_tempo_total                                          TempoTotal    
-                            , T113.T113_janela_disponivel                               JanelaDisp
-                            , T113.T113_hora_prevista                                   HoraPrevista
-                            , T113.T113_hora_disponivel                                 HoraDisponivel
-                            , T113.T113_hora_total                                      HoraTotal
-                            , T113_impacto_ocorrencia                                   ImpactoOcorrencia
-                            , T113_problemas_relacionados                               ProblemasRelacionados
-                            , DATE_FORMAT(T113.T113_data_hr_real_inicial, '%d/%m/%Y')   DataInicioReal
-                            , DATE_FORMAT(T113.T113_data_hr_real_final, '%d/%m/%Y')     DataFinalReal
-                            , DATE_FORMAT(T113.T113_data_hr_real_inicial, '%H:%i')      HoraInicioReal
-                            , DATE_FORMAT(T113.T113_data_hr_real_final, '%H:%i')        HoraFinalReal
-                         FROM T113_requisicao_mudanca T113
-                         JOIN T004_usuario T04 ON T04.T004_login = T113.T004_responsavel
-                         JOIN T004_usuario T04B ON T04B.T004_login = T113.T004_solicitante
-                         WHERE 1 = 1
+        $sql    =   "  SELECT   T113.T113_codigo CodigoRM,
+                                T113.T004_solicitante SolicitanteLogin,
+                                T04B.T004_nome SolicitanteNome,
+                                DATE_FORMAT(T113.T113_data, '%d/%m/%Y') DataRM,
+                                DATE_FORMAT(T113_dt_hr_inicio, '%H:%i') HoraInicioRM,
+                                DATE_FORMAT(T113_dt_hr_fim, '%H:%i') HoraFimRM,
+                                DATE_FORMAT(T113_dt_hr_fim, '%d/%m/%Y') DataFimRM,
+                                DATE_FORMAT(T113_dt_hr_inicio, '%d/%m/%Y') DataInicioRM,
+                                T113.T004_responsavel ResponsavelLogin,
+                                T04.T004_nome ResponsavelNome,
+                                T113.T113_titulo TituloRM,
+                                T113.T113_descricao DescricaoRM,
+                                T113.T113_dt_hr_inicio DtHrInicioRM,
+                                T113.T113_dt_hr_fim DtHrFimRM,
+                                T113.T113_motivo MotivoRM,
+                                T113.T113_impacto ImpactoRM,
+                                T113.T113_status StatusRM,
+                                T113.T113_tempo_previsto TempoPrevisto,
+                                T113.T113_obs_contingencia ObsContingencia,
+                                T113.T004_responsavel Responsavel,
+                                T113_tempo_total TempoTotal,
+                                T113.T113_janela_disponivel JanelaDisp,
+                                T113.T113_hora_prevista HoraPrevista,
+                                T113.T113_hora_disponivel HoraDisponivel,
+                                T113.T113_hora_total HoraTotal,
+                                T113_impacto_ocorrencia ImpactoOcorrencia,
+                                T113_problemas_relacionados ProblemasRelacionados,
+                                DATE_FORMAT(T113.T113_data_hr_real_inicial, '%d/%m/%Y') DataInicioReal,
+                                DATE_FORMAT(T113.T113_data_hr_real_final, '%d/%m/%Y') DataFinalReal,
+                                DATE_FORMAT(T113.T113_data_hr_real_inicial, '%H:%i') HoraInicioReal,
+                                DATE_FORMAT(T113.T113_data_hr_real_final, '%H:%i') HoraFinalReal
+                           FROM T113_requisicao_mudanca T113
+                                JOIN T004_usuario T04
+                                   ON T04.T004_login = T113.T004_responsavel
+                                JOIN T004_usuario T04B
+                                   ON T04B.T004_login = T113.T004_solicitante
+                          WHERE (   T113.T004_solicitante = '$user'
+                                 OR T113.T004_responsavel = '$user'
+                                 OR EXISTS
+                                       (SELECT T004_login
+                                          FROM T118_comite_rm t118
+                                         WHERE t118.T004_login = '$user')
+                                 OR EXISTS
+                                       (SELECT *
+                                          FROM T004_T113 T04113
+                                         WHERE     T04113.T113_codigo = T113.T113_codigo
+                                               AND T04113.T004_login = '$user')
+                                 OR EXISTS
+                                       (SELECT *
+                                          FROM T004_T009 T0409
+                                         WHERE T0409.T004_login = '$user' AND T009_codigo = '59'));
                         ";
         
         if(!empty($titulo))
