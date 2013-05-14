@@ -36,9 +36,10 @@ elseif($status  ==  2){
     foreach ($obj->retornaExecGeral($codRM) as $cpsExec => $vlrExec) {
         
         $obj->enviaEmailExec($vlrExec["Login"], $codRM, $vlrExec["Tipo"]);
-        $obj->enviaEmailGM($codRM);
+        
     }
     
+   $obj->enviaEmailGM($codRM);
     
    $tabela =   "T113_requisicao_mudanca";
    $campos =   array("T113_status" => 2);
