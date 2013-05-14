@@ -370,7 +370,7 @@ if (!empty($_POST))
                                     *Clique em cima do Executor para exclui-lo da lista.
                                 </div>                               
 
-                                <div style="position: relative; top: -97px; left: 100px">
+                                <div style="position: absolute; top:-20px; margin-top: 60px; left: 550px">
                                     <label class="label">Plano de Contingência</label>
                                     <textarea style="height: 150px; width: 400px;"  name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="10" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
                                 </div>                            
