@@ -394,12 +394,10 @@ $(function(){
             {
                     "Ok": function(){
                         
-                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(dados){
-                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
                         $(this).dialog("close");
-        });
-                
-            } 
+                        
+                } 
                     ,
                     Cancelar: function(){
                         $(this).dialog("close");
@@ -407,6 +405,8 @@ $(function(){
                     }
             }
         });  
+        
+        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
          
         
      });
