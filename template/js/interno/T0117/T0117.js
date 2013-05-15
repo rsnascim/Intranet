@@ -50,14 +50,21 @@ $(function(){
         var codRM       =   $("#codRM").val();
         
         var str         =   nome+" | "+aprovado+" | "+parecer;
-
+        
+        if((aprovado == "N") &&(parecer == "")){
+            
+            alert("Seu voto foi dado como NÃO Aprovado, por favor justifique.")
+            ("#txtJustComite").focus();
+            
+        } else {
+        
         $('#cmbComite').append('<option value="'+str+'" selected="selected">'+str+'</option>');
         
         $("#txtJustComite").val("");
         $("#txtComite").focus();
         
         
-      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });
+      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });}
         
     });
     

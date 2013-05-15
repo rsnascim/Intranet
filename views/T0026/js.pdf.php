@@ -166,11 +166,18 @@ class PDF extends FPDF
 
         // DATA DA APROVAÇÃO
         $this->SetFont("arial","",6);
-        $this->Cell(40,5,utf8_decode("Elaborado por: ".$UsuarioNome),"LR",0,"L");
+        $this->Cell(40,5,utf8_decode("Elaborado por: "),"LR",0,"L");
         $this->Cell(37,5,utf8_decode("Pré-Aprovado por: ")          ,"LR",0,"L");
         $this->Cell(37,5,utf8_decode("Aprovado  por: ")             ,"LR",0,"L");
         $this->Cell(37,5,utf8_decode("Aprovado  por: ")             ,"LR",0,"L");
         $this->Cell(37,5,utf8_decode("Aprovado  por: ")             ,"LR",1,"L");
+        
+        $this->SetFont("arial","",6);
+        $this->Cell(40,5,utf8_decode($UsuarioNome),"LR",0,"L");
+        $this->Cell(37,5,"","LR",0,"L");
+        $this->Cell(37,5,"","LR",0,"L");
+        $this->Cell(37,5,"","LR",0,"L");
+        $this->Cell(37,5,"","LR",1,"L");
 
         // DATA DA APROVAÇÃO
         $this->SetFont("arial","",6);
@@ -245,7 +252,7 @@ class PDF extends FPDF
                 $this->SetFillColor(255, 255, 255);        
 
             $this->SetFont('arial', '', 7);
-            $this->Cell(14  ,5,utf8_decode($valores['DespesaData'])         ,0   ,0,"L",true);
+            $this->Cell(14  ,5,utf8_decode($valores['DespesaDtSaida'])         ,0   ,0,"L",true);
             $this->SetFont('arial', '', 6);
             $this->Cell(176 ,5,utf8_decode($valores['DespesaDescricao'])    ,0   ,1,"L",true);
 

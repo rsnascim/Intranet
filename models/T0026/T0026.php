@@ -356,6 +356,7 @@ class models_T0026 extends models
     public function retornaDespesaDetalhe($DespesaCodigo)
     {
         $sql    =   "  SELECT date_format(T1516.T015_T016_saida,'%d/%m/%Y %H:%i')   DespesaSaida
+                            , date_format(T1516.T015_T016_saida,'%d/%m/%Y %H:%i')   DespesaDtSaida  
                             , date_format(T1516.T015_T016_saida,'%H:%i')            DespesaHraSaida
                             , date_format(T1516.T015_T016_chegada,'%d/%m/%Y %H:%i') DespesaChegada                            
                             , date_format(T1516.T015_T016_chegada,'%H:%i')          DespesaHraChegada                            
