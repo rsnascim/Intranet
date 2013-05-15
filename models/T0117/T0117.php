@@ -311,7 +311,7 @@ class models_T0117 extends models
         
     }
     
-    public function enviaEmailExec($user, $codRM, $tipo){
+    public function enviaEmailExec($user, $codRM, $tipo, $titulo){
         
         $sql = "SELECT T004_email Email
                       ,T004_nome  Nome
@@ -334,7 +334,7 @@ class models_T0117 extends models
         
         $html   =   $valEmail["Nome"].'<br>';
         $html   .=   'Há uma Requisição de Mundança onde você foi incluído como executor '.$rmTipo.'<br>';
-        $html   .=   'Requisição Nº '. $codRM;
+        $html   .=   'Requisição Nº '. $codRM.' - '.$titulo;
     
         $headers  = "From: $from\r\n"; 
         $headers .= "Content-type: text/html\r\n"; 

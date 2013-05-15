@@ -415,6 +415,15 @@ $(function(){
         
      });
      
+     
+     $("#statusRM").change(function(){
+         
+         var status =   $("#statusRM").val();
+         var codRM  =   $("#codRM").val();
+         
+         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+         
+     });
 
      
      
