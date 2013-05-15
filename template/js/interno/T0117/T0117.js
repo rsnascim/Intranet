@@ -305,6 +305,7 @@ $(function(){
          var status    =   3;
          var $this  = $(this);
          var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         var tituloRM    =   $this.parents("tr.linha").find(".tituloRM").text();
          
          $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação mudará o status da RM para revisada. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
         $("#dialog-mensagem").dialog
@@ -320,11 +321,10 @@ $(function(){
                     "Ok": function(){
                         
                         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
-                        $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
-                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
-                        $(this).dialog("close");
+                        $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM, titulo:tituloRM});
+                        
         });
-                
+                $(this).dialog("close");
             } 
                     ,
                     Cancelar: function(){
@@ -333,6 +333,8 @@ $(function(){
                     }
             }
         });  
+        
+         $(".conteudo_16").load("?router=T0117/home .conteudo_16");
          
         
      });
@@ -358,7 +360,6 @@ $(function(){
                     "Ok": function(){
                         
                         $.get("?router=T0117/js.excluir", {codRM:codRM});
-                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
                         $(this).dialog("close");
                 
             } 
@@ -369,6 +370,8 @@ $(function(){
                     }
             }
         });  
+        
+        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
          
         
      });
@@ -380,6 +383,7 @@ $(function(){
          var status    =   2;
          var $this  = $(this);
          var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         var tituloRM    =   $this.parents("tr.linha").find(".tituloRM").text();
          
          $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação mudará o status da RM para elaborada e enviará para Gestão de Mudança. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
         $("#dialog-mensagem").dialog
@@ -394,7 +398,7 @@ $(function(){
             {
                     "Ok": function(){
                         
-                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM, titulo:tituloRM});
                         $(this).dialog("close");
                         
                 } 

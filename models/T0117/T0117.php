@@ -349,7 +349,7 @@ class models_T0117 extends models
     }
     
     
-     public function enviaEmailGM($codRM){
+     public function enviaEmailGM($codRM, $titulo){
 $sql    =   "SELECT T04.T004_login      Login
                   , T04.T004_email      Email
                   , T04.T004_nome       Nome
@@ -371,7 +371,7 @@ $sql    =   "SELECT T04.T004_login      Login
         
         $html   =   $valEmail["Nome"].'<br>';
         $html   .=   'Há uma Requisição de Mundança para revisão<br>';
-        $html   .=   'Requisição Nº '. $codRM;
+        $html   .=   'Requisição Nº '. $codRM.' - '.$titulo;
     
         $headers  = "From: $from\r\n"; 
         $headers .= "Content-type: text/html\r\n"; 

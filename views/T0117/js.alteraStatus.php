@@ -18,6 +18,7 @@ $obj    = new models_T0117();
 
 $codRM      =    $_REQUEST["codRM"];
 $status     =    $_REQUEST["status"];
+$tituloRM   =   $_POST["titulo"];
 
 
 if(($status == 3)||($status == 4)||($status == 5)||($status == 6)||($status == 7)){
@@ -39,7 +40,7 @@ elseif($status  ==  2){
         
     }
     
-   $obj->enviaEmailGM($codRM);
+   $obj->enviaEmailGM($codRM, $tituloRM);
     
    $tabela =   "T113_requisicao_mudanca";
    $campos =   array("T113_status" => 2);

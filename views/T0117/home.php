@@ -103,7 +103,7 @@ echo "";
                     <tr class="linha">
                         <td class="codRM"><label class="rmCmp"><?php echo $valores['CodigoRM'];?></label></td>
                         <td><?php echo $valores['DataRM'];?></td>
-                        <td><?php echo $valores['TituloRM'];?></td>
+                        <td class="tituloRM"><?php echo $valores['TituloRM'];?></td>
                         <td><?php echo $valores['SolicitanteNome']." - ".$valores['SolicitanteLogin'];?></td>
                         <td><?php $obj->nomeStatus($valores['StatusRM']);?></td>
                         <td><table class='list-iten-arquivos'>
