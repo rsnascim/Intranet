@@ -40,6 +40,7 @@ class models_T0075 extends models
 //                
 //                
 <<<<<<< HEAD
+<<<<<<< HEAD
             $sql =   "SELECT sum(ValorDaOperacao) as ValorEmp
                             ,CodigoDaLoja   as store_key
                             ,NumeroDoPDV    as  pos_number
@@ -54,6 +55,8 @@ class models_T0075 extends models
 >>>>>>> dev-roberta
                         GROUP BY CodigoDaLoja, NumeroDoPDV";
 =======
+=======
+>>>>>>> dev-roberta
 //            $sql =   "SELECT sum(ValorDaOperacao) as ValorEmp
 //                            ,CodigoDaLoja   as store_key
 //                            ,NumeroDoPDV    as  pos_number
@@ -63,6 +66,9 @@ class models_T0075 extends models
 //                        AND     TipoDeOperacao = 105
 //                        AND     Status  in (2, 5)
 //                        GROUP BY CodigoDaLoja, NumeroDoPDV";
+<<<<<<< HEAD
+>>>>>>> dev-roberta
+=======
 >>>>>>> dev-roberta
             
             
@@ -81,6 +87,7 @@ class models_T0075 extends models
                 group by store_key, pos_number "; 
             
 <<<<<<< HEAD
+<<<<<<< HEAD
               $sql =   "SELECT sum(ValorDaOperacao) as ValorEmp
                             ,CodigoDaLoja   as store_key
                             ,NumeroDoPDV    as  pos_number
@@ -96,6 +103,8 @@ class models_T0075 extends models
 >>>>>>> dev-roberta
                         GROUP BY CodigoDaLoja, NumeroDoPDV";
 =======
+=======
+>>>>>>> dev-roberta
 //              $sql =   "SELECT sum(ValorDaOperacao) as ValorEmp
 //                            ,CodigoDaLoja   as store_key
 //                            ,NumeroDoPDV    as  pos_number
@@ -106,6 +115,9 @@ class models_T0075 extends models
 //                        AND     TipoDeOperacao = 105
 //                        AND     Status  in (2, 5)
 //                        GROUP BY CodigoDaLoja, NumeroDoPDV";
+<<<<<<< HEAD
+>>>>>>> dev-roberta
+=======
 >>>>>>> dev-roberta
                     
                }
