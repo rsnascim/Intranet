@@ -61,7 +61,7 @@ $user   = $_SESSION['user']     ;
 				<td><?php echo $obj->preencheZero("E",3,$valores['CodigoLoja'])."-".$valores['NomeLoja'];?></td>
 				<td><?php echo $valores['MesMeta'];?></td>
 				<td><?php echo $valores['QtdeMeta'];?></td>
-                                <td><?php echo money_format("%.2n",$valores['ValorMeta']);?></td>
+                                <td><?php echo $valores['ValorMeta'];?></td>
 				
                                 <td class="acoes">
                                     <span class="lista_acoes">

@@ -158,21 +158,34 @@ class PDF extends FPDF
 
         // CNPJ CAIXAS DE ASSINATURA
         $this->SetFont("arial","B",7);
-        $this->Cell(63,20,"",1,0,"L");
-        $this->Cell(63,20,"",1,0,"L");
-        $this->Cell(64,20,"",1,1,"L");
+        $this->Cell(40,20,"",1,0,"L");
+        $this->Cell(37,20,"",1,0,"L");
+        $this->Cell(37,20,"",1,0,"L");
+        $this->Cell(37,20,"",1,0,"L");
+        $this->Cell(37,20,"",1,1,"L");
 
         // DATA DA APROVAÇÃO
         $this->SetFont("arial","",6);
-        $this->Cell(63,5,utf8_decode("Elaborado por: ".$UsuarioNome),"LR",0,"L");
-        $this->Cell(63,5,utf8_decode("Pré-Aprovado por: ")          ,"LR",0,"L");
-        $this->Cell(64,5,utf8_decode("Aprovado  por: ")             ,"LR",1,"L");
+        $this->Cell(40,5,utf8_decode("Elaborado por: "),"LR",0,"L");
+        $this->Cell(37,5,utf8_decode("Pré-Aprovado por: ")          ,"LR",0,"L");
+        $this->Cell(37,5,utf8_decode("Aprovado  por: ")             ,"LR",0,"L");
+        $this->Cell(37,5,utf8_decode("Aprovado  por: ")             ,"LR",0,"L");
+        $this->Cell(37,5,utf8_decode("Aprovado  por: ")             ,"LR",1,"L");
+        
+        $this->SetFont("arial","",6);
+        $this->Cell(40,5,utf8_decode($UsuarioNome),"LR",0,"L");
+        $this->Cell(37,5,"","LR",0,"L");
+        $this->Cell(37,5,"","LR",0,"L");
+        $this->Cell(37,5,"","LR",0,"L");
+        $this->Cell(37,5,"","LR",1,"L");
 
         // DATA DA APROVAÇÃO
         $this->SetFont("arial","",6);
-        $this->Cell(63,5,utf8_decode("Em: ".$data_atual),"BLR",0,"L");
-        $this->Cell(63,5,utf8_decode("Em: ")            ,"BLR",0,"L");
-        $this->Cell(64,5,utf8_decode("Em: ")            ,"BLR",1,"L");
+        $this->Cell(40,5,utf8_decode("Em: ".$data_atual),"BLR",0,"L");
+        $this->Cell(37,5,utf8_decode("Em: ")            ,"BLR",0,"L");
+        $this->Cell(37,5,utf8_decode("Em: ")            ,"BLR",0,"L");
+        $this->Cell(37,5,utf8_decode("Em: ")            ,"BLR",0,"L");
+        $this->Cell(37,5,utf8_decode("Em: ")            ,"BLR",1,"L");
 
     }
 
@@ -239,15 +252,15 @@ class PDF extends FPDF
                 $this->SetFillColor(255, 255, 255);        
 
             $this->SetFont('arial', '', 7);
-            $this->Cell(14  ,5,utf8_decode($valores['DespesaData'])         ,0   ,0,"L",true);
+            $this->Cell(14  ,5,utf8_decode($valores['DespesaDtSaida'])         ,0   ,0,"L",true);
             $this->SetFont('arial', '', 6);
             $this->Cell(176 ,5,utf8_decode($valores['DespesaDescricao'])    ,0   ,1,"L",true);
 
             $this->SetFont('arial', '', 7);        
             $this->Cell(82 ,5,utf8_decode($valores['DespesaDescOrigem'])    ,"B"   ,0,"L",true);
-            $this->Cell(12 ,5,utf8_decode($valores['DespesaSaida'])         ,"B"   ,0,"L",true);
+            $this->Cell(12 ,5,utf8_decode($valores['DespesaHraSaida'])         ,"B"   ,0,"L",true);
             $this->Cell(76 ,5,utf8_decode($valores['DespesaDescDestino'])   ,"B"   ,0,"L",true);
-            $this->Cell(12 ,5,utf8_decode($valores['DespesaChegada'])       ,"B"   ,0,"L",true);
+            $this->Cell(12 ,5,utf8_decode($valores['DespesaHraChegada'])       ,"B"   ,0,"L",true);
             $this->Cell(8  ,5,utf8_decode($valores['DespesaKm'])            ,"B"   ,1,"L",true);  
 
             $this->Ln(1); 
@@ -431,7 +444,7 @@ class PDF extends FPDF
     
     $DespesaDetalhe =   $obj->retornaDespesaDetalhe($DespesaCodigo);
     
-    $ValorKm        =   "R$ 0,42";
+    $ValorKm        =   "R$ 0,49";
     
     $DespesaDiversa =   $obj->retornaDespesasDiversas($DespesaCodigo);          
 

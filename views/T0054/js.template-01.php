@@ -159,7 +159,7 @@ $FotoPadrao     = "../../template/img/photos.png";
                                 <div class="<?php echo $linha; ?>">
                                     <div class="overflow">
                                         <div class="over-col-01-d">
-                                            <p class="p-tabela <?php echo "descricao-02"; ?>" style="height: 100px;"><?php echo substr($valores['DescCml'],0,21); ?></p>
+                                            <p class="p-tabela <?php echo "descricao-02"; ?>"><?php echo substr($valores['DescCml'],0,21); ?></p>
                                         </div>                                     
                                         <div class="over-col-02-d"> 
                                             <p class="alinhamento-direita descricao-02"><?php echo number_format($valores['ValorDe'],2,","," "); ?></p>                                            

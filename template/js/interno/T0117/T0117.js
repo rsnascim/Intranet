@@ -51,13 +51,29 @@ $(function(){
         var codRM       =   $("#codRM").val();
         
         var str         =   nome+" | "+aprovado+" | "+parecer;
+<<<<<<< HEAD
 
+=======
+        
+        if((aprovado == "N") &&(parecer == "")){
+            
+            alert("Seu voto foi dado como NÃO Aprovado, por favor justifique.")
+            ("#txtJustComite").focus();
+            
+        } else {
+        
+>>>>>>> dev-roberta
         $('#cmbComite').append('<option value="'+str+'" selected="selected">'+str+'</option>');
         
         $("#txtJustComite").val("");
         $("#txtComite").focus();
         
+<<<<<<< HEAD
       $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });
+=======
+        
+      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });}
+>>>>>>> dev-roberta
         
     });
     
@@ -185,6 +201,7 @@ $(function(){
      });
      
      
+<<<<<<< HEAD
       $("#cmbComite").click(function(){
        var str      =   $(this).val();
        var codRM    =   $("#codRM").val();
@@ -217,6 +234,40 @@ $(function(){
         });  
        
      });
+=======
+//      $("#cmbComite").click(function(){
+//       var str      =   $(this).val();
+//       var codRM    =   $("#codRM").val();
+//  
+//  
+//   $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação Excluirá o Integrante do Comitê <br><br>"+str+" <br><br> Tem certeza que deseja fazer isso ?</p>");
+//        $("#dialog-mensagem").dialog
+//        ({
+//            resizable: false,
+//            height:180,
+//            width:250,
+//            modal: true,
+//            draggable: false,
+//            title:  "Mensagem",
+//            buttons:
+//            {
+//                    "Ok": function(){
+//                        
+//                           $("#cmbComite option[value='"+str+"']").remove();
+//        
+//                            $.post("?router=T0117/js.ExcluirExec", {login:str[0], cod:4, codRM:codRM})
+//                            $(this).dialog("close");
+//                
+//            } 
+//                    ,
+//                    Cancelar: function(){
+//                        $(this).dialog("close");
+//                    }
+//            }
+//        });  
+//       
+//     });
+>>>>>>> dev-roberta
      
      $("#dateCmp2").datepicker({
         onClose: function(){
@@ -249,6 +300,7 @@ $(function(){
      $(".rmCmp").mask("999.999");
      
 <<<<<<< HEAD
+<<<<<<< HEAD
      $("#hr_fim").change(function(){
          
          DAY = 1000 * 60 * 60 
@@ -259,12 +311,30 @@ $(function(){
         var nova1 = dataIni.toString().split('/');
         Nova1 = nova1[1]+"/"+nova1[0]+"/"+nova1[2];
 
+=======
+     $("#radioC").buttonset();
+     $("#revisado").button();
+
+       
+ $("#hr_fim").change(function(){
+         
+         MIN = 1000 * 60 
+         DAY = 1000 * 60 * 60  
+         
+         var dataIni    =   $("#dateCmp1").val()+" "+$("#hr_ini").val();
+         var dataFim    =   $("#dateCmp2").val()+" "+$("#hr_fim").val();
+         
+        var nova1 = dataIni.toString().split('/');
+        Nova1 = nova1[1]+"/"+nova1[0]+"/"+nova1[2];
+
+>>>>>>> dev-roberta
         var nova2 = dataFim.toString().split('/');
         Nova2 = nova2[1]+"/"+nova2[0]+"/"+nova2[2];
         
         d1 = new Date(Nova1)
         d2 = new Date(Nova2)
 
+<<<<<<< HEAD
         days_passed = Math.round((d2.getTime() - d1.getTime()) / DAY)
          
        // var tempoTotal  =   ((horaFim[0]) - (horaIni[0]));       
@@ -272,6 +342,167 @@ $(function(){
        $("#tempoTotal").val(days_passed+" Horas"); 
          
      });
+=======
+        mins_passed = ((d2.getTime() - d1.getTime()) / MIN)
+        days_passed = ((d2.getTime() - d1.getTime()) / DAY)  
+         
+       // var tempoTotal  =   ((horaFim[0]) - (horaIni[0]));       
+        
+       $("#tempoTotal").val(mins_passed+" Min");
+       $("#horasTotal").val(days_passed+" Hrs");
+         
+     });
+     
+     
+     $("#tempoPrev").focusout(function(){
+         
+        var min = $("#tempoPrev").val();
+        
+        var horas = parseFloat(min/60);
+        
+        $("#horaPrev").val(horas.toFixed(2)+" Hrs");
+     
+     });
+     
+       $("#tempoDisp").focusout(function(){
+         
+        var min = $("#tempoDisp").val();
+        
+        var horas = parseFloat(min/60);
+        
+        $("#horaDisp").val(horas.toFixed(2)+" Hrs");
+     
+     });
+     
+     $(".revisar").live("click",function(){
+         
+         var status    =   3;
+         var $this  = $(this);
+         var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         var tituloRM    =   $this.parents("tr.linha").find(".tituloRM").text();
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação mudará o status da RM para revisada. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
+                        $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM, titulo:tituloRM});
+                        
+        });
+                $(this).dialog("close");
+            } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
+        
+         $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+         
+        
+     });
+ 
+     
+     
+     $(".excluir").live("click",function(){
+         
+         var $this  = $(this);
+         var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação excluirá a RM. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.get("?router=T0117/js.excluir", {codRM:codRM});
+                        $(this).dialog("close");
+                
+            } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
+        
+        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+         
+        
+     });
+     
+     
+     
+      $(".concluir").live("click",function(){
+         
+         var status    =   2;
+         var $this  = $(this);
+         var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         var tituloRM    =   $this.parents("tr.linha").find(".tituloRM").text();
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação mudará o status da RM para elaborada e enviará para Gestão de Mudança. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM, titulo:tituloRM});
+                        $(this).dialog("close");
+                        
+                } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
+        
+        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+         
+        
+     });
+     
+     
+     $("#statusRM").change(function(){
+         
+         var status =   $("#statusRM").val();
+         var codRM  =   $("#codRM").val();
+         
+         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+         
+     });
+
+     
+     
+     
+>>>>>>> dev-roberta
      
 });
 =======
@@ -299,6 +530,7 @@ $(function(){
 
 <<<<<<< HEAD
 
+<<<<<<< HEAD
     function excluirLinha(cod){
    $.get("?router=T0117/js.excluir", {codRM:cod},
     function(){
@@ -345,6 +577,18 @@ $(function(){
         var $this   =   $(this);
         var codRM = $this.parents("tr.linha").find(".codRM").text();
      
+>>>>>>> dev-roberta
+=======
+
+//    function excluirLinha(cod){
+//        
+//   $.get("?router=T0117/js.excluir", {codRM:cod},
+//    function(){
+//       $(".linha_"+cod).remove(); 
+//    });
+//}
+
+
 >>>>>>> dev-roberta
     
      

@@ -1,0 +1,146 @@
+﻿Merge branch 'dev-roberta' into dev
+
+Conflicts:
+	.gitignore
+	app/config.php
+	models/T0026/T0026.php
+	models/T0075/T0075.php
+	models/T0117/T0117.php
+	models/T0119/T0119.php
+	nbproject/private/private.properties
+	nbproject/private/private.xml
+	nbproject/project.properties
+	nbproject/project.xml
+	template/header.php
+	template/js/interno/T0026/T0026.js
+	template/js/interno/T0117/T0117.js
+	template/js/interno/T0119/T0119.js
+	views/T0026/js.upload.php
+	views/T0117/alterar.php
+	views/T0117/consultar.php
+	views/T0117/home.php
+	views/T0117/js.EnviaEmailComite.php
+	views/T0117/js.alteraStatus.php
+	views/T0117/js.excluir.php
+	views/T0117/js.upload.php
+	views/T0117/novo.php
+	views/T0119/home.php
+	views/T0119/js.AprovarReprovar.php
+	views/T0119/js.ConsultaDetalhes.php
+	views/T0119/js.ImportaLotes.php
+	views/home/home.php
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch dev
+# All conflicts fixed but you are still merging.
+#   (use "git commit" to conclude merge)
+#
+# Changes to be committed:
+#
+#	modified:   .gitignore
+#	new file:   2ogbiyba.0wx.txt
+#	modified:   app/config.php
+#	modified:   app/models.php
+#	new file:   controllers/T0129/T0129.php
+#	new file:   controllers/T0131/T0131.php
+#	new file:   controllers/T0132/T0132.php
+#	deleted:    databases.conf
+#	modified:   models/T0016/T0016.php
+#	modified:   models/T0026/T0026.php
+#	modified:   models/T0075/T0075.php
+#	modified:   models/T0117/T0117.php
+#	modified:   models/T0119/T0119.php
+#	new file:   models/T0129/T0129.php
+#	new file:   models/T0131/T0131.php
+#	new file:   models/T0132/T0132.php
+#	new file:   template/css/-layout-prd.css~dev-roberta
+#	new file:   template/css/-template-imagens/delimitador-top-prd.png
+#	modified:   template/css/estilo-painel-linux.css
+#	modified:   template/css/estilo-painel-windows.css
+#	modified:   template/header.php
+#	modified:   template/jQuery/validaForm/jquery.validationEngine-pt.js
+#	modified:   template/jQuery/validaForm/jquery.validationEngine.js
+#	new file:   template/js/interno/T0016/T0016.js
+#	modified:   template/js/interno/T0026/T0026.js
+#	modified:   template/js/interno/T0117/T0117.js
+#	modified:   template/js/interno/T0119/T0119.js
+#	new file:   template/js/interno/T0129/aprovar.js
+#	new file:   template/js/interno/T0129/aprovar.js.0.nblh~
+#	new file:   template/js/interno/T0129/busca.js
+#	new file:   template/js/interno/T0129/busca.js.0.nblh~
+#	new file:   template/js/interno/T0129/cancelar.js
+#	new file:   template/js/interno/T0129/grupo.js
+#	new file:   template/js/interno/T0129/home.js
+#	new file:   template/js/interno/T0129/home.js.0.nblh~
+#	new file:   template/js/interno/T0129/home.js.1.nblh~
+#	new file:   template/js/interno/T0129/status.js
+#	new file:   template/js/interno/T0129/transferir.js
+#	new file:   template/js/interno/T0129/transferir.js.0.nblh~
+#	new file:   template/js/interno/T0129/upload.js
+#	new file:   template/js/interno/T0131/T0131.js
+#	modified:   template/js/interno/funcoesGerais.js
+#	modified:   views/T0016/altera.php
+#	modified:   views/T0016/js.busca.php
+#	new file:   views/T0016/js.categoriaFornecedor.php
+#	modified:   views/T0016/novo.php
+#	modified:   views/T0026/js.pdf.php
+#	modified:   views/T0026/js.upload.php
+#	modified:   views/T0054/js.template-01.php
+#	modified:   views/T0100/home.php
+#	renamed:    views/T0100/Novo.php -> views/T0100/novo.php
+#	modified:   views/T0117/alterar.php
+#	modified:   views/T0117/consultar.php
+#	modified:   views/T0117/home.php
+#	modified:   views/T0117/js.EnviaEmailComite.php
+#	modified:   views/T0117/js.alteraStatus.php
+#	modified:   views/T0117/js.excluir.php
+#	new file:   views/T0117/js.excluirAnexo.php
+#	modified:   views/T0117/js.upload.php
+#	modified:   views/T0117/novo.php
+#	modified:   views/T0119/home.php
+#	modified:   views/T0119/js.AprovarReprovar.php
+#	modified:   views/T0119/js.ConsultaDetalhes.php
+#	new file:   views/T0119/js.ConsultaDetalhesVarios.php
+#	modified:   views/T0119/js.ImportaLotes.php
+#	new file:   views/T0119/js.ImportaLotes_QAS.php
+#	new file:   views/T0129/altera.php
+#	new file:   views/T0129/aprovar.php
+#	new file:   views/T0129/busca.php
+#	new file:   views/T0129/criaFluxo.php
+#	new file:   views/T0129/detalhe.php
+#	new file:   views/T0129/excluir.php
+#	new file:   views/T0129/fluxo.php
+#	new file:   views/T0129/home.php
+#	new file:   views/T0129/js.busca.php
+#	new file:   views/T0129/js.cancelar.php
+#	new file:   views/T0129/js.grupo.php
+#	new file:   views/T0129/js.pdf.php
+#	new file:   views/T0129/js.relatorio.php
+#	new file:   views/T0129/js.transferir.php
+#	new file:   views/T0129/js.upload.php
+#	new file:   views/T0129/js.vencimento.php
+#	new file:   views/T0129/monitora.php
+#	new file:   views/T0129/novo.php
+#	new file:   views/T0129/painel.php
+#	new file:   views/T0129/resumodetalhe.php
+#	new file:   views/T0129/resumofornecedor.php
+#	new file:   views/T0129/teste.php
+#	new file:   views/T0129/transferencia.php
+#	new file:   views/T0129/trasnferencia.php
+#	new file:   views/T0129/ultimas.php
+#	new file:   views/T0131/editar.php
+#	new file:   views/T0131/home.php
+#	new file:   views/T0131/js.autoCompleteFornecedor.php
+#	new file:   views/T0131/js.excluirCategoria.php
+#	new file:   views/T0131/novo.php
+#	new file:   views/T0132/home.php
+#	modified:   views/home/home.php
+#
+

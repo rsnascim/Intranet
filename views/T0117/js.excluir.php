@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> dev-roberta
@@ -59,6 +60,8 @@ $obj->excluir($tabela, $delim);
 
 ?>
 =======
+=======
+>>>>>>> dev-roberta
 <?php
 
 ///**************************************************************************
@@ -101,5 +104,8 @@ $obj->excluir($tabela, $delim);
 
 
 ?>
+<<<<<<< HEAD
 >>>>>>> cbc7580f5913f6eeed94f050bbec978bfb0696ff
+>>>>>>> dev-roberta
+=======
 >>>>>>> dev-roberta

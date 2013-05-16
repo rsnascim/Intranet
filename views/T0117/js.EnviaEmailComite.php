@@ -15,6 +15,10 @@ $membrosComite  =   $obj->retornaComite();
 foreach ($membrosComite as $cpsCom => $valCom) {
     
 $codRM  = $_POST["codRM"];
+<<<<<<< HEAD
+=======
+$tituloRM   =   $_POST["titulo"];
+>>>>>>> dev-roberta
 $nome   = utf8_encode($valCom["Nome"]);
 
         $to         = $valCom["Email"]; 
@@ -23,7 +27,11 @@ $nome   = utf8_encode($valCom["Nome"]);
         
         $html   =   $nome.'<br>';
         $html   .=   'Há disponível uma Requisição de Mundança para aprovação.';
+<<<<<<< HEAD
         $html   .=   'Requisição Nº '. $codRM;
+=======
+        $html   .=   'Requisição Nº '. $codRM.' - '.$tituloRM;
+>>>>>>> dev-roberta
     
         $headers  = "From: $from\r\n"; 
         $headers .= "Content-type: text/html\r\n"; 

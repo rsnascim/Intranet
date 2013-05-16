@@ -85,6 +85,13 @@ class models extends PDO
                                 parent::__construct('mysql:host='.PRD_HOST_EMPORIUM.';dbname='.PRD_BD_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM);
                             break; 
                      //Caso não seja nenhum dos casos acima ele faz a conexão com o MySQL Satélite/Intranet
+                     case "hold" :
+                            parent::__construct('mysql:host='.PRD_HOST_HOLD.';dbname='.PRD_BD_HOLD, PRD_USER_HOLD, PRD_PASS_HOLD);
+                            $this->exec("SET NAMES 'utf8'");
+                            $this->exec("SET character_set_connection=utf8");
+                            $this->exec("SET character_set_client=utf8");
+                            $this->exec("SET character_set_results=utf8");
+                            break;      
                      default :
                             parent::__construct('mysql:host='.PRD_HOST.';dbname='.PRD_BD, PRD_USER, PRD_PASS);
                             $this->exec("SET NAMES 'utf8'");
@@ -162,16 +169,23 @@ class models extends PDO
                             break;
                      case "emporium"     :   
                          //Testa se deve apresentar erro de conexão na view
-                 // $link = mysql_connect(QAS_HOST_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);    
-                   $link = mysql_connect(PRD_HOST_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM); 
+                  $link = mysql_connect(QAS_HOST_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);    
+//                   $link = mysql_connect(PRD_HOST_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM); 
                             if (!$link) 
                                 echo ($verificaConexao==1)?"Não foi possivel conectar":die('Não foi possível conectar: ' . mysql_error());
                             else 
-                             parent::__construct('mysql:host='.PRD_HOST_EMPORIUM.';dbname='.PRD_BD_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM);
-                           // parent::__construct('mysql:host='.QAS_HOST_EMPORIUM.';dbname='.QAS_BD_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);
+//                             parent::__construct('mysql:host='.PRD_HOST_EMPORIUM.';dbname='.PRD_BD_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM);
+                            parent::__construct('mysql:host='.QAS_HOST_EMPORIUM.';dbname='.QAS_BD_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);
                                 
                             break; 
                      //Caso não seja nenhum dos casos acima ele faz a conexão com o MySQL Satélite/Intranet
+                     case "hold" :
+                            parent::__construct('mysql:host='.QAS_HOST_HOLD.';dbname='.QAS_BD_HOLD, QAS_USER_HOLD, QAS_PASS_HOLD);
+                            $this->exec("SET NAMES 'utf8'");
+                            $this->exec("SET character_set_connection=utf8");
+                            $this->exec("SET character_set_client=utf8");
+                            $this->exec("SET character_set_results=utf8");
+                            break;      
                      default :
                             parent::__construct('mysql:host='.QAS_HOST.';dbname='.QAS_BD, QAS_USER, QAS_PASS);
                             $this->exec("SET NAMES 'utf8'");
@@ -597,8 +611,9 @@ class models extends PDO
             }
             $sql_aux1 = substr($sql_aux1,0,strlen($sql_aux1)-1);
             $sql_aux2 = substr($sql_aux2,0,strlen($sql_aux2)-1);
-            //echo $sql.$sql_aux1.") VALUES (".$sql_aux2.")";  
-          //echo "<br/><br/><br/>";   
+
+//            echo $sql.$sql_aux1.") VALUES (".$sql_aux2.")";  
+//            echo "<br/><br/><br/>";   
             return  $sql.$sql_aux1.") VALUES (".$sql_aux2.")";
         }
     }
@@ -614,8 +629,8 @@ class models extends PDO
                 $sql_aux .= $nomes." = ".$this->formataValor($tabela,$nomes,$valores). ",";
             }
             $sql_aux = substr($sql_aux, 0, (strlen($sql_aux)-1));
-            echo  $sql.$sql_aux. " WHERE ".$delimitador;
-           // echo "<br/>";
+//            echo  $sql.$sql_aux. " WHERE ".$delimitador;
+//            echo "<br/>";
             return  $sql.$sql_aux. " WHERE ".$delimitador;
         }
     }
@@ -964,8 +979,7 @@ class models extends PDO
         
         return $this->query($sql);
     }    
-    
-    
+        
     //Monta tabela ToolTip Fluxo WorkFlow
     public function tabelaToolTipFluxoWorkFlow($Codigo, $NumeroTabela)
     {
@@ -1323,9 +1337,109 @@ class models extends PDO
         
     }
     
+    public function formataMoeda($valor)
+    {
+        return $valor  =   'R$ ' . number_format($valor, 2, ',', '.'); // retorna R$100.000,50
+    }   
+
+    public function formataMoedaSufixo($valor,$Decimais,$Sufixo)
+    { // Funcao para formatar valores em moedas
+        
+        // verifica se retornará quantidade de casas decimais espeficas
+        if(!$Decimais)
+            $Decimais=2;
+        
+        // verifica se retornará quantidade de sufixo R$
+        if($Sufixo)
+           return $valor  =   'R$ ' . number_format($valor, $Decimais, ',', '.'); // retorna R$100.000,50
+        else
+           return $valor  =   number_format($valor, $Decimais, ',', '.'); // retorna 100.000,50
+    }   
+
+    public function formataNumero($valor,$Decimais)
+    {
+        if(!$Decimais)
+            $Decimais=2;
+
+        return $valor  =   number_format($valor, $Decimais, ',', '.'); // retorna 100.000,50
+    }   
+    
+    
+    public function uploadArquivo($path)
+    {       
+            if(!(isset($_POST['submit']))){exit;}        
+            if($_FILES["file"]["size"] > 99999999){exit;}
+            $err=$_FILES["file"]["error"];
+            $message='<div style="margin:5px; color:red;">Upload falhou! ';
+            if ($err > 0){
+                       switch($err){
+                                     case '1':
+                                               $message.='php.ini max file size exceeded.';
+                                               break;
+                                     case '2':
+                                               $message.='tamanho máximo excedido.';
+                                               break;
+                                     case '3':
+                                               $message.='file upload was only partial.';
+                                               break;
+                                     case '4':
+                                               $message.='no file was attached.';
+                                               break;
+                                     case '7':
+                                               $message.='permissão negada.';
+                                               break;
+                                     default :
+                                               $message.='Unexpected error occers.';}
+                                     $message.='</div>';
+            }
+            else{
+                       if (file_exists($path.$_FILES["file"]["name"])){
+                                     $message.='arquivo ja existe.</div>';}
+                       else{
+                                     @move_uploaded_file($_FILES["file"]["tmp_name"],$path.$_FILES["file"]["name"]);
+                                     $message='<div style="margin:5px; color:green;">Upload realizado com sucesso!</div>';}
+            }
+            
+            return $message;
+    } 
+    
+    public function retornaExtensaoArquivo($extensao)
+    {
+       return $this->query(" SELECT T57.T057_codigo codifoExtensao
+                                  , T57.T057_nome   nomeExtensao
+                                  , T57.T057_desc   descricaoExtensao
+                               FROM T057_extensao   T57
+                              WHERE T57.T057_nome = '$extensao'");
+    }      
+    
+    public function verificaExtensaoArquivo($extensao)
+    {
+       $sql =   "  SELECT T57.T057_codigo CodigoExtensao
+                     FROM T057_extensao   T57
+                    WHERE T57.T057_nome = '$extensao'"; 
+              
+       $extensao    =   $this->query($sql)->fetchAll(PDO::FETCH_COLUMN);
+       
+       return $extensao[0];
+              
+    }      
+    
+    //Formata data para as views com Hora [Ex.: 01/10/2011 00:00:00]
+    public function formataDataHoraView($data)
+    {
+        $arrData    = explode(" ",$data);
+        $hora       = $arrData[1];
+        if($this->validaData($arrData[0]))
+        {
+            $data = implode(!strstr($arrData[0], '/') ? "/" : "-", array_reverse(explode(!strstr($arrData[0], '/') ? "-" : "/", $arrData[0])));
+        }
+        
+        $strDataHora    =   $data." ".$hora;
+        
+        return $strDataHora;
+    }     
+    
 }
-
-
 ?>
 =======
 <?php

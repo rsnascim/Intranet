@@ -15,6 +15,7 @@ $tabela     = "T008_approval";
  $objAP     = new models_T0016();
  $ap        = $objAP->selecionaAPDF($cod);
  $GrpWkf    = $objAP->selecionaGrupofkw($codfor);
+ $catDesp   = $objAP->selecionaCategoriaDesp($cod);
 
  //Seleciona Lojas
 $ListLoja   =   $objAP->listaLojas();
@@ -57,6 +58,7 @@ if(!is_null($_POST['T008_codigo']))
         unset ($_POST['cpf_T026_rms_razao_social']);
         unset ($_POST['T026_rms_digito']);
         unset ($_POST['T008_codigo']);
+        unset ($_POST['T120_codigo']);
 
         $_POST['T026_codigo']       =   $codForn;
         $_POST['T008_T026T059_T026_codigo']    =   $codForn;
@@ -67,7 +69,9 @@ if(!is_null($_POST['T008_codigo']))
         if ($_POST['T026_nf_serie' == ""])
             $_POST['T026_nf_serie'] = "0";
         if ($_POST['T008_ft_numero' == ""])
-            $_POST['T008_ft_numero'] = "0";        
+            $_POST['T008_ft_numero'] = "0";      
+        if ($_POST['T120_codigo']   ==  "")
+            $_POST['T120_codigo'] = "null";
     }
 
     
@@ -304,6 +308,22 @@ $dt_vencto_format  = $date_ven[2]."/".$date_ven[1]."/".$date_ven[0];
                         <option value='<?php echo $valoresWF['P0016_T059_COD']; ?>'><?php echo $valoresWF['P0016_T059_COD']; ?> - <?php echo ($valoresWF['P0016_T059_NOM']); ?></option>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td><label class="label">Categoria da Despesa</label></td>
+            </tr>
+            <tr>
+                <td class="acoes" style="width:500px;">
+                    <div id="comboCategoria">
+                    <select name="T120_codigo" id="categoriaFornecedor" class="form-input-text-table" style="width:350px;">
+                        <?php foreach ($catDesp as $cpsCat => $vlrCat) {
+                                            
+                                         ?>
+                        <option value="<?php echo $vlrCat["Codigo"]?>"><?php echo $vlrCat["Nome"]?></option>
+                        <?php }?>
+                    </select>
+                     </div>
+                </td>                
             </tr>
         </table>
         <span class="form-titulo">
