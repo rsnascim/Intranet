@@ -34,7 +34,7 @@ class models_T0117 extends models
     {              
        $altera = $this->exec($this->atualiza($tabela, $campos, $delim));
        return $altera;
-    }  
+     }  
     
     public function retornaDadosUsuario($user)
     {
@@ -46,8 +46,14 @@ class models_T0117 extends models
         return $this->query($sql);
     }
     
-    public function retornaRM($titulo, $descricao, $solicitante, $codRM, $user)
-    {        
+
+    
+    
+    public function retornaRM($titulo, $descricao, $solicitante, $codRM, $user, $acao)
+    {      
+        
+        
+       
         
         $sql    =   "  SELECT   T113.T113_codigo CodigoRM,
                                 T113.T004_solicitante SolicitanteLogin,
@@ -110,8 +116,9 @@ class models_T0117 extends models
             $sql    .=  " AND T113.T004_solicitante     =   '$solicitante'";
         if(!empty($codRM))
             $sql    .=  " AND T113.T113_codigo          =   '$codRM'";
-
-        //echo $sql;
+      
+       
+    // echo $sql;
         
         return $this->query($sql);
     }

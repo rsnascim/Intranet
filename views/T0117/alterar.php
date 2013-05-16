@@ -70,7 +70,9 @@ if (!empty($_POST)) {
         header('location:?router=T0117/home');
 }
 
-$retornaDados = $obj->retornaRM($titulo, $descricao, $solicitante, $codRM, $user);
+
+$retornaDados = $obj->retornaRM($titulo, $descricao, $solicitante, $codRM, $user, 2);
+
 
 
 
