@@ -99,7 +99,8 @@ echo "";
                 </thead>
                 <tbody class="campos">
                     <?php foreach($dados    as  $campos =>  $valores){
-                        if((($valores["StatusRM"] == 1) && ($valores["SolicitanteLogin"] == $_SESSION["user"]))||(($valores["StatusRM"] > 1))){?>
+                        if((($valores["StatusRM"] == 1) && (($valores["SolicitanteLogin"] == $_SESSION["user"]) || ($valores["Responsavel"]  ==  $_SESSION["user"])))
+                                ||(($valores["StatusRM"] > 1))){?>
                     <tr class="linha">
                         <td class="codRM"><label class="rmCmp"><?php echo $valores['CodigoRM'];?></label></td>
                         <td><?php echo $valores['DataRM'];?></td>
