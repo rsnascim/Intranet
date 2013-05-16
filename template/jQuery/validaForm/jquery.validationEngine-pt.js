@@ -29,12 +29,14 @@
                     "alertText": "* O valor máximo é "
                 },
 		"past": {
-                    "regex": "none",
-                    "alertText": "* Data anterior a "
+                    //"regex": "none",
+                    "regex": /^([0-9]|[0,1,2][0-9]|3[0,1])\/([\d]|1[0,1,2])\/\d{4}$/,
+                    "alertText": "* Data deve ser anterior a "
                 },
                 "future": {
-                    "regex": "none",
-                    "alertText": "* Data posterior a "
+                    //"regex": "none",
+                    "regex": /^([0-9]|[0,1,2][0-9]|3[0,1])\/([\d]|1[0,1,2])\/\d{4}$/,
+                    "alertText": "* Data deve ser posterior a "
                 },	
                 "maxCheckbox": {
                     "regex": "none",

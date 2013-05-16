@@ -30,6 +30,7 @@ if (!is_null($_POST['T026_rms_cgc_cpf'])
     unset ($_POST['cpf_T026_rms_insc_est_ident']);
     unset ($_POST['cpf_T026_rms_razao_social']);
     unset ($_POST['T026_rms_digito']);
+    unset ($_POST['T120_codigo']);
 
     //VALIDANDO CAMPOS VAZIOS
     if ($_POST['T008_nf_numero'] == "")
@@ -38,6 +39,8 @@ if (!is_null($_POST['T026_rms_cgc_cpf'])
         $_POST['T026_nf_serie'] = "0";
     if ($_POST['T008_ft_numero' == ""])
         $_POST['T008_ft_numero'] = "0";
+    if ($_POST['T120_codigo']   ==  "")
+        $_POST['T120_codigo'] = "null";
 
     $insere = $objWkf->inserir($tabela, $_POST);
 
@@ -55,7 +58,7 @@ if (!is_null($_POST['T026_rms_cgc_cpf'])
                        , "T004_login"           =>  $user);
         //inserirFluxoAp($valores['ProxEtapaCodigo'],1);
         $insere2 = $objWkf->inserir($tabela, $array);
-        $insere3 = $objWkf->inserirFluxo($codigoDespesa, $valores['ProxEtapaCodigo'],2);
+        $insere3 = $objWkf->inserirFluxoAp($codAp, $valores['ProxEtapaCodigo'],2);
     }
 
     header('location:?router=T0016/home');
@@ -123,7 +126,7 @@ $GrpsUser=  $objWkf->listaWF();
         </form>
     </div>
 </div>
-<form action="" method="post" class="validaFormulario">
+<form action="" method="post" id="formCad">
 <div id="formulario" class="formulario">
     <span class="form-titulo">
         <p>Os campos com asterisco (*) são obrigatórios o preechimento</p>
@@ -258,7 +261,7 @@ $GrpsUser=  $objWkf->listaWF();
         </span>
         <table>
             <tr>
-                <td><label class="label">Grupo de Workflow</label></td>
+                <td><label class="label">Grupo de Workflow</label></td>                
             </tr>
             <tr>
                 <td class="acoes" style="width:500px;">
@@ -274,6 +277,16 @@ $GrpsUser=  $objWkf->listaWF();
                                     value ="Adicionar Grupos"/>
                     </span>
                 </td>
+            </tr>
+            <tr>
+                <td><label class="label">Categoria da Despesa</label></td>
+            </tr>
+            <tr>
+                <td class="acoes" style="width:500px;">
+                    <div id="comboCategoria">
+                    <select name="T120_codigo" id="categoriaFornecedor" class="form-input-text-table" style="width:350px;"></select>
+                     </div>
+                </td>                
             </tr>
         </table>
         <span class="form-titulo">
@@ -341,14 +354,14 @@ $GrpsUser=  $objWkf->listaWF();
 <div id="formulario" class="formulario">
     <span class="form-input">
         <div class="form-inpu-botoes">
-            <input type="hidden"  name="T026_rms_digito"    value=""                                                />
-            <input type="hidden"  name="T008_status"        value="0"                                               />
-            <input type="hidden"  name="T008_dt_elaboracao" value="<?php echo $data; ?>"                            />
-            <input type="hidden"  name="T026_codigo"        value=""  id="CodForn"                                  />
-            <input type="hidden"  name="T008_T026T059_T026_codigo"        value=""          id="CodFornWkf"         />
-            <input type="hidden"  name="T004_login"         value="<?php echo $user;?>"                             />
-            <input type="hidden"  name="T008_T026T059_T061_codigo"        value="1"         id="processo"           />
-            <input type="submit"                            value="Gerar AP"                id="P0016_btn_criar"    />
+            <input type="hidden"  name="T026_rms_digito"    value=""                                />
+            <input type="hidden"  name="T008_status"        value="0"                               />
+            <input type="hidden"  name="T008_dt_elaboracao" value="<?php echo $data; ?>"            />
+            <input type="hidden"  name="T026_codigo"        value=""  id="CodForn"                  />
+            <input type="hidden"  name="T008_T026T059_T026_codigo"        value=""  id="CodFornWkf"               />
+            <input type="hidden"  name="T004_login"         value="<?php echo $user;?>"             />
+            <input type="hidden"  name="T008_T026T059_T061_codigo"        value="1"      id="processo"            />
+            <input type="submit"                            value="Gerar AP"    id="P0016_btn_criar"/>
         </div>
     </span>
 </div>

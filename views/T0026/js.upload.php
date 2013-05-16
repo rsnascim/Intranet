@@ -1,7 +1,7 @@
 <?php
 //Instancia Classe
 $obj        =   new models_T0026();
-$msgRetorno =   0;
+$msgRetorno =   "to aki";
 
 if(!empty($_POST))
 {

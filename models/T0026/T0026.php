@@ -340,7 +340,9 @@ class models_T0026 extends models
                             , T16.T004_login                                    DespesaLogin
                             , date_format(T16.T016_dt_elaboracao,'%d/%m/%Y')    DespesaData
                             , date_format(T16.T016_dt_inicio,'%d/%m/%Y')        DespesaDtInicio
+                            , date_format(T16.T016_dt_inicio,'%H%i')            DespesaHraInicio
                             , date_format(T16.T016_dt_final,'%d/%m/%Y')         DespesaDtFim
+                            , date_format(T16.T016_dt_final,'%H%i')             DespesaHraFim
                             , T16.T016_vl_total_km                              DespesaTotalKm
                             , T16.T016_vl_total_diversos                        DespesaTotalDiversos
                             , T16.T016_vl_total_geral                           DespesaValor
@@ -354,7 +356,11 @@ class models_T0026 extends models
     public function retornaDespesaDetalhe($DespesaCodigo)
     {
         $sql    =   "  SELECT date_format(T1516.T015_T016_saida,'%d/%m/%Y %H:%i')   DespesaSaida
+                            , date_format(T1516.T015_T016_saida,'%d/%m/%Y %H:%i')   DespesaDtSaida  
+                            , date_format(T1516.T015_T016_saida,'%H:%i')            DespesaHraSaida
                             , date_format(T1516.T015_T016_chegada,'%d/%m/%Y %H:%i') DespesaChegada                            
+                            , date_format(T1516.T015_T016_chegada,'%H:%i')          DespesaHraChegada                            
+                            , date_format(T16.T016_dt_elaboracao,'%d/%m/%Y')        DespesaData
                             , T1516.T015_T016_desc                                  DespesaDescricao
                             , T1516.T006_codigo_origem                              DespesaOrigem
                             , T06A.T006_nome                                        OrigemNome
@@ -366,6 +372,7 @@ class models_T0026 extends models
                          FROM T015_T016 T1516
                          JOIN T006_loja T06A ON T1516.T006_codigo_origem = T06A.T006_codigo
                          JOIN T006_loja T06B ON T1516.T006_codigo_destino = T06B.T006_codigo
+                         JOIN T016_despesa  T16 ON T16.T016_codigo  =   T1516.T016_codigo
                         WHERE T1516.T016_codigo  = $DespesaCodigo";
         
         return $this->query($sql);
@@ -509,6 +516,7 @@ class models_T0026 extends models
         
         return $parametro[0];
     }   
+    
     
     public function retornaArrayPeriodo($codigoDespesa)
     {

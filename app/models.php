@@ -84,6 +84,13 @@ class models extends PDO
                                 parent::__construct('mysql:host='.PRD_HOST_EMPORIUM.';dbname='.PRD_BD_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM);
                             break; 
                      //Caso não seja nenhum dos casos acima ele faz a conexão com o MySQL Satélite/Intranet
+                     case "hold" :
+                            parent::__construct('mysql:host='.PRD_HOST_HOLD.';dbname='.PRD_BD_HOLD, PRD_USER_HOLD, PRD_PASS_HOLD);
+                            $this->exec("SET NAMES 'utf8'");
+                            $this->exec("SET character_set_connection=utf8");
+                            $this->exec("SET character_set_client=utf8");
+                            $this->exec("SET character_set_results=utf8");
+                            break;      
                      default :
                             parent::__construct('mysql:host='.PRD_HOST.';dbname='.PRD_BD, PRD_USER, PRD_PASS);
                             $this->exec("SET NAMES 'utf8'");
@@ -171,6 +178,13 @@ class models extends PDO
                                 
                             break; 
                      //Caso não seja nenhum dos casos acima ele faz a conexão com o MySQL Satélite/Intranet
+                     case "hold" :
+                            parent::__construct('mysql:host='.QAS_HOST_HOLD.';dbname='.QAS_BD_HOLD, QAS_USER_HOLD, QAS_PASS_HOLD);
+                            $this->exec("SET NAMES 'utf8'");
+                            $this->exec("SET character_set_connection=utf8");
+                            $this->exec("SET character_set_client=utf8");
+                            $this->exec("SET character_set_results=utf8");
+                            break;      
                      default :
                             parent::__construct('mysql:host='.QAS_HOST.';dbname='.QAS_BD, QAS_USER, QAS_PASS);
                             $this->exec("SET NAMES 'utf8'");

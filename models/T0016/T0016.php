@@ -52,7 +52,6 @@ class models_T0016 extends models
                             , T08.T008_T026T059_T006_codigo                 AS CodigoLoja
                             , T06.T006_nome                                 AS NomeLoja
                             , fnDV_QtDiasAp(T08.T008_codigo)                AS ExpiradoDias
-                            , T08.T008_status                               AS StatusAp
                         FROM T008_T060 T0860
                         JOIN ( -- retorna as APs pendentes de aprovacao
                                 SELECT T008_codigo ap, min(T008_T060_ordem) ordem
@@ -85,7 +84,7 @@ class models_T0016 extends models
         if (!empty($Limite))
            $sql .= " LIMIT ".$Limite.";";
         
-        //echo $sql;
+//        echo $sql;
         return $this->query($sql);
                
     }
@@ -527,7 +526,7 @@ class models_T0016 extends models
                                   , T1.T026_rms_cgc_cpf     CGC
                                FROM T026_fornecedor         T1
                               WHERE T1.T026_rms_cgc_cpf = '$cnpj'");
-       
+
     }
 
     public function selecionaFornRMS($cnpj,$cod)
@@ -1666,8 +1665,48 @@ class models_T0016 extends models
         if (!empty($Limite))
            $sql .= " LIMIT ".$Limite.";";        
         
+//        echo $sql;
+        
         return $this->query($sql);
     }
+    
+    
+    public function listaCategoriaFornecedor($forn, $codRms) {
+        
+        $sql    =   "SELECT T120.T120_desc      CategoriaDescricao,
+                            T120.T120_nome      Nome,
+                            T120.T120_codigo    Codigo
+                        FROM    T120_fornecedor_categoria T120
+                             JOIN
+                                T026_fornecedor T26
+                             ON T120.T026_codigo = T26.T026_codigo
+                       WHERE 1=1";
+        
+        if($forn != ""){
+        $sql    .=        " AND T26.T026_rms_cgc_cpf = ".$forn;}
+        
+        if ($codRms != "")
+        {
+            $sql .=  " AND T26.T026_rms_codigo    =   ".$codRms;
+        }        
+       // echo $sql;
+          return $this->query($sql);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+    }
+    
+    public function selecionaCategoriaDesp($ap) {
+        
+        $sql = "SELECT  T08.T120_codigo Codigo, T120.T120_nome Nome
+                  FROM  T120_fornecedor_categoria T120
+                  JOIN
+                        T008_approval T08
+                    ON  T120.T120_codigo = T08.T120_codigo
+                 WHERE  T08.T008_codigo = '$ap'";
+        
+        return $this->query($sql);
+        
+    }
+    
+   
     
 }
 ?>

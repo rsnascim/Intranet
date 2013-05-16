@@ -1,4 +1,3 @@
-
 /**************************************************************************
                 Intranet - DAVÓ SUPERMERCADOS
  * Criado em: 14/02/2013 Rodrigo Alfieri
@@ -51,13 +50,21 @@ $(function(){
         var codRM       =   $("#codRM").val();
         
         var str         =   nome+" | "+aprovado+" | "+parecer;
-
+        
+        if((aprovado == "N") &&(parecer == "")){
+            
+            alert("Seu voto foi dado como NÃO Aprovado, por favor justifique.")
+            ("#txtJustComite").focus();
+            
+        } else {
+        
         $('#cmbComite').append('<option value="'+str+'" selected="selected">'+str+'</option>');
         
         $("#txtJustComite").val("");
         $("#txtComite").focus();
         
-      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });
+        
+      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });}
         
     });
     
@@ -185,38 +192,38 @@ $(function(){
      });
      
      
-      $("#cmbComite").click(function(){
-       var str      =   $(this).val();
-       var codRM    =   $("#codRM").val();
-  
-  
-   $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação Excluirá o Integrante do Comitê <br><br>"+str+" <br><br> Tem certeza que deseja fazer isso ?</p>");
-        $("#dialog-mensagem").dialog
-        ({
-            resizable: false,
-            height:180,
-            width:250,
-            modal: true,
-            draggable: false,
-            title:  "Mensagem",
-            buttons:
-            {
-                    "Ok": function(){
-                        
-                           $("#cmbComite option[value='"+str+"']").remove();
-        
-                            $.post("?router=T0117/js.ExcluirExec", {login:str[0], cod:4, codRM:codRM})
-                            $(this).dialog("close");
-                
-            } 
-                    ,
-                    Cancelar: function(){
-                        $(this).dialog("close");
-                    }
-            }
-        });  
-       
-     });
+//      $("#cmbComite").click(function(){
+//       var str      =   $(this).val();
+//       var codRM    =   $("#codRM").val();
+//  
+//  
+//   $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação Excluirá o Integrante do Comitê <br><br>"+str+" <br><br> Tem certeza que deseja fazer isso ?</p>");
+//        $("#dialog-mensagem").dialog
+//        ({
+//            resizable: false,
+//            height:180,
+//            width:250,
+//            modal: true,
+//            draggable: false,
+//            title:  "Mensagem",
+//            buttons:
+//            {
+//                    "Ok": function(){
+//                        
+//                           $("#cmbComite option[value='"+str+"']").remove();
+//        
+//                            $.post("?router=T0117/js.ExcluirExec", {login:str[0], cod:4, codRM:codRM})
+//                            $(this).dialog("close");
+//                
+//            } 
+//                    ,
+//                    Cancelar: function(){
+//                        $(this).dialog("close");
+//                    }
+//            }
+//        });  
+//       
+//     });
      
      $("#dateCmp2").datepicker({
         onClose: function(){
@@ -300,35 +307,132 @@ $(function(){
      
      });
      
-     $(".revisar").live("click", function(){
+     $(".revisar").live("click",function(){
          
          var status    =   3;
-        var $this   =   $(this);
-        var codRM = $this.parents("tr.linha").find(".codRM").text();
-     
-    
-     
-        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
-            
-            $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
-            
+         var $this  = $(this);
+         var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         var tituloRM    =   $this.parents("tr.linha").find(".tituloRM").text();
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação mudará o status da RM para revisada. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
+                        $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM, titulo:tituloRM});
+                        
         });
+                $(this).dialog("close");
+            } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
         
-
-       
+         $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+         
+        
+     });
+ 
+     
+     
+     $(".excluir").live("click",function(){
+         
+         var $this  = $(this);
+         var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação excluirá a RM. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.get("?router=T0117/js.excluir", {codRM:codRM});
+                        $(this).dialog("close");
+                
+            } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
+        
         $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+         
+        
      });
      
-         $(".concluir").click(function(){
+     
+     
+      $(".concluir").live("click",function(){
          
          var status    =   2;
-         var codRM    =   $("#codRM").val();
-        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(dados){
-            
-        });
-       $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+         var $this  = $(this);
+         var codRM    =   $this.parents("tr.linha").find(".codRM").text();
+         var tituloRM    =   $this.parents("tr.linha").find(".tituloRM").text();
+         
+         $("#dialog-mensagem").html("<p style='padding-top:10px;'>Essa ação mudará o status da RM para elaborada e enviará para Gestão de Mudança. <br><br> RM: "+codRM+" <br><br> Tem certeza que deseja fazer isso ?</p>")
+        $("#dialog-mensagem").dialog
+        ({
+            resizable: false,
+            height:180,
+            width:250,
+            modal: true,
+            draggable: false,
+            title:  "Mensagem",
+            buttons:
+            {
+                    "Ok": function(){
+                        
+                        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM, titulo:tituloRM});
+                        $(this).dialog("close");
+                        
+                } 
+                    ,
+                    Cancelar: function(){
+                        $(this).dialog("close");
+                        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+                    }
+            }
+        });  
+        
+        $(".conteudo_16").load("?router=T0117/home .conteudo_16");
+         
         
      });
+     
+     
+     $("#statusRM").change(function(){
+         
+         var status =   $("#statusRM").val();
+         var codRM  =   $("#codRM").val();
+         
+         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+         
+     });
+
+     
      
      
      
@@ -336,12 +440,13 @@ $(function(){
 
 
 
-    function excluirLinha(cod){
-        
-   $.get("?router=T0117/js.excluir", {codRM:cod},
-    function(){
-       $(".linha_"+cod).remove(); 
-    });
-}
+//    function excluirLinha(cod){
+//        
+//   $.get("?router=T0117/js.excluir", {codRM:cod},
+//    function(){
+//       $(".linha_"+cod).remove(); 
+//    });
+//}
 
 
+    
