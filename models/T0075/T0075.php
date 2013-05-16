@@ -27,30 +27,55 @@ class models_T0075 extends models
         if (($loja == "0")or ($loja == "")){
         
       
-                $sql = " select sum(amount_due) as ValorEmp
-                       ,store_key
-                       ,pos_number 
-                       ,count(*) as QtdEmp
-                from  sale
-                where 
-                fiscal_date = '$dataini' 
-                and  sale_type = 14   
-                and void_ticket_number is null
-                group by store_key, pos_number "; } else {
+//                $sql = " select sum(amount_due) as ValorEmp
+//                       ,store_key
+//                       ,pos_number 
+//                       ,count(*) as QtdEmp
+//                from  sale
+//                where 
+//                fiscal_date = '$dataini' 
+//                and  sale_type = 14   
+//                and void_ticket_number is null
+//                group by store_key, pos_number "; 
+//                
+//                
+            $sql =   "SELECT sum(ValorDaOperacao) as ValorEmp
+                            ,CodigoDaLoja   as store_key
+                            ,NumeroDoPDV    as  pos_number
+                            ,count(*)       as  QtdEmp
+                        FROM ft094_ems
+                        WHERE   DataPDV = date_format('$dataini', '%Y%m%d')
+                        AND     TipoDeOperacao = 105
+                        AND     Status  = 2
+                        GROUP BY CodigoDaLoja, NumeroDoPDV";
+            
+            
+        } else {
                     
-                     $sql = " select sum(amount_due) as ValorEmp
-                       ,store_key
-                       ,pos_number 
-                       ,count(*) as QtdEmp
-                from  sale
-                where 
-                fiscal_date = '$dataini' 
-                and store_key = '$loja'
-                and  sale_type = 14 
-                and  void_ticket_number IS NULL
-                group by store_key, pos_number "; 
+//                     $sql = " select sum(amount_due) as ValorEmp
+//                       ,store_key
+//                       ,pos_number 
+//                       ,count(*) as QtdEmp
+//                from  sale
+//                where 
+//                fiscal_date = '$dataini' 
+//                and store_key = '$loja'
+//                and  sale_type = 14 
+//                and  void_ticket_number IS NULL
+//                group by store_key, pos_number "; 
+            
+              $sql =   "SELECT sum(ValorDaOperacao) as ValorEmp
+                            ,CodigoDaLoja   as store_key
+                            ,NumeroDoPDV    as  pos_number
+                            ,count(*)       as  QtdEmp
+                        FROM ft094_ems
+                        WHERE   DataPDV = date_format('$dataini', '%Y%m%d')
+                        AND     CodigoDaLoja    =   $loja    
+                        AND     TipoDeOperacao = 105
+                        AND     Status  = 2
+                        GROUP BY CodigoDaLoja, NumeroDoPDV";
                     
-                }
+               }
 
 //echo $sql."<br>";
      

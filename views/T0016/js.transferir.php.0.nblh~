@@ -1,0 +1,74 @@
+<?php
+/**************************************************************************
+                Intranet - DAVÓ SUPERMERCADOS
+ * Criado em: 19/10/2011 por Jorge Nova
+ * Descrição: Programa para transferir (autorizacao de pagamentos), com objetivo de quando a 
+ *            AP estiver com o fluxo errado, a pessoa pode enviar a outro fluxo
+ * Entradas:  Código AP 
+ * Origens:   T0016/home, template/js/interno/T0016/transferir.js
+           
+**************************************************************************
+*/
+
+//INSTANCIA CLASSE
+$obj       =   new models_T0016();
+
+$pagina    =   $_GET['pagina'];
+$codigo_ap =   $_GET['valor'];
+$grupo     =   $_GET['grupo'];
+$data      =   date('d/m/Y H:i:s');
+$user      =   $_SESSION['user'];
+
+
+$BuscaFornecedor    =   $obj->retornaCodigoFornecedorAP($codigo_ap);
+
+foreach($BuscaFornecedor as $campos=>$valores)
+{
+    $fornecedor =   $valores['CodigoFornecedor'];
+    $loja       =   $valores['CodigoLoja'];
+}
+
+$BuscaAssociacao    =   $obj->retornaQtdeAssociacao($fornecedor, $grupo, $loja);
+
+foreach($BuscaAssociacao as $campos=>$valores)
+{
+    $Contador01 =   $valores['Contador'];
+}
+
+// Se não encontrar nenhuma associação, fazer o insert na tabela
+if ($Contador01 == 0)
+{
+    $array01    =   array ( "T026_codigo" => $fornecedor
+                          , "T059_codigo" => $grupo
+                          , "T006_codigo" => $loja  
+                          , "T061_codigo" => 1);
+    
+    $insGrupo   =   $obj->inserir("T026_T059", $array01);       
+    
+    if (!($insGrupo))
+        echo "teste";
+        
+}
+
+
+// Delimitador de exclusão do fluxo atual
+$delim  =   "T008_codigo = ".$codigo_ap;
+
+// Exclui o fluxo atual da AP
+$obj->excluir("T008_T060", $delim);
+
+// Altera o grupo atual da AP
+
+
+
+
+
+
+?>
+
+<?php
+/* -------- Controle de versões - js.trasnferir.php --------------
+ * 1.0.0 - 19/10/2011                  --> Liberada versao sem controle de versionamento
+ * 
+*/
+?>

@@ -1,0 +1,10 @@
+<?php
+//Classe para Usuarios
+$obj  = new models_T0054();
+$user = $_SESSION['user'];
+?>
+<a href='?router=T0054/js.display-01'>Display 01</a><br/>
+<a href='?router=T0054/js.display-02'>Display 02</a><br/>
+<a href='?router=T0054/js.display-03'>Display 03</a><br/>
+<a href='?router=T0054/js.display-04'>Display 04</a><br/>
+<a href='?router=T0054/js.display-05'>Display 05</a><br/>

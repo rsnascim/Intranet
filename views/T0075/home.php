@@ -216,9 +216,17 @@ foreach ($comboPag as $keyComboPag => $valueComboPag)
                            $valorEmp = $valores["ValorEmp"];
                            $qtdPagEmp = $valores["QtdEmp"];
                            
-                        $valorEmp = substr($valorEmp, 0, -1);
-                        $valorEmp = str_replace(".", ",", $valorEmp);
-                        
+                           $valorEmp = $obj->totalValores($valorEmp);
+                          
+//                           $realPagEmp   = substr($valorEmp, 0, 3);         
+//                        $centPagEmp = substr($valorEmp, -2,0);
+//                        $valorEmp =  $realPagEmp.",".$centPagEmp;
+                           
+                        //$valorEmp = substr($valorEmp, 0, -1);
+                        //$valorEmp = str_replace(".", ",", $valorEmp);
+                           
+                          // $valorEmp    = number_format($valorEmp,2,",","");
+                       
                            
                          $lojaEmp = $obj->formataNumero($lojaEmp);
                          $pdvEmp = $obj->formataNumero($pdvEmp);

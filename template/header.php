@@ -72,6 +72,16 @@ if(!is_null($fp))
 <link rel="shortcut icon" href="template/img/favicon.ico" />
 <link rel="icon" href="template/img/favicon.ico" />
 <link rel="stylesheet" href="template/css/-estilo-include-tudo.css"/>
+
+<?php if($_SERVER['SERVER_NAME']=='localhost'){?>
+    <link rel="stylesheet" href="template/css/-layout-local.css"/>
+<?php }?>
+<?php if($_SERVER['SERVER_NAME']=='oraas141'){?>
+    <link rel="stylesheet" href="template/css/-layout-qas.css"/>
+<?php }?>
+<?php if($_SERVER['SERVER_NAME']=='oraas041'){?>
+    <link rel="stylesheet" href="template/css/-layout-prd.css"/>
+<?php }?>
 <!--[if IE 7]>
         <link rel="stylesheet" type="text/css" href="template/css/-estilo-include-tudo-ie7.css" />
 <![endif]-->
@@ -138,9 +148,9 @@ if(!is_null($fp))
 <!-- FIM MENSAGENS ----------------------------------------------------------------------------------->
 
 <!-- FLIP PAGE --------------------------------------------------------------------------------------->
-<script type="text/javascript" src="template/js/flipPage/js/swfobject.js"></script>
+<!--<script type="text/javascript" src="template/js/flipPage/js/swfobject.js"></script>
 <script type="text/javascript" src="template/js/flipPage/js/swfaddress.js"></script>
-<script type="text/javascript" src="template/js/flipPage/megazine/megazine.js"></script>
+<script type="text/javascript" src="template/js/flipPage/megazine/megazine.js"></script>-->
 <!-- FIM FLIP PAGE ----------------------------------------------------------------------------------->
 
 <!-- ORDENAÇÃO DE TABELA (TABLESORTER) ----------------------------------------------------------------------------------->
@@ -345,7 +355,7 @@ if (file_exists($arquivoJs))
                                 else
                                 {   if($valores!="A")
                                     { ?>
-                                        <li><a href='?router=T<?php echo $valores = str_pad($valores, 4, "0", STR_PAD_LEFT);?>/home'><span><?php echo $chaves?></span></a></li>
+                                        <li><a href='?router=T<?php echo $valores = str_pad($valores, 4, "0", STR_PAD_LEFT);?>/home'><span style="color: rgb(132, 112, 255);"><?php echo $chaves?></span></a></li>
                               <?php }
                                     else
                                     {?>
@@ -355,7 +365,7 @@ if (file_exists($arquivoJs))
                             }?>
                          <?php
                          } ?>
-                <ul id="menu"><?php menu($menu);?></ul>
+                <ul class="menu"><?php menu($menu);?></ul>
                 </div>
             </div>
         </div>
