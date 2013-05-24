@@ -51,9 +51,6 @@ $(function(){
         var codRM       =   $("#codRM").val();
         
         var str         =   nome+" | "+aprovado+" | "+parecer;
-<<<<<<< HEAD
-
-=======
         
         if((aprovado == "N") &&(parecer == "")){
             
@@ -62,18 +59,15 @@ $(function(){
             
         } else {
         
->>>>>>> dev-roberta
+
         $('#cmbComite').append('<option value="'+str+'" selected="selected">'+str+'</option>');
         
         $("#txtJustComite").val("");
         $("#txtComite").focus();
         
-<<<<<<< HEAD
-      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });
-=======
-        
+
       $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });}
->>>>>>> dev-roberta
+
         
     });
     
@@ -201,7 +195,6 @@ $(function(){
      });
      
      
-<<<<<<< HEAD
       $("#cmbComite").click(function(){
        var str      =   $(this).val();
        var codRM    =   $("#codRM").val();
@@ -234,7 +227,7 @@ $(function(){
         });  
        
      });
-=======
+     //      
 //      $("#cmbComite").click(function(){
 //       var str      =   $(this).val();
 //       var codRM    =   $("#codRM").val();
@@ -267,7 +260,6 @@ $(function(){
 //        });  
 //       
 //     });
->>>>>>> dev-roberta
      
      $("#dateCmp2").datepicker({
         onClose: function(){
@@ -299,8 +291,6 @@ $(function(){
      
      $(".rmCmp").mask("999.999");
      
-<<<<<<< HEAD
-<<<<<<< HEAD
      $("#hr_fim").change(function(){
          
          DAY = 1000 * 60 * 60 
@@ -311,7 +301,6 @@ $(function(){
         var nova1 = dataIni.toString().split('/');
         Nova1 = nova1[1]+"/"+nova1[0]+"/"+nova1[2];
 
-=======
      $("#radioC").buttonset();
      $("#revisado").button();
 
@@ -327,14 +316,12 @@ $(function(){
         var nova1 = dataIni.toString().split('/');
         Nova1 = nova1[1]+"/"+nova1[0]+"/"+nova1[2];
 
->>>>>>> dev-roberta
         var nova2 = dataFim.toString().split('/');
         Nova2 = nova2[1]+"/"+nova2[0]+"/"+nova2[2];
         
         d1 = new Date(Nova1)
         d2 = new Date(Nova2)
 
-<<<<<<< HEAD
         days_passed = Math.round((d2.getTime() - d1.getTime()) / DAY)
          
        // var tempoTotal  =   ((horaFim[0]) - (horaIni[0]));       
@@ -342,7 +329,6 @@ $(function(){
        $("#tempoTotal").val(days_passed+" Horas"); 
          
      });
-=======
         mins_passed = ((d2.getTime() - d1.getTime()) / MIN)
         days_passed = ((d2.getTime() - d1.getTime()) / DAY)  
          
@@ -502,10 +488,7 @@ $(function(){
      
      
      
->>>>>>> dev-roberta
      
-});
-=======
      $("#radioC").buttonset();
      $("#revisado").button();
 
@@ -520,7 +503,6 @@ $(function(){
          
         var nova1 = dataIni.toString().split('/');
         Nova1 = nova1[1]+"/"+nova1[0]+"/"+nova1[2];
->>>>>>> dev-roberta
 
         var nova2 = dataFim.toString().split('/');
         Nova2 = nova2[1]+"/"+nova2[0]+"/"+nova2[2];
@@ -528,9 +510,7 @@ $(function(){
         d1 = new Date(Nova1)
         d2 = new Date(Nova2)
 
-<<<<<<< HEAD
 
-<<<<<<< HEAD
     function excluirLinha(cod){
    $.get("?router=T0117/js.excluir", {codRM:cod},
     function(){
@@ -539,7 +519,6 @@ $(function(){
 }
 
 
-=======
         mins_passed = ((d2.getTime() - d1.getTime()) / MIN)
         days_passed = ((d2.getTime() - d1.getTime()) / DAY)  
          
@@ -577,8 +556,6 @@ $(function(){
         var $this   =   $(this);
         var codRM = $this.parents("tr.linha").find(".codRM").text();
      
->>>>>>> dev-roberta
-=======
 
 //    function excluirLinha(cod){
 //        
@@ -589,9 +566,6 @@ $(function(){
 //}
 
 
->>>>>>> dev-roberta
-    
-     
         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM}, function(){
             
             $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});

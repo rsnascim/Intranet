@@ -7,15 +7,15 @@
   
 /* Habilitar de 0 para 1 para exibir erros do PHP                 */
 ini_set("display_errors",0);    
-<<<<<<< HEAD
+
  
 /* Inicializa characters com UTF-8 */
 ini_set('default_charset','UTF-8');
-=======
+
   
 /* Inicializa characters com UTF-8 */
 ini_set('default_charset','ISO-8859-1');
->>>>>>> dev-roberta
+
 
 /* Definir header depois de fazer um print          */
 ob_start();
@@ -45,15 +45,15 @@ define("DN_AD","dc=grupodavo,dc=davo,dc=com,dc=br");
 define("CAMINHO_FISICO", dirname(getcwd()));
 
 /* Caminho para Gravação de Arquivos Físicos no S.O.   */
-<<<<<<< HEAD
+
 //define("CAMINHO_ARQUIVOS", "/Dados/files/");
 define("CAMINHO_ARQUIVOS", "C:/xampp/htdocs/Intranet/Dados/files/");
-=======
+
 define("CAMINHO_ARQUIVOS", "/Dados/files/");
 /* Caminho para Gravação de Arquivos Físicos no S.O.   */
 define("CAMINHO_ARQUIVOS_HOLD", "/DadosHold/files/");
 //define("CAMINHO_ARQUIVOS", "C:/xampp/htdocs/Intranet/Dados/files/");
->>>>>>> dev-roberta
+
 
 /* Caminho arquivo de conexão com os BDs (MySQL, SQL Server, Oracle)*/
 if ($_SERVER['SERVER_NAME']=='localhost')
@@ -77,9 +77,3 @@ require_once(CONEXOES);
 
 //abre sessões
 session_start();
-
-<<<<<<< HEAD
-?>
-=======
-?>
->>>>>>> dev-roberta
