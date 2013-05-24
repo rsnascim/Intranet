@@ -46,36 +46,8 @@ class models_T0117 extends models
         return $this->query($sql);
     }
     
-<<<<<<< HEAD
-    public function retornaRM($titulo, $descricao, $solicitante, $codRM)
-    {        
-        $sql    =   "  SELECT T113.T113_codigo                              CodigoRM
-                            , T113.T004_solicitante                         SolicitanteLogin
-                            , T04B.T004_nome                                SolicitanteNome
-                            , DATE_FORMAT(T113.T113_data,    '%d/%m/%Y')    DataRM
-                            , DATE_FORMAT(T113_dt_hr_inicio, '%H:%i')       HoraInicioRM
-                            , DATE_FORMAT(T113_dt_hr_fim ,   '%H:%i')       HoraFimRM
-                            , DATE_FORMAT(T113_dt_hr_fim ,   '%d/%m/%Y')    DataFimRM
-                            , DATE_FORMAT(T113_dt_hr_inicio, '%d/%m/%Y')    DataInicioRM
-                            , T113.T004_responsavel                         ResponsavelLogin
-                            , T04.T004_nome                                 ResponsavelNome
-                            , T113.T113_titulo                              TituloRM
-                            , T113.T113_descricao                           DescricaoRM
-                            , T113.T113_dt_hr_inicio                        DtHrInicioRM
-                            , T113.T113_dt_hr_fim                           DtHrFimRM
-                            , T113.T113_motivo                              MotivoRM
-                            , T113.T113_impacto                             ImpactoRM
-                            , T113.T113_status                              StatusRM
-                            , T113.T113_tempo_previsto                      TempoPrevisto
-                            , T113.T113_obs_contingencia                    ObsContingencia
-                            , T113.T004_responsavel                         Responsavel
-                            ,T113.T113_tempo_total                          TempoTotal
-                            ,T113.T113_janela_disponivel                    JanelaDisp
-                         FROM T113_requisicao_mudanca T113
-                         JOIN T004_usuario T04 ON T04.T004_login = T113.T004_responsavel
-                         JOIN T004_usuario T04B ON T04B.T004_login = T113.T004_solicitante
-                        WHERE 1 =   1
-=======
+  
+
 
     
     
@@ -136,7 +108,6 @@ class models_T0117 extends models
                                        (SELECT *
                                           FROM T004_T009 T0409
                                          WHERE T0409.T004_login = '$user' AND T009_codigo = '59'))
->>>>>>> dev-roberta
                         ";
         
         if(!empty($titulo))
