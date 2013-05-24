@@ -98,17 +98,14 @@ echo "";
                     </tr> 
                 </thead>
                 <tbody class="campos">
-<<<<<<< HEAD
                     <?php foreach($dados    as  $campos =>  $valores){?>
                     <tr class="linha_<?php echo $valores["CodigoRM"];?>">
                         <td><label class="rmCmp"><?php echo sprintf("%06s",$valores['CodigoRM']);?></label></td>
-=======
                     <?php foreach($dados    as  $campos =>  $valores){
                         if((($valores["StatusRM"] == 1) && (($valores["SolicitanteLogin"] == $_SESSION["user"]) || ($valores["Responsavel"]  ==  $_SESSION["user"])))
                                 ||(($valores["StatusRM"] > 1))){?>
                     <tr class="linha">
                         <td class="codRM"><label class="rmCmp"><?php echo $valores['CodigoRM'];?></label></td>
->>>>>>> dev-roberta
                         <td><?php echo $valores['DataRM'];?></td>
                         <td class="tituloRM"><?php echo $valores['TituloRM'];?></td>
                         <td><?php echo $valores['SolicitanteNome']." - ".$valores['SolicitanteLogin'];?></td>
@@ -165,7 +162,7 @@ echo "";
                            </span>
                         </td>
                     </tr>
-                    <?php } } ?>
+                    <?php } } }?>
                 </tbody>
             </table>            
             
